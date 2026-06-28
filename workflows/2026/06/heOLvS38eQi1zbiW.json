@@ -147,7 +147,7 @@
       "main": [
         [
           {
-            "node": "Completed Notification",
+            "node": "Build: Completion message",
             "type": "main",
             "index": 0
           }
@@ -279,6 +279,17 @@
         [
           {
             "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build: Completion message": {
+      "main": [
+        [
+          {
+            "node": "Completed Notification",
             "type": "main",
             "index": 0
           }
@@ -731,7 +742,7 @@
     },
     {
       "parameters": {
-        "jsonBody": "={\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"✅ Backup has completed - {{ $('Filter: Exclude archived').all().length }} workflows have been processed.\",\n      \"wrap\": true,\n      \"size\": \"Medium\",\n      \"weight\": \"Bolder\",\n      \"color\": \"Good\"\n    }\n  ]\n}",
+        "jsonBody": "={{ $json.cardJson }}",
         "method": "POST",
         "options": {},
         "sendBody": true,
@@ -751,22 +762,18 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"❌ Failed to backup {{ $('Loop Over Items').item.json.id }}\",\n      \"wrap\": true,\n      \"size\": \"Medium\",\n      \"weight\": \"Bolder\",\n      \"color\": \"Attention\"\n    }\n  ]\n}",
-        "options": {}
+        "jsCode": "// Accumulate failed workflow names across loop iterations using staticData\nconst staticData = $getWorkflowStaticData('global');\nif (!Array.isArray(staticData.failedFlows)) {\n  staticData.failedFlows = [];\n}\n\nconst failedId   = $('Loop Over Items').item.json.id   ?? 'Unknown ID';\nconst failedName = $('Loop Over Items').item.json.name ?? 'Unknown Workflow';\nstaticData.failedFlows.push(`${failedName} (${failedId})`);\n\nreturn [{ json: { failedId, failedName } }];",
+        "mode": "runOnceForEachItem"
       },
       "id": "98cad642-134a-49c9-aad9-a9363c3d7820",
       "name": "Failed Flows",
-      "type": "n8n-nodes-base.httpRequest",
+      "type": "n8n-nodes-base.code",
       "position": [
         816,
         -112
       ],
       "webhookId": "2a092edb-de12-490f-931b-34d70e7d7696",
-      "typeVersion": 4.4
+      "typeVersion": 2
     },
     {
       "parameters": {
@@ -874,6 +881,20 @@
         },
         "options": {}
       }
+    },
+    {
+      "id": "build-completion-msg-01",
+      "name": "Build: Completion message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -320
+      ],
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst totalCount = $('Filter: Exclude archived').all().length;\nconst failed = Array.isArray(staticData.failedFlows) ? staticData.failedFlows : [];\n\n// Build adaptive card body blocks\nconst bodyBlocks = [\n  {\n    type: 'TextBlock',\n    text: `✅ Backup completed — ${totalCount} workflows processed.`,\n    wrap: true,\n    size: 'Medium',\n    weight: 'Bolder',\n    color: 'Good'\n  }\n];\n\nif (failed.length > 0) {\n  bodyBlocks.push({\n    type: 'TextBlock',\n    text: `❌ Failed (${failed.length}):`,\n    wrap: true,\n    weight: 'Bolder',\n    color: 'Attention'\n  });\n  bodyBlocks.push({\n    type: 'TextBlock',\n    text: failed.join('\\n'),\n    wrap: true,\n    color: 'Attention'\n  });\n}\n\n// Clear failures for next run\nstaticData.failedFlows = [];\n\nconst card = {\n  type: 'AdaptiveCard',\n  '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',\n  version: '1.4',\n  body: bodyBlocks\n};\n\nreturn [{ json: { cardJson: JSON.stringify(card) } }];",
+        "mode": "runOnceForAllItems"
+      }
     }
   ],
   "pinData": {},
@@ -894,6 +915,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T22:53:22.242Z",
-  "versionId": "5e399fb6-ba79-4ef5-9191-9fa430e26500"
+  "updatedAt": "2026-06-28T22:55:12.007Z",
+  "versionId": "d7f9bb30-1e60-48c9-b342-59e6d0507a85"
 }
