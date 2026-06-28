@@ -7,7 +7,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Send an Email",
             "type": "main",
             "index": 0
           }
@@ -21,7 +21,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "Teams Test",
+  "name": "Testing",
   "nodes": [
     {
       "parameters": {},
@@ -36,21 +36,45 @@
     },
     {
       "parameters": {
-        "jsonBody": "{\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Hello from n8n! This is a test message.\",\n      \"wrap\": true\n    }\n  ]\n}",
         "method": "POST",
-        "options": {},
+        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8",
         "sendBody": true,
         "specifyBody": "json",
-        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8"
+        "jsonBody": "{\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Hello from n8n! This is a test message.\",\n      \"wrap\": true\n    }\n  ]\n}",
+        "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        208,
-        0
+        -16,
+        -400
       ],
       "id": "d7b854a2-137e-41bd-bb07-ec0710128623",
       "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "cfrazier@michaelgraves.com",
+        "subject": "Test Message",
+        "html": "This is a test",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0770bde2-2c82-49d3-96d9-3ad14e75d1cb",
+      "name": "Send an Email",
+      "webhookId": "01f18df2-f956-4be8-886e-e25532db0b1d",
+      "credentials": {
+        "smtp": {
+          "id": "ORyqzt5CJoMm4aYV",
+          "name": "SMTP account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -71,6 +95,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T20:56:22.854Z",
-  "versionId": "cc2c0e5e-ffb6-40bb-b59f-907dd25347fc"
+  "updatedAt": "2026-06-28T23:07:20.251Z",
+  "versionId": "d4b73229-2a06-4db9-8ace-fbf28e08b811"
 }
