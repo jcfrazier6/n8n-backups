@@ -455,8 +455,8 @@
     },
     {
       "parameters": {
-        "jsCode": "const orderJsonKeys = (jsonObj) => {\n  const ordered = {};\n  Object.keys(jsonObj).sort().forEach(key => {\n    ordered[key] = jsonObj[key];\n  });\n  return ordered;\n}\n\nconst inputJson = $input.all()[0].json;\nconst keys = Object.keys(inputJson);\n\n// Check if file returned with content\nif (keys.includes(\"content\")) {\n  // Decode base64 content and parse JSON\n  const origWorkflow = JSON.parse(Buffer.from(inputJson.content, 'base64').toString());\n  const n8nWorkflow = $('Execute Workflow Trigger').first().json;\n  \n  // Order JSON objects\n  const orderedOriginal = orderJsonKeys(origWorkflow);\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  // Capture sha for edit operation\n  inputJson.file_sha = inputJson.sha;\n\n  // Determine difference\n  if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n    inputJson.github_status = \"same\";\n  } else {\n    inputJson.github_status = \"different\";\n    inputJson.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n  inputJson.content_decoded = orderedOriginal;\n// No file returned / new workflow (download_url path)\n} else if (keys.includes(\"data\")) {\n  const origWorkflow = JSON.parse(inputJson.data);\n  const n8nWorkflow = $('Execute Workflow Trigger').first().json;\n  \n  // Order JSON objects\n  const orderedOriginal = orderJsonKeys(origWorkflow);\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  inputJson.file_sha = inputJson.sha;\n\n  // Determine difference\n  if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n    inputJson.github_status = \"same\";\n  } else {\n    inputJson.github_status = \"different\";\n    inputJson.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n  inputJson.content_decoded = orderedOriginal;\n\n} else {\n  // File not found - new workflow\n  const n8nWorkflow = $('Execute Workflow Trigger').first().json;\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n  \n  inputJson.file_sha = null;\n  inputJson.github_status = \"new\";\n  inputJson.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n}\n\n// Return items\nreturn $input.all();\n",
-        "mode": "runOnceForAllItems"
+        "jsCode": "const orderJsonKeys = (jsonObj) => {\n  const ordered = {};\n  Object.keys(jsonObj).sort().forEach(key => {\n    ordered[key] = jsonObj[key];\n  });\n  return ordered;\n}\n\nconst inputJson = $input.item.json;\nconst keys = Object.keys(inputJson);\n\n// Check if file returned with content\nif (keys.includes(\"content\")) {\n  const origWorkflow = JSON.parse(Buffer.from(inputJson.content, 'base64').toString());\n  const n8nWorkflow = $('Execute Workflow Trigger').first().json;\n\n  const orderedOriginal = orderJsonKeys(origWorkflow);\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  inputJson.file_sha = inputJson.sha;\n\n  if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n    inputJson.github_status = \"same\";\n  } else {\n    inputJson.github_status = \"different\";\n    inputJson.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n  inputJson.content_decoded = orderedOriginal;\n\n} else if (keys.includes(\"data\")) {\n  const origWorkflow = JSON.parse(inputJson.data);\n  const n8nWorkflow = $('Execute Workflow Trigger').first().json;\n\n  const orderedOriginal = orderJsonKeys(origWorkflow);\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  inputJson.file_sha = inputJson.sha;\n\n  if (JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual)) {\n    inputJson.github_status = \"same\";\n  } else {\n    inputJson.github_status = \"different\";\n    inputJson.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n  inputJson.content_decoded = orderedOriginal;\n\n} else {\n  const n8nWorkflow = $('Execute Workflow Trigger').first().json;\n  const orderedActual = orderJsonKeys(n8nWorkflow);\n\n  inputJson.file_sha = null;\n  inputJson.github_status = \"new\";\n  inputJson.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n}\n\nreturn { json: inputJson };",
+        "mode": "runOnceForEachItem"
       },
       "id": "71ec5af5-583a-4ac7-a0b8-2ddbbedb7c95",
       "name": "isDiffOrNew",
@@ -531,22 +531,24 @@
     },
     {
       "parameters": {
-        "resource": "file",
+        "additionalParameters": {},
+        "commitMessage": "={{$('Execute Workflow Trigger').first().json.name}} ({{$json.github_status}})",
+        "fileContent": "={{$('isDiffOrNew').item.json[\"n8n_data_stringy\"]}}",
+        "filePath": "={{ $('Config').first().json.repo_path }}{{ $json.subPath }}{{$('Execute Workflow Trigger').first().json.id}}.json",
+        "operation": "edit",
         "owner": {
           "__rl": true,
+          "cachedResultName": "={{ $('Config').first().json.repo_owner }}",
           "mode": "expression",
-          "value": "={{ $('Config').first().json.repo_owner }}",
-          "cachedResultName": "={{ $('Config').first().json.repo_owner }}"
+          "value": "={{ $('Config').first().json.repo_owner }}"
         },
         "repository": {
           "__rl": true,
+          "cachedResultName": "={{ $('Config').first().json.repo_name }}",
           "mode": "expression",
-          "value": "={{ $('Config').first().json.repo_name }}",
-          "cachedResultName": "={{ $('Config').first().json.repo_name }}"
+          "value": "={{ $('Config').first().json.repo_name }}"
         },
-        "filePath": "={{ $('Config').first().json.repo_path }}{{ $json.subPath }}{{$('Execute Workflow Trigger').first().json.id}}.json",
-        "fileContent": "={{$('isDiffOrNew').item.json[\"n8n_data_stringy\"]}}",
-        "commitMessage": "={{$('Execute Workflow Trigger').first().json.name}} ({{$json.github_status}})"
+        "resource": "file"
       },
       "id": "edfa57f4-2aed-4d01-8e02-5c2be378fc2f",
       "name": "Create new file",
@@ -892,6 +894,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T21:38:28.049Z",
-  "versionId": "a7bc374c-e1b7-432a-80a7-a39416bff103"
+  "updatedAt": "2026-06-28T22:42:31.201Z",
+  "versionId": "223c9c14-6e97-4c40-8814-9b0b772dbb6e"
 }
