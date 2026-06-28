@@ -731,12 +731,12 @@
     },
     {
       "parameters": {
+        "jsonBody": "={\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"✅ Backup has completed - {{ $('Filter: Exclude archived').all().length }} workflows have been processed.\",\n      \"wrap\": true,\n      \"size\": \"Medium\",\n      \"weight\": \"Bolder\",\n      \"color\": \"Good\"\n    }\n  ]\n}",
         "method": "POST",
-        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8",
+        "options": {},
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"✅ Backup has completed - {{ $('n8n').all().length }} workflows have been processed.\",\n      \"wrap\": true,\n      \"size\": \"Medium\",\n      \"weight\": \"Bolder\",\n      \"color\": \"Good\"\n    }\n  ]\n}",
-        "options": {}
+        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8"
       },
       "id": "65c4ee6d-6fbc-4db8-bba1-eee132df292c",
       "name": "Completed Notification",
@@ -894,6 +894,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T22:42:31.201Z",
-  "versionId": "223c9c14-6e97-4c40-8814-9b0b772dbb6e"
+  "updatedAt": "2026-06-28T22:52:15.333Z",
+  "versionId": "64cfc029-022c-47f6-9bf5-96821c0620f2"
 }
