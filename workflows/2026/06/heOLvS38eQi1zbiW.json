@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-28T23:20:51.324Z",
-    "createdAt": "2026-06-28T23:20:51.324Z",
-    "versionId": "7675e892-7ce9-42b2-b436-5f0e139c7174",
+    "updatedAt": "2026-06-28T23:26:39.239Z",
+    "createdAt": "2026-06-28T23:26:39.239Z",
+    "versionId": "463ab624-0b32-4bd1-8e97-bd82065bdf77",
     "workflowId": "heOLvS38eQi1zbiW",
     "nodes": [
       {
@@ -423,8 +423,8 @@
         "name": "Completed Notification",
         "type": "n8n-nodes-base.httpRequest",
         "position": [
-          480,
-          -96
+          1232,
+          -352
         ],
         "webhookId": "a0c6e8c8-5d71-40fa-b02b-63a7ed5726c4",
         "executeOnce": true,
@@ -555,7 +555,8 @@
       },
       {
         "parameters": {
-          "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst totalCount = $('Filter: Exclude archived').all().length;\nconst failed = Array.isArray(staticData.failedFlows) ? staticData.failedFlows : [];\n\n// Build adaptive card body blocks\nconst bodyBlocks = [\n  {\n    type: 'TextBlock',\n    text: `✅ Backup completed — ${totalCount} workflows processed.`,\n    wrap: true,\n    size: 'Medium',\n    weight: 'Bolder',\n    color: 'Good'\n  }\n];\n\nif (failed.length > 0) {\n  bodyBlocks.push({\n    type: 'TextBlock',\n    text: `❌ Failed (${failed.length}):`,\n    wrap: true,\n    weight: 'Bolder',\n    color: 'Attention'\n  });\n  bodyBlocks.push({\n    type: 'TextBlock',\n    text: failed.join('\\n'),\n    wrap: true,\n    color: 'Attention'\n  });\n}\n\n// Clear failures for next run\nstaticData.failedFlows = [];\n\nconst card = {\n  type: 'AdaptiveCard',\n  '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',\n  version: '1.4',\n  body: bodyBlocks\n};\n\nreturn [{ json: { cardJson: JSON.stringify(card) } }];"
+          "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst totalCount = $('Filter: Exclude archived').all().length;\nconst failed = Array.isArray(staticData.failedFlows) ? staticData.failedFlows : [];\nconst dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });\n\n// Build Adaptive Card for Teams\nconst bodyBlocks = [\n  {\n    type: 'TextBlock',\n    text: `✅ Backup completed — ${totalCount} workflows processed.`,\n    wrap: true,\n    size: 'Medium',\n    weight: 'Bolder',\n    color: 'Good'\n  }\n];\n\nif (failed.length > 0) {\n  bodyBlocks.push({ type: 'TextBlock', text: `❌ Failed (${failed.length}):`, wrap: true, weight: 'Bolder', color: 'Attention' });\n  bodyBlocks.push({ type: 'TextBlock', text: failed.join('\\n'), wrap: true, color: 'Attention' });\n}\n\nconst card = {\n  type: 'AdaptiveCard',\n  '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',\n  version: '1.4',\n  body: bodyBlocks\n};\n\n// Build HTML email body\nconst statusColor = failed.length > 0 ? '#c0392b' : '#27ae60';\nconst statusIcon  = failed.length > 0 ? '⚠️' : '✅';\nconst statusText  = failed.length > 0\n  ? `Completed with ${failed.length} failure${failed.length > 1 ? 's' : ''}`\n  : 'Completed successfully';\n\nlet failureRows = '';\nif (failed.length > 0) {\n  failureRows = `\n    <tr>\n      <td colspan=\"2\" style=\"padding:16px 24px 4px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#c0392b;\">❌ Failed Workflows</td>\n    </tr>\n    ${failed.map(f => `\n    <tr>\n      <td colspan=\"2\" style=\"padding:2px 24px 2px 36px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">• ${f}</td>\n    </tr>`).join('')}\n  `;\n}\n\nconst htmlBody = `\n<!DOCTYPE html>\n<html>\n<body style=\"margin:0;padding:0;background:#f4f4f4;\">\n  <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:32px 0;\">\n    <tr>\n      <td align=\"center\">\n        <table width=\"560\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);overflow:hidden;\">\n          <tr>\n            <td colspan=\"2\" style=\"background:${statusColor};padding:20px 24px;\">\n              <span style=\"font-family:Arial,sans-serif;font-size:18px;font-weight:bold;color:#ffffff;\">${statusIcon} n8n Workflow Backup</span>\n            </td>\n          </tr>\n          <tr>\n            <td colspan=\"2\" style=\"padding:16px 24px 8px;font-family:Arial,sans-serif;font-size:12px;color:#888;border-bottom:1px solid #eeeeee;\">${dateStr}</td>\n          </tr>\n          <tr>\n            <td style=\"padding:16px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;width:50%;\">Status</td>\n            <td style=\"padding:16px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:${statusColor};\">${statusText}</td>\n          </tr>\n          <tr style=\"background:#f9f9f9;\">\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">Workflows processed</td>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#333;\">${totalCount}</td>\n          </tr>\n          <tr>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">Successful</td>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#27ae60;\">${totalCount - failed.length}</td>\n          </tr>\n          ${failed.length > 0 ? `\n          <tr style=\"background:#f9f9f9;\">\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">Failed</td>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#c0392b;\">${failed.length}</td>\n          </tr>` : ''}\n          ${failureRows}\n          <tr>\n            <td colspan=\"2\" style=\"padding:16px 24px;background:#f4f4f4;font-family:Arial,sans-serif;font-size:11px;color:#aaa;border-top:1px solid #eeeeee;\">Sent by n8n Workflow Backup · Automated message</td>\n          </tr>\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>`;\n\nstaticData.failedFlows = [];\n\nreturn [{ json: { cardJson: JSON.stringify(card), htmlBody, dateStr, totalCount, failedCount: failed.length } }];",
+          "mode": "runOnceForAllItems"
         },
         "id": "build-completion-msg-01",
         "name": "Build: Completion message",
@@ -567,28 +568,28 @@
         ]
       },
       {
+        "parameters": {
+          "fromEmail": "itadmin@michaelgraves.com",
+          "html": "={{ $json.htmlBody }}",
+          "options": {},
+          "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
+          "toEmail": "cfrazier@michaelgraves.com"
+        },
         "id": "send-email-backup-01",
         "name": "Send an Email",
         "type": "n8n-nodes-base.emailSend",
         "typeVersion": 2.1,
         "position": [
-          624,
-          -420
+          464,
+          -96
         ],
-        "parameters": {
-          "fromEmail": "itadmin@michaelgraves.com",
-          "html": "={{ $json.cardJson }}",
-          "options": {},
-          "subject": "=n8n Workflow Backup - {{ new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) }}",
-          "toEmail": "cfrazier@michaelgraves.com"
-        },
+        "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536",
         "credentials": {
           "smtp": {
             "id": "ORyqzt5CJoMm4aYV",
             "name": "SMTP account"
           }
-        },
-        "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536"
+        }
       }
     ],
     "connections": {
@@ -862,12 +863,18 @@
         "main": [
           [
             {
-              "node": "Completed Notification",
+              "node": "Send an Email",
               "type": "main",
               "index": 0
-            },
+            }
+          ]
+        ]
+      },
+      "Send an Email": {
+        "main": [
+          [
             {
-              "node": "Send an Email",
+              "node": "Completed Notification",
               "type": "main",
               "index": 0
             }
@@ -881,7 +888,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "7675e892-7ce9-42b2-b436-5f0e139c7174",
+  "activeVersionId": "463ab624-0b32-4bd1-8e97-bd82065bdf77",
   "connections": {
     "n8n": {
       "main": [
@@ -1154,6 +1161,17 @@
         [
           {
             "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send an Email": {
+      "main": [
+        [
+          {
+            "node": "Completed Notification",
             "type": "main",
             "index": 0
           }
@@ -1716,7 +1734,8 @@
     },
     {
       "parameters": {
-        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst totalCount = $('Filter: Exclude archived').all().length;\nconst failed = Array.isArray(staticData.failedFlows) ? staticData.failedFlows : [];\n\n// Build adaptive card body blocks\nconst bodyBlocks = [\n  {\n    type: 'TextBlock',\n    text: `✅ Backup completed — ${totalCount} workflows processed.`,\n    wrap: true,\n    size: 'Medium',\n    weight: 'Bolder',\n    color: 'Good'\n  }\n];\n\nif (failed.length > 0) {\n  bodyBlocks.push({\n    type: 'TextBlock',\n    text: `❌ Failed (${failed.length}):`,\n    wrap: true,\n    weight: 'Bolder',\n    color: 'Attention'\n  });\n  bodyBlocks.push({\n    type: 'TextBlock',\n    text: failed.join('\\n'),\n    wrap: true,\n    color: 'Attention'\n  });\n}\n\n// Clear failures for next run\nstaticData.failedFlows = [];\n\nconst card = {\n  type: 'AdaptiveCard',\n  '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',\n  version: '1.4',\n  body: bodyBlocks\n};\n\nreturn [{ json: { cardJson: JSON.stringify(card) } }];"
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst totalCount = $('Filter: Exclude archived').all().length;\nconst failed = Array.isArray(staticData.failedFlows) ? staticData.failedFlows : [];\nconst dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });\n\n// Build Adaptive Card for Teams\nconst bodyBlocks = [\n  {\n    type: 'TextBlock',\n    text: `✅ Backup completed — ${totalCount} workflows processed.`,\n    wrap: true,\n    size: 'Medium',\n    weight: 'Bolder',\n    color: 'Good'\n  }\n];\n\nif (failed.length > 0) {\n  bodyBlocks.push({ type: 'TextBlock', text: `❌ Failed (${failed.length}):`, wrap: true, weight: 'Bolder', color: 'Attention' });\n  bodyBlocks.push({ type: 'TextBlock', text: failed.join('\\n'), wrap: true, color: 'Attention' });\n}\n\nconst card = {\n  type: 'AdaptiveCard',\n  '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',\n  version: '1.4',\n  body: bodyBlocks\n};\n\n// Build HTML email body\nconst statusColor = failed.length > 0 ? '#c0392b' : '#27ae60';\nconst statusIcon  = failed.length > 0 ? '⚠️' : '✅';\nconst statusText  = failed.length > 0\n  ? `Completed with ${failed.length} failure${failed.length > 1 ? 's' : ''}`\n  : 'Completed successfully';\n\nlet failureRows = '';\nif (failed.length > 0) {\n  failureRows = `\n    <tr>\n      <td colspan=\"2\" style=\"padding:16px 24px 4px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#c0392b;\">❌ Failed Workflows</td>\n    </tr>\n    ${failed.map(f => `\n    <tr>\n      <td colspan=\"2\" style=\"padding:2px 24px 2px 36px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">• ${f}</td>\n    </tr>`).join('')}\n  `;\n}\n\nconst htmlBody = `\n<!DOCTYPE html>\n<html>\n<body style=\"margin:0;padding:0;background:#f4f4f4;\">\n  <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f4f4;padding:32px 0;\">\n    <tr>\n      <td align=\"center\">\n        <table width=\"560\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.08);overflow:hidden;\">\n          <tr>\n            <td colspan=\"2\" style=\"background:${statusColor};padding:20px 24px;\">\n              <span style=\"font-family:Arial,sans-serif;font-size:18px;font-weight:bold;color:#ffffff;\">${statusIcon} n8n Workflow Backup</span>\n            </td>\n          </tr>\n          <tr>\n            <td colspan=\"2\" style=\"padding:16px 24px 8px;font-family:Arial,sans-serif;font-size:12px;color:#888;border-bottom:1px solid #eeeeee;\">${dateStr}</td>\n          </tr>\n          <tr>\n            <td style=\"padding:16px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;width:50%;\">Status</td>\n            <td style=\"padding:16px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:${statusColor};\">${statusText}</td>\n          </tr>\n          <tr style=\"background:#f9f9f9;\">\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">Workflows processed</td>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#333;\">${totalCount}</td>\n          </tr>\n          <tr>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">Successful</td>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#27ae60;\">${totalCount - failed.length}</td>\n          </tr>\n          ${failed.length > 0 ? `\n          <tr style=\"background:#f9f9f9;\">\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;color:#555;\">Failed</td>\n            <td style=\"padding:12px 24px;font-family:Arial,sans-serif;font-size:13px;font-weight:bold;color:#c0392b;\">${failed.length}</td>\n          </tr>` : ''}\n          ${failureRows}\n          <tr>\n            <td colspan=\"2\" style=\"padding:16px 24px;background:#f4f4f4;font-family:Arial,sans-serif;font-size:11px;color:#aaa;border-top:1px solid #eeeeee;\">Sent by n8n Workflow Backup · Automated message</td>\n          </tr>\n        </table>\n      </td>\n    </tr>\n  </table>\n</body>\n</html>`;\n\nstaticData.failedFlows = [];\n\nreturn [{ json: { cardJson: JSON.stringify(card), htmlBody, dateStr, totalCount, failedCount: failed.length } }];",
+        "mode": "runOnceForAllItems"
       },
       "id": "build-completion-msg-01",
       "name": "Build: Completion message",
@@ -1730,10 +1749,10 @@
     {
       "parameters": {
         "fromEmail": "itadmin@michaelgraves.com",
-        "toEmail": "cfrazier@michaelgraves.com",
-        "subject": "=n8n Workflow Backup - {{ new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) }}",
-        "html": "={{ $json.cardJson }}",
-        "options": {}
+        "html": "={{ $json.htmlBody }}",
+        "options": {},
+        "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
+        "toEmail": "cfrazier@michaelgraves.com"
       },
       "id": "send-email-backup-01",
       "name": "Send an Email",
@@ -1776,6 +1795,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-28T23:23:52.018Z",
-  "versionId": "ad240f72-0030-4e3d-989b-0bd8d3d6fa5a"
+  "updatedAt": "2026-06-28T23:26:39.236Z",
+  "versionId": "463ab624-0b32-4bd1-8e97-bd82065bdf77"
 }
