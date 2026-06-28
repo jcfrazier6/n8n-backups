@@ -183,17 +183,6 @@
       "main": [
         [
           {
-            "node": "Starting Message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Starting Message": {
-      "main": [
-        [
-          {
             "node": "n8n",
             "type": "main",
             "index": 0
@@ -245,7 +234,7 @@
       "main": [
         [
           {
-            "node": "Starting Message",
+            "node": "n8n",
             "type": "main",
             "index": 0
           }
@@ -707,25 +696,6 @@
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"ℹ️ Starting Workflow Backup [{{ $execution.id }}]\",\n      \"wrap\": true,\n      \"size\": \"Medium\",\n      \"weight\": \"Bolder\"\n    }\n  ]\n}",
-        "options": {}
-      },
-      "id": "2f2c8130-4a7f-48fe-901d-c10d1df90f29",
-      "name": "Starting Message",
-      "type": "n8n-nodes-base.httpRequest",
-      "position": [
-        32,
-        -160
-      ],
-      "webhookId": "c02eb407-5547-4aa0-9ebf-46dab67b63b6",
-      "typeVersion": 4.4
-    },
-    {
-      "parameters": {
         "workflowId": "={{ $workflow.id }}",
         "mode": "each",
         "options": {}
@@ -915,6 +885,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T22:55:12.007Z",
-  "versionId": "d7f9bb30-1e60-48c9-b342-59e6d0507a85"
+  "updatedAt": "2026-06-28T22:57:22.640Z",
+  "versionId": "e2209327-888a-4580-87c0-00cd9bdeffd8"
 }
