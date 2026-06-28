@@ -1,0 +1,76 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-06-28T19:38:41.990Z",
+  "id": "UBkNMmfwgi881Rfo",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Teams Test",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f38f204a-8d3d-4ce1-bca8-e01bc8b83a2d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsonBody": "{\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Hello from n8n! This is a test message.\",\n      \"wrap\": true\n    }\n  ]\n}",
+        "method": "POST",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "d7b854a2-137e-41bd-bb07-ec0710128623",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-28T19:38:41.990Z",
+      "createdAt": "2026-06-28T19:38:41.990Z",
+      "role": "workflow:owner",
+      "workflowId": "UBkNMmfwgi881Rfo",
+      "projectId": "NKrmQxH8bxVGvPKo"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-28T20:56:22.854Z",
+  "versionId": "cc2c0e5e-ffb6-40bb-b59f-907dd25347fc"
+}
