@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-28T23:13:20.789Z",
-    "createdAt": "2026-06-28T23:13:07.037Z",
-    "versionId": "3a86e293-8c38-4546-82ce-0553b8f326c2",
+    "updatedAt": "2026-06-28T23:20:51.324Z",
+    "createdAt": "2026-06-28T23:20:51.324Z",
+    "versionId": "7675e892-7ce9-42b2-b436-5f0e139c7174",
     "workflowId": "heOLvS38eQi1zbiW",
     "nodes": [
       {
@@ -373,8 +373,8 @@
         "name": "Sticky Note1",
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -672,
-          -640
+          -816,
+          -672
         ],
         "typeVersion": 1
       },
@@ -428,7 +428,8 @@
         ],
         "webhookId": "a0c6e8c8-5d71-40fa-b02b-63a7ed5726c4",
         "executeOnce": true,
-        "typeVersion": 4.4
+        "typeVersion": 4.4,
+        "disabled": true
       },
       {
         "parameters": {
@@ -564,6 +565,30 @@
           288,
           -96
         ]
+      },
+      {
+        "id": "send-email-backup-01",
+        "name": "Send an Email",
+        "type": "n8n-nodes-base.emailSend",
+        "typeVersion": 2.1,
+        "position": [
+          624,
+          -420
+        ],
+        "parameters": {
+          "fromEmail": "itadmin@michaelgraves.com",
+          "html": "={{ $json.cardJson }}",
+          "options": {},
+          "subject": "=n8n Workflow Backup - {{ new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) }}",
+          "toEmail": "cfrazier@michaelgraves.com"
+        },
+        "credentials": {
+          "smtp": {
+            "id": "ORyqzt5CJoMm4aYV",
+            "name": "SMTP account"
+          }
+        },
+        "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536"
       }
     ],
     "connections": {
@@ -840,6 +865,11 @@
               "node": "Completed Notification",
               "type": "main",
               "index": 0
+            },
+            {
+              "node": "Send an Email",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -847,11 +877,11 @@
     },
     "nodeGroups": [],
     "authors": "Craig Frazier",
-    "name": "Version 3a86e293",
-    "description": "",
-    "autosaved": true
+    "name": null,
+    "description": null,
+    "autosaved": false
   },
-  "activeVersionId": "3a86e293-8c38-4546-82ce-0553b8f326c2",
+  "activeVersionId": "7675e892-7ce9-42b2-b436-5f0e139c7174",
   "connections": {
     "n8n": {
       "main": [
@@ -1123,7 +1153,7 @@
       "main": [
         [
           {
-            "node": "Completed Notification",
+            "node": "Send an Email",
             "type": "main",
             "index": 0
           }
@@ -1504,8 +1534,8 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -672,
-        -640
+        -816,
+        -672
       ],
       "typeVersion": 1
     },
@@ -1554,12 +1584,13 @@
       "name": "Completed Notification",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        480,
-        -96
+        1232,
+        -352
       ],
       "webhookId": "a0c6e8c8-5d71-40fa-b02b-63a7ed5726c4",
       "executeOnce": true,
-      "typeVersion": 4.4
+      "typeVersion": 4.4,
+      "disabled": true
     },
     {
       "parameters": {
@@ -1695,6 +1726,30 @@
         288,
         -96
       ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "cfrazier@michaelgraves.com",
+        "subject": "=n8n Workflow Backup - {{ new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) }}",
+        "html": "={{ $json.cardJson }}",
+        "options": {}
+      },
+      "id": "send-email-backup-01",
+      "name": "Send an Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        464,
+        -96
+      ],
+      "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536",
+      "credentials": {
+        "smtp": {
+          "id": "ORyqzt5CJoMm4aYV",
+          "name": "SMTP account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1721,6 +1776,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-28T23:13:25.560Z",
-  "versionId": "3a86e293-8c38-4546-82ce-0553b8f326c2"
+  "updatedAt": "2026-06-28T23:23:52.018Z",
+  "versionId": "ad240f72-0030-4e3d-989b-0bd8d3d6fa5a"
 }
