@@ -21,11 +21,6 @@
             "node": "Get file data",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Merge Items",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -885,6 +880,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T22:57:22.640Z",
-  "versionId": "e2209327-888a-4580-87c0-00cd9bdeffd8"
+  "updatedAt": "2026-06-28T22:58:19.326Z",
+  "versionId": "fcb51d32-062a-4ff2-b2a4-ea59a41b7f4b"
 }
