@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-28T18:17:22.975Z",
-    "createdAt": "2026-06-28T18:17:22.975Z",
-    "versionId": "a00fc43a-a1bc-44ce-be4e-8151bdd587a8",
+    "updatedAt": "2026-06-29T04:00:20.057Z",
+    "createdAt": "2026-06-29T04:00:20.057Z",
+    "versionId": "ebf92c30-8175-44b8-ac37-6d80b31bf2ac",
     "workflowId": "Pm53tRcrdONwBxqq",
     "nodes": [
       {
@@ -226,9 +226,6 @@
                   "values": [
                     {
                       "option": "JCA — Hackensack ~~ 171 Main Street | Suite 301 ~~ Hackensack ~~ NJ ~~ 07601 ~~ 201.678.1201"
-                    },
-                    {
-                      "option": "JCA — Winston-Salem ~~ 530 N. Trade Street | Suite 301 ~~ Winston-Salem ~~ NC ~~ 27101 ~~ 336.725.1371"
                     },
                     {
                       "option": "KAA — Chicago ~~ 900 N. Franklin Street | Suite 405-B ~~ Chicago ~~ IL ~~ 60610 ~~ 312.471.2505"
@@ -1469,7 +1466,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "a00fc43a-a1bc-44ce-be4e-8151bdd587a8",
+  "activeVersionId": "ebf92c30-8175-44b8-ac37-6d80b31bf2ac",
   "connections": {
     "On form submission": {
       "main": [
@@ -2034,9 +2031,6 @@
                 "values": [
                   {
                     "option": "JCA — Hackensack ~~ 171 Main Street | Suite 301 ~~ Hackensack ~~ NJ ~~ 07601 ~~ 201.678.1201"
-                  },
-                  {
-                    "option": "JCA — Winston-Salem ~~ 530 N. Trade Street | Suite 301 ~~ Winston-Salem ~~ NC ~~ 27101 ~~ 336.725.1371"
                   },
                   {
                     "option": "KAA — Chicago ~~ 900 N. Franklin Street | Suite 405-B ~~ Chicago ~~ IL ~~ 60610 ~~ 312.471.2505"
@@ -2953,6 +2947,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-28T18:17:22.970Z",
-  "versionId": "a00fc43a-a1bc-44ce-be4e-8151bdd587a8"
+  "updatedAt": "2026-06-29T04:00:20.053Z",
+  "versionId": "ebf92c30-8175-44b8-ac37-6d80b31bf2ac"
 }
