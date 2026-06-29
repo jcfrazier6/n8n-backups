@@ -7,7 +7,7 @@
       "main": [
         [
           {
-            "node": "Send an Email",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -28,11 +28,36 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        -592,
+        -288
       ],
       "id": "f38f204a-8d3d-4ce1-bca8-e01bc8b83a2d",
       "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "cfrazier@michaelgraves.com",
+        "subject": "Test Message",
+        "html": "This is a test",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -384,
+        -864
+      ],
+      "id": "0770bde2-2c82-49d3-96d9-3ad14e75d1cb",
+      "name": "Send an Email",
+      "webhookId": "01f18df2-f956-4be8-886e-e25532db0b1d",
+      "credentials": {
+        "smtp": {
+          "id": "ORyqzt5CJoMm4aYV",
+          "name": "SMTP account"
+        }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -46,35 +71,25 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        -16,
-        -400
+        -624,
+        -864
       ],
       "id": "d7b854a2-137e-41bd-bb07-ec0710128623",
-      "name": "HTTP Request"
+      "name": "HTTP Request - Teams Message",
+      "disabled": true
     },
     {
       "parameters": {
-        "fromEmail": "itadmin@michaelgraves.com",
-        "toEmail": "cfrazier@michaelgraves.com",
-        "subject": "Test Message",
-        "html": "This is a test",
         "options": {}
       },
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
       "position": [
-        208,
-        0
+        -384,
+        -288
       ],
-      "id": "0770bde2-2c82-49d3-96d9-3ad14e75d1cb",
-      "name": "Send an Email",
-      "webhookId": "01f18df2-f956-4be8-886e-e25532db0b1d",
-      "credentials": {
-        "smtp": {
-          "id": "ORyqzt5CJoMm4aYV",
-          "name": "SMTP account"
-        }
-      }
+      "id": "11824db1-611a-446d-b43e-ac4adef462c9",
+      "name": "HTTP Request"
     }
   ],
   "pinData": {},
@@ -95,6 +110,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-28T23:07:20.251Z",
-  "versionId": "d4b73229-2a06-4db9-8ace-fbf28e08b811"
+  "updatedAt": "2026-06-29T00:10:38.608Z",
+  "versionId": "92e4bcd9-1a49-4be6-b236-bd795e2334fd"
 }
