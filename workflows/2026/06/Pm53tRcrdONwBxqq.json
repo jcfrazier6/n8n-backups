@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-06-29T04:00:20.057Z",
-    "createdAt": "2026-06-29T04:00:20.057Z",
-    "versionId": "ebf92c30-8175-44b8-ac37-6d80b31bf2ac",
+    "updatedAt": "2026-06-30T17:00:53.315Z",
+    "createdAt": "2026-06-30T17:00:53.315Z",
+    "versionId": "26b00baf-e616-47e9-8366-53fa9d295f63",
     "workflowId": "Pm53tRcrdONwBxqq",
     "nodes": [
       {
@@ -216,8 +216,7 @@
                       "option": "Test User"
                     }
                   ]
-                },
-                "requiredField": true
+                }
               },
               {
                 "fieldLabel": "Studio",
@@ -288,8 +287,8 @@
         "type": "n8n-nodes-base.formTrigger",
         "typeVersion": 2.6,
         "position": [
-          80,
-          304
+          -112,
+          224
         ],
         "webhookId": "7e965f9b-c255-4613-bf15-dcb45cec816f"
       },
@@ -302,8 +301,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          304,
-          304
+          112,
+          224
         ]
       },
       {
@@ -326,8 +325,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          528,
-          304
+          336,
+          224
         ],
         "alwaysOutputData": true,
         "credentials": {
@@ -347,8 +346,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          752,
-          304
+          560,
+          224
         ],
         "alwaysOutputData": true
       },
@@ -381,8 +380,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          960,
-          304
+          768,
+          224
         ]
       },
       {
@@ -475,8 +474,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          1408,
-          720
+          1344,
+          928
         ],
         "alwaysOutputData": false,
         "credentials": {
@@ -516,8 +515,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          1184,
-          304
+          992,
+          224
         ]
       },
       {
@@ -540,7 +539,7 @@
         "typeVersion": 1,
         "position": [
           1408,
-          192
+          112
         ],
         "credentials": {
           "ldap": {
@@ -568,8 +567,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          1408,
-          464
+          1392,
+          544
         ],
         "credentials": {
           "ldap": {
@@ -590,7 +589,7 @@
         "typeVersion": 1,
         "position": [
           1632,
-          192
+          112
         ],
         "credentials": {
           "ldap": {
@@ -610,8 +609,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          1632,
-          464
+          1616,
+          544
         ],
         "credentials": {
           "ldap": {
@@ -622,7 +621,7 @@
       },
       {
         "parameters": {
-          "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\n// Only include attributes that have a non-empty value\nconst replaceAttrs = [];\n\nconst fields = [\n  { id: 'title',           value: adAttrs.title },\n  { id: 'company',         value: adAttrs.company },\n  { id: 'streetAddress',   value: adAttrs.streetAddress },\n  { id: 'l',               value: adAttrs.l },\n  { id: 'st',              value: adAttrs.st },\n  { id: 'postalCode',      value: adAttrs.postalCode },\n  { id: 'telephoneNumber', value: adAttrs.telephoneNumber },\n  { id: 'mail',            value: adAttrs.mail },\n  { id: 'pager',           value: adAttrs.pager },\n  { id: 'ipPhone',         value: adAttrs.ipPhone },\n  { id: 'info',            value: adAttrs.info },\n];\n\nfor (const f of fields) {\n  if (f.value !== undefined && f.value !== null && String(f.value).trim() !== '') {\n    replaceAttrs.push({ id: f.id, value: f.value });\n  }\n}\n\n// Split into always-present (Studio-derived, required form fields)\n// and optional (only set if submitted)\nconst coreAttrs = ['title','company','streetAddress','l','st','postalCode','telephoneNumber','mail'];\nconst optionalAttrIds = ['pager','ipPhone','info'];\n\nconst coreReplace = replaceAttrs.filter(f => coreAttrs.includes(f.id));\nconst optionalReplace = replaceAttrs.filter(f => optionalAttrIds.includes(f.id));\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{ json: { ...adAttrs, replaceAttrs, coreReplace, optionalReplace, hasOptional } }];"
+          "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst existing = $('LDAP: Get current DN (enabled)').first().json;\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle           = valueOrExisting(adAttrs.title, existing.title);\nconst finalCompany         = valueOrExisting(adAttrs.company, existing.company);\nconst finalStreetAddress   = valueOrExisting(adAttrs.streetAddress, existing.streetAddress);\nconst finalL               = valueOrExisting(adAttrs.l, existing.l);\nconst finalSt              = valueOrExisting(adAttrs.st, existing.st);\nconst finalPostalCode      = valueOrExisting(adAttrs.postalCode, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(adAttrs.telephoneNumber, existing.telephoneNumber);\nconst finalMail            = valueOrExisting(adAttrs.mail, existing.mail);\n\nconst optionalFieldDefs = [\n  { id: 'pager',   value: adAttrs.pager },\n  { id: 'ipPhone', value: adAttrs.ipPhone },\n  { id: 'info',    value: adAttrs.info },\n];\nconst optionalReplace = optionalFieldDefs.filter(f => String(f.value ?? '').trim() !== '');\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{\n  json: {\n    ...adAttrs,\n    finalTitle, finalCompany, finalStreetAddress, finalL, finalSt,\n    finalPostalCode, finalTelephoneNumber, finalMail,\n    optionalReplace, hasOptional\n  }\n}];"
         },
         "id": "code-build-update-attrs-enabled-01",
         "name": "Code: Build update attributes (enabled)",
@@ -630,20 +629,20 @@
         "typeVersion": 2,
         "position": [
           1840,
-          192
+          112
         ]
       },
       {
         "parameters": {
-          "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\nconst replaceAttrs = [];\n\nconst fields = [\n  { id: 'title',           value: adAttrs.title },\n  { id: 'company',         value: adAttrs.company },\n  { id: 'streetAddress',   value: adAttrs.streetAddress },\n  { id: 'l',               value: adAttrs.l },\n  { id: 'st',              value: adAttrs.st },\n  { id: 'postalCode',      value: adAttrs.postalCode },\n  { id: 'telephoneNumber', value: adAttrs.telephoneNumber },\n  { id: 'mail',            value: adAttrs.mail },\n  { id: 'pager',           value: adAttrs.pager },\n  { id: 'ipPhone',         value: adAttrs.ipPhone },\n  { id: 'info',            value: adAttrs.info },\n];\n\nfor (const f of fields) {\n  if (f.value !== undefined && f.value !== null && String(f.value).trim() !== '') {\n    replaceAttrs.push({ id: f.id, value: f.value });\n  }\n}\n\nconst coreAttrs = ['title','company','streetAddress','l','st','postalCode','telephoneNumber','mail'];\nconst optionalAttrIds = ['pager','ipPhone','info'];\n\nconst coreReplace = replaceAttrs.filter(f => coreAttrs.includes(f.id));\nconst optionalReplace = replaceAttrs.filter(f => optionalAttrIds.includes(f.id));\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{ json: { ...adAttrs, replaceAttrs, coreReplace, optionalReplace, hasOptional } }];"
+          "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst existing = $('LDAP: Get current DN (disabled)').first().json;\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle           = valueOrExisting(adAttrs.title, existing.title);\nconst finalCompany         = valueOrExisting(adAttrs.company, existing.company);\nconst finalStreetAddress   = valueOrExisting(adAttrs.streetAddress, existing.streetAddress);\nconst finalL               = valueOrExisting(adAttrs.l, existing.l);\nconst finalSt              = valueOrExisting(adAttrs.st, existing.st);\nconst finalPostalCode      = valueOrExisting(adAttrs.postalCode, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(adAttrs.telephoneNumber, existing.telephoneNumber);\nconst finalMail            = valueOrExisting(adAttrs.mail, existing.mail);\n\nconst optionalFieldDefs = [\n  { id: 'pager',   value: adAttrs.pager },\n  { id: 'ipPhone', value: adAttrs.ipPhone },\n  { id: 'info',    value: adAttrs.info },\n];\nconst optionalReplace = optionalFieldDefs.filter(f => String(f.value ?? '').trim() !== '');\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{\n  json: {\n    ...adAttrs,\n    finalTitle, finalCompany, finalStreetAddress, finalL, finalSt,\n    finalPostalCode, finalTelephoneNumber, finalMail,\n    optionalReplace, hasOptional\n  }\n}];"
         },
         "id": "code-build-update-attrs-disabled-01",
         "name": "Code: Build update attributes (disabled)",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1840,
-          464
+          1824,
+          544
         ]
       },
       {
@@ -654,35 +653,35 @@
             "replace": [
               {
                 "id": "title",
-                "value": "={{ $json.title }}"
+                "value": "={{ $json.finalTitle }}"
               },
               {
                 "id": "company",
-                "value": "={{ $json.company }}"
+                "value": "={{ $json.finalCompany }}"
               },
               {
                 "id": "streetAddress",
-                "value": "={{ $json.streetAddress }}"
+                "value": "={{ $json.finalStreetAddress }}"
               },
               {
                 "id": "l",
-                "value": "={{ $json.l }}"
+                "value": "={{ $json.finalL }}"
               },
               {
                 "id": "st",
-                "value": "={{ $json.st }}"
+                "value": "={{ $json.finalSt }}"
               },
               {
                 "id": "postalCode",
-                "value": "={{ $json.postalCode }}"
+                "value": "={{ $json.finalPostalCode }}"
               },
               {
                 "id": "telephoneNumber",
-                "value": "={{ $json.telephoneNumber }}"
+                "value": "={{ $json.finalTelephoneNumber }}"
               },
               {
                 "id": "mail",
-                "value": "={{ $json.mail }}"
+                "value": "={{ $json.finalMail }}"
               }
             ]
           }
@@ -693,7 +692,7 @@
         "typeVersion": 1,
         "position": [
           2064,
-          192
+          112
         ],
         "credentials": {
           "ldap": {
@@ -710,35 +709,35 @@
             "replace": [
               {
                 "id": "title",
-                "value": "={{ $json.title }}"
+                "value": "={{ $json.finalTitle }}"
               },
               {
                 "id": "company",
-                "value": "={{ $json.company }}"
+                "value": "={{ $json.finalCompany }}"
               },
               {
                 "id": "streetAddress",
-                "value": "={{ $json.streetAddress }}"
+                "value": "={{ $json.finalStreetAddress }}"
               },
               {
                 "id": "l",
-                "value": "={{ $json.l }}"
+                "value": "={{ $json.finalL }}"
               },
               {
                 "id": "st",
-                "value": "={{ $json.st }}"
+                "value": "={{ $json.finalSt }}"
               },
               {
                 "id": "postalCode",
-                "value": "={{ $json.postalCode }}"
+                "value": "={{ $json.finalPostalCode }}"
               },
               {
                 "id": "telephoneNumber",
-                "value": "={{ $json.telephoneNumber }}"
+                "value": "={{ $json.finalTelephoneNumber }}"
               },
               {
                 "id": "mail",
-                "value": "={{ $json.mail }}"
+                "value": "={{ $json.finalMail }}"
               }
             ]
           }
@@ -748,8 +747,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          2064,
-          464
+          2048,
+          544
         ],
         "credentials": {
           "ldap": {
@@ -776,8 +775,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          2704,
-          480
+          2496,
+          560
         ],
         "credentials": {
           "ldap": {
@@ -795,8 +794,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1632,
-          720
+          1568,
+          928
         ]
       },
       {
@@ -812,6 +811,10 @@
               {
                 "id": "userAccountControl",
                 "value": "512"
+              },
+              {
+                "id": "pwdLastSet",
+                "value": "0"
               }
             ]
           }
@@ -821,8 +824,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          1856,
-          720
+          1792,
+          928
         ],
         "credentials": {
           "ldap": {
@@ -840,8 +843,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2704,
-          208
+          2528,
+          128
         ]
       },
       {
@@ -853,8 +856,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2880,
-          480
+          2688,
+          560
         ]
       },
       {
@@ -866,6 +869,14 @@
               {
                 "id": "unicodePwd",
                 "value": "={{ $json.unicodePwd }}"
+              },
+              {
+                "id": "userAccountControl",
+                "value": "512"
+              },
+              {
+                "id": "pwdLastSet",
+                "value": "0"
               }
             ]
           }
@@ -875,8 +886,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          2912,
-          208
+          2752,
+          128
         ],
         "credentials": {
           "ldap": {
@@ -894,6 +905,14 @@
               {
                 "id": "unicodePwd",
                 "value": "={{ $json.unicodePwd }}"
+              },
+              {
+                "id": "userAccountControl",
+                "value": "512"
+              },
+              {
+                "id": "pwdLastSet",
+                "value": "0"
               }
             ]
           }
@@ -903,8 +922,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          3088,
-          480
+          2864,
+          560
         ],
         "credentials": {
           "ldap": {
@@ -924,8 +943,8 @@
         "type": "n8n-nodes-base.form",
         "typeVersion": 2.5,
         "position": [
-          2064,
-          720
+          2000,
+          928
         ],
         "webhookId": "ad-prov-created-001"
       },
@@ -940,8 +959,8 @@
         "type": "n8n-nodes-base.form",
         "typeVersion": 2.5,
         "position": [
-          3120,
-          208
+          2944,
+          128
         ],
         "webhookId": "ad-prov-updated-001"
       },
@@ -956,8 +975,8 @@
         "type": "n8n-nodes-base.form",
         "typeVersion": 2.5,
         "position": [
-          3312,
-          480
+          3056,
+          560
         ],
         "webhookId": "ad-prov-reenabled-001"
       },
@@ -977,10 +996,10 @@
               }
             ],
             "options": {
-              "version": 1,
-              "leftValue": "",
               "caseSensitive": true,
-              "typeValidation": "loose"
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 1
             }
           },
           "options": {}
@@ -991,7 +1010,7 @@
         "typeVersion": 2.3,
         "position": [
           2304,
-          192
+          112
         ]
       },
       {
@@ -1003,15 +1022,9 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          2496,
-          48
-        ],
-        "credentials": {
-          "ldap": {
-            "id": "axjXdG9uTTFWBrzN",
-            "name": "LDAP account"
-          }
-        }
+          2528,
+          -64
+        ]
       },
       {
         "parameters": {
@@ -1029,10 +1042,10 @@
               }
             ],
             "options": {
-              "version": 1,
-              "leftValue": "",
               "caseSensitive": true,
-              "typeValidation": "loose"
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 1
             }
           },
           "options": {}
@@ -1042,8 +1055,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          2272,
-          464
+          2256,
+          544
         ]
       },
       {
@@ -1056,36 +1069,30 @@
         "typeVersion": 2,
         "position": [
           2496,
-          320
-        ],
-        "credentials": {
-          "ldap": {
-            "id": "axjXdG9uTTFWBrzN",
-            "name": "LDAP account"
-          }
-        }
+          368
+        ]
       },
       {
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.dn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "={{ $json.attrId }}",
+                "value": "={{ $json.attrValue }}"
+              }
+            ]
+          }
+        },
         "id": "ldap-write-optional-enabled-01",
         "name": "LDAP: Write optional attr (enabled)",
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          2896,
-          60
+          2736,
+          -64
         ],
-        "parameters": {
-          "attributes": {
-            "replace": [
-              {
-                "id": "={{ $json.attrId }}",
-                "value": "={{ $json.attrValue }}"
-              }
-            ]
-          },
-          "dn": "={{ $json.dn }}",
-          "operation": "update"
-        },
         "credentials": {
           "ldap": {
             "id": "axjXdG9uTTFWBrzN",
@@ -1094,15 +1101,9 @@
         }
       },
       {
-        "id": "ldap-write-optional-disabled-01",
-        "name": "LDAP: Write optional attr (disabled)",
-        "type": "n8n-nodes-base.ldap",
-        "typeVersion": 1,
-        "position": [
-          2896,
-          360
-        ],
         "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.dn }}",
           "attributes": {
             "replace": [
               {
@@ -1110,16 +1111,111 @@
                 "value": "={{ $json.attrValue }}"
               }
             ]
-          },
-          "dn": "={{ $json.dn }}",
-          "operation": "update"
+          }
         },
+        "id": "ldap-write-optional-disabled-01",
+        "name": "LDAP: Write optional attr (disabled)",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          2688,
+          368
+        ],
         "credentials": {
           "ldap": {
             "id": "axjXdG9uTTFWBrzN",
             "name": "LDAP account"
           }
         }
+      },
+      {
+        "parameters": {
+          "height": 400,
+          "width": 480
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -240,
+          80
+        ],
+        "typeVersion": 1,
+        "id": "c8ba9f84-baaa-49ec-89ba-d1aa90d732a8",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "height": 400,
+          "width": 656,
+          "color": 2
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          256,
+          80
+        ],
+        "typeVersion": 1,
+        "id": "70ad6955-ebb6-428f-af96-0f224b64950c",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "height": 400,
+          "width": 224,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          928,
+          80
+        ],
+        "typeVersion": 1,
+        "id": "0d51ec77-53f0-47ca-b1ac-ced5ce24b2c0",
+        "name": "Sticky Note2"
+      },
+      {
+        "parameters": {
+          "height": 384,
+          "width": 1872,
+          "color": 4
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1264,
+          -80
+        ],
+        "typeVersion": 1,
+        "id": "1c905c29-e956-495c-ad86-356d14ccd456",
+        "name": "Sticky Note3"
+      },
+      {
+        "parameters": {
+          "height": 384,
+          "width": 1984,
+          "color": 5
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1264,
+          352
+        ],
+        "typeVersion": 1,
+        "id": "c977405a-b9ce-46db-8017-eb48222c6d02",
+        "name": "Sticky Note4"
+      },
+      {
+        "parameters": {
+          "height": 352,
+          "width": 928,
+          "color": 6
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          1264,
+          784
+        ],
+        "typeVersion": 1,
+        "id": "8c0867e7-7358-41d5-873a-66ba94866b85",
+        "name": "Sticky Note5"
       }
     ],
     "connections": {
@@ -1466,7 +1562,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "ebf92c30-8175-44b8-ac37-6d80b31bf2ac",
+  "activeVersionId": "26b00baf-e616-47e9-8366-53fa9d295f63",
   "connections": {
     "On form submission": {
       "main": [
@@ -2021,8 +2117,7 @@
                     "option": "Test User"
                   }
                 ]
-              },
-              "requiredField": true
+              }
             },
             {
               "fieldLabel": "Studio",
@@ -2093,8 +2188,8 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.6,
       "position": [
-        80,
-        304
+        -112,
+        224
       ],
       "webhookId": "7e965f9b-c255-4613-bf15-dcb45cec816f"
     },
@@ -2107,8 +2202,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        304,
-        304
+        112,
+        224
       ]
     },
     {
@@ -2131,8 +2226,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        528,
-        304
+        336,
+        224
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -2152,8 +2247,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        752,
-        304
+        560,
+        224
       ],
       "alwaysOutputData": true
     },
@@ -2186,8 +2281,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        960,
-        304
+        768,
+        224
       ]
     },
     {
@@ -2280,8 +2375,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        1408,
-        720
+        1344,
+        928
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -2321,8 +2416,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        1184,
-        304
+        992,
+        224
       ]
     },
     {
@@ -2345,7 +2440,7 @@
       "typeVersion": 1,
       "position": [
         1408,
-        192
+        112
       ],
       "credentials": {
         "ldap": {
@@ -2373,8 +2468,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        1408,
-        464
+        1392,
+        544
       ],
       "credentials": {
         "ldap": {
@@ -2395,7 +2490,7 @@
       "typeVersion": 1,
       "position": [
         1632,
-        192
+        112
       ],
       "credentials": {
         "ldap": {
@@ -2415,8 +2510,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        1632,
-        464
+        1616,
+        544
       ],
       "credentials": {
         "ldap": {
@@ -2427,7 +2522,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\n// Only include attributes that have a non-empty value\nconst replaceAttrs = [];\n\nconst fields = [\n  { id: 'title',           value: adAttrs.title },\n  { id: 'company',         value: adAttrs.company },\n  { id: 'streetAddress',   value: adAttrs.streetAddress },\n  { id: 'l',               value: adAttrs.l },\n  { id: 'st',              value: adAttrs.st },\n  { id: 'postalCode',      value: adAttrs.postalCode },\n  { id: 'telephoneNumber', value: adAttrs.telephoneNumber },\n  { id: 'mail',            value: adAttrs.mail },\n  { id: 'pager',           value: adAttrs.pager },\n  { id: 'ipPhone',         value: adAttrs.ipPhone },\n  { id: 'info',            value: adAttrs.info },\n];\n\nfor (const f of fields) {\n  if (f.value !== undefined && f.value !== null && String(f.value).trim() !== '') {\n    replaceAttrs.push({ id: f.id, value: f.value });\n  }\n}\n\n// Split into always-present (Studio-derived, required form fields)\n// and optional (only set if submitted)\nconst coreAttrs = ['title','company','streetAddress','l','st','postalCode','telephoneNumber','mail'];\nconst optionalAttrIds = ['pager','ipPhone','info'];\n\nconst coreReplace = replaceAttrs.filter(f => coreAttrs.includes(f.id));\nconst optionalReplace = replaceAttrs.filter(f => optionalAttrIds.includes(f.id));\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{ json: { ...adAttrs, replaceAttrs, coreReplace, optionalReplace, hasOptional } }];"
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst existing = $('LDAP: Get current DN (enabled)').first().json;\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle           = valueOrExisting(adAttrs.title, existing.title);\nconst finalCompany         = valueOrExisting(adAttrs.company, existing.company);\nconst finalStreetAddress   = valueOrExisting(adAttrs.streetAddress, existing.streetAddress);\nconst finalL               = valueOrExisting(adAttrs.l, existing.l);\nconst finalSt              = valueOrExisting(adAttrs.st, existing.st);\nconst finalPostalCode      = valueOrExisting(adAttrs.postalCode, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(adAttrs.telephoneNumber, existing.telephoneNumber);\nconst finalMail            = valueOrExisting(adAttrs.mail, existing.mail);\n\nconst optionalFieldDefs = [\n  { id: 'pager',   value: adAttrs.pager },\n  { id: 'ipPhone', value: adAttrs.ipPhone },\n  { id: 'info',    value: adAttrs.info },\n];\nconst optionalReplace = optionalFieldDefs.filter(f => String(f.value ?? '').trim() !== '');\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{\n  json: {\n    ...adAttrs,\n    finalTitle, finalCompany, finalStreetAddress, finalL, finalSt,\n    finalPostalCode, finalTelephoneNumber, finalMail,\n    optionalReplace, hasOptional\n  }\n}];"
       },
       "id": "code-build-update-attrs-enabled-01",
       "name": "Code: Build update attributes (enabled)",
@@ -2435,20 +2530,20 @@
       "typeVersion": 2,
       "position": [
         1840,
-        192
+        112
       ]
     },
     {
       "parameters": {
-        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\nconst replaceAttrs = [];\n\nconst fields = [\n  { id: 'title',           value: adAttrs.title },\n  { id: 'company',         value: adAttrs.company },\n  { id: 'streetAddress',   value: adAttrs.streetAddress },\n  { id: 'l',               value: adAttrs.l },\n  { id: 'st',              value: adAttrs.st },\n  { id: 'postalCode',      value: adAttrs.postalCode },\n  { id: 'telephoneNumber', value: adAttrs.telephoneNumber },\n  { id: 'mail',            value: adAttrs.mail },\n  { id: 'pager',           value: adAttrs.pager },\n  { id: 'ipPhone',         value: adAttrs.ipPhone },\n  { id: 'info',            value: adAttrs.info },\n];\n\nfor (const f of fields) {\n  if (f.value !== undefined && f.value !== null && String(f.value).trim() !== '') {\n    replaceAttrs.push({ id: f.id, value: f.value });\n  }\n}\n\nconst coreAttrs = ['title','company','streetAddress','l','st','postalCode','telephoneNumber','mail'];\nconst optionalAttrIds = ['pager','ipPhone','info'];\n\nconst coreReplace = replaceAttrs.filter(f => coreAttrs.includes(f.id));\nconst optionalReplace = replaceAttrs.filter(f => optionalAttrIds.includes(f.id));\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{ json: { ...adAttrs, replaceAttrs, coreReplace, optionalReplace, hasOptional } }];"
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst existing = $('LDAP: Get current DN (disabled)').first().json;\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle           = valueOrExisting(adAttrs.title, existing.title);\nconst finalCompany         = valueOrExisting(adAttrs.company, existing.company);\nconst finalStreetAddress   = valueOrExisting(adAttrs.streetAddress, existing.streetAddress);\nconst finalL               = valueOrExisting(adAttrs.l, existing.l);\nconst finalSt              = valueOrExisting(adAttrs.st, existing.st);\nconst finalPostalCode      = valueOrExisting(adAttrs.postalCode, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(adAttrs.telephoneNumber, existing.telephoneNumber);\nconst finalMail            = valueOrExisting(adAttrs.mail, existing.mail);\n\nconst optionalFieldDefs = [\n  { id: 'pager',   value: adAttrs.pager },\n  { id: 'ipPhone', value: adAttrs.ipPhone },\n  { id: 'info',    value: adAttrs.info },\n];\nconst optionalReplace = optionalFieldDefs.filter(f => String(f.value ?? '').trim() !== '');\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{\n  json: {\n    ...adAttrs,\n    finalTitle, finalCompany, finalStreetAddress, finalL, finalSt,\n    finalPostalCode, finalTelephoneNumber, finalMail,\n    optionalReplace, hasOptional\n  }\n}];"
       },
       "id": "code-build-update-attrs-disabled-01",
       "name": "Code: Build update attributes (disabled)",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1840,
-        464
+        1824,
+        544
       ]
     },
     {
@@ -2459,35 +2554,35 @@
           "replace": [
             {
               "id": "title",
-              "value": "={{ $json.title }}"
+              "value": "={{ $json.finalTitle }}"
             },
             {
               "id": "company",
-              "value": "={{ $json.company }}"
+              "value": "={{ $json.finalCompany }}"
             },
             {
               "id": "streetAddress",
-              "value": "={{ $json.streetAddress }}"
+              "value": "={{ $json.finalStreetAddress }}"
             },
             {
               "id": "l",
-              "value": "={{ $json.l }}"
+              "value": "={{ $json.finalL }}"
             },
             {
               "id": "st",
-              "value": "={{ $json.st }}"
+              "value": "={{ $json.finalSt }}"
             },
             {
               "id": "postalCode",
-              "value": "={{ $json.postalCode }}"
+              "value": "={{ $json.finalPostalCode }}"
             },
             {
               "id": "telephoneNumber",
-              "value": "={{ $json.telephoneNumber }}"
+              "value": "={{ $json.finalTelephoneNumber }}"
             },
             {
               "id": "mail",
-              "value": "={{ $json.mail }}"
+              "value": "={{ $json.finalMail }}"
             }
           ]
         }
@@ -2498,7 +2593,7 @@
       "typeVersion": 1,
       "position": [
         2064,
-        192
+        112
       ],
       "credentials": {
         "ldap": {
@@ -2515,35 +2610,35 @@
           "replace": [
             {
               "id": "title",
-              "value": "={{ $json.title }}"
+              "value": "={{ $json.finalTitle }}"
             },
             {
               "id": "company",
-              "value": "={{ $json.company }}"
+              "value": "={{ $json.finalCompany }}"
             },
             {
               "id": "streetAddress",
-              "value": "={{ $json.streetAddress }}"
+              "value": "={{ $json.finalStreetAddress }}"
             },
             {
               "id": "l",
-              "value": "={{ $json.l }}"
+              "value": "={{ $json.finalL }}"
             },
             {
               "id": "st",
-              "value": "={{ $json.st }}"
+              "value": "={{ $json.finalSt }}"
             },
             {
               "id": "postalCode",
-              "value": "={{ $json.postalCode }}"
+              "value": "={{ $json.finalPostalCode }}"
             },
             {
               "id": "telephoneNumber",
-              "value": "={{ $json.telephoneNumber }}"
+              "value": "={{ $json.finalTelephoneNumber }}"
             },
             {
               "id": "mail",
-              "value": "={{ $json.mail }}"
+              "value": "={{ $json.finalMail }}"
             }
           ]
         }
@@ -2553,8 +2648,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        2064,
-        464
+        2048,
+        544
       ],
       "credentials": {
         "ldap": {
@@ -2581,8 +2676,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        2704,
-        480
+        2496,
+        560
       ],
       "credentials": {
         "ldap": {
@@ -2600,8 +2695,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1632,
-        720
+        1568,
+        928
       ]
     },
     {
@@ -2617,6 +2712,10 @@
             {
               "id": "userAccountControl",
               "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
             }
           ]
         }
@@ -2626,8 +2725,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        1856,
-        720
+        1792,
+        928
       ],
       "credentials": {
         "ldap": {
@@ -2645,8 +2744,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2704,
-        208
+        2528,
+        128
       ]
     },
     {
@@ -2658,8 +2757,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2880,
-        480
+        2688,
+        560
       ]
     },
     {
@@ -2671,6 +2770,14 @@
             {
               "id": "unicodePwd",
               "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
             }
           ]
         }
@@ -2680,8 +2787,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        2912,
-        208
+        2752,
+        128
       ],
       "credentials": {
         "ldap": {
@@ -2699,6 +2806,14 @@
             {
               "id": "unicodePwd",
               "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
             }
           ]
         }
@@ -2708,8 +2823,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        3088,
-        480
+        2864,
+        560
       ],
       "credentials": {
         "ldap": {
@@ -2729,8 +2844,8 @@
       "type": "n8n-nodes-base.form",
       "typeVersion": 2.5,
       "position": [
-        2064,
-        720
+        2000,
+        928
       ],
       "webhookId": "ad-prov-created-001"
     },
@@ -2745,8 +2860,8 @@
       "type": "n8n-nodes-base.form",
       "typeVersion": 2.5,
       "position": [
-        3120,
-        208
+        2944,
+        128
       ],
       "webhookId": "ad-prov-updated-001"
     },
@@ -2761,8 +2876,8 @@
       "type": "n8n-nodes-base.form",
       "typeVersion": 2.5,
       "position": [
-        3312,
-        480
+        3056,
+        560
       ],
       "webhookId": "ad-prov-reenabled-001"
     },
@@ -2782,10 +2897,10 @@
             }
           ],
           "options": {
-            "version": 1,
-            "leftValue": "",
             "caseSensitive": true,
-            "typeValidation": "loose"
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
           }
         },
         "options": {}
@@ -2796,7 +2911,7 @@
       "typeVersion": 2.3,
       "position": [
         2304,
-        192
+        112
       ]
     },
     {
@@ -2808,15 +2923,9 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2496,
-        48
-      ],
-      "credentials": {
-        "ldap": {
-          "id": "axjXdG9uTTFWBrzN",
-          "name": "LDAP account"
-        }
-      }
+        2528,
+        -64
+      ]
     },
     {
       "parameters": {
@@ -2834,10 +2943,10 @@
             }
           ],
           "options": {
-            "version": 1,
-            "leftValue": "",
             "caseSensitive": true,
-            "typeValidation": "loose"
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
           }
         },
         "options": {}
@@ -2847,8 +2956,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        2272,
-        464
+        2256,
+        544
       ]
     },
     {
@@ -2861,36 +2970,30 @@
       "typeVersion": 2,
       "position": [
         2496,
-        320
-      ],
-      "credentials": {
-        "ldap": {
-          "id": "axjXdG9uTTFWBrzN",
-          "name": "LDAP account"
-        }
-      }
+        368
+      ]
     },
     {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "={{ $json.attrId }}",
+              "value": "={{ $json.attrValue }}"
+            }
+          ]
+        }
+      },
       "id": "ldap-write-optional-enabled-01",
       "name": "LDAP: Write optional attr (enabled)",
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        2896,
-        60
+        2736,
+        -64
       ],
-      "parameters": {
-        "attributes": {
-          "replace": [
-            {
-              "id": "={{ $json.attrId }}",
-              "value": "={{ $json.attrValue }}"
-            }
-          ]
-        },
-        "dn": "={{ $json.dn }}",
-        "operation": "update"
-      },
       "credentials": {
         "ldap": {
           "id": "axjXdG9uTTFWBrzN",
@@ -2899,15 +3002,9 @@
       }
     },
     {
-      "id": "ldap-write-optional-disabled-01",
-      "name": "LDAP: Write optional attr (disabled)",
-      "type": "n8n-nodes-base.ldap",
-      "typeVersion": 1,
-      "position": [
-        2896,
-        360
-      ],
       "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.dn }}",
         "attributes": {
           "replace": [
             {
@@ -2915,16 +3012,111 @@
               "value": "={{ $json.attrValue }}"
             }
           ]
-        },
-        "dn": "={{ $json.dn }}",
-        "operation": "update"
+        }
       },
+      "id": "ldap-write-optional-disabled-01",
+      "name": "LDAP: Write optional attr (disabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        2688,
+        368
+      ],
       "credentials": {
         "ldap": {
           "id": "axjXdG9uTTFWBrzN",
           "name": "LDAP account"
         }
       }
+    },
+    {
+      "parameters": {
+        "height": 400,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -240,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "c8ba9f84-baaa-49ec-89ba-d1aa90d732a8",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "height": 400,
+        "width": 656,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        256,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "70ad6955-ebb6-428f-af96-0f224b64950c",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "height": 400,
+        "width": 224,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        928,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "0d51ec77-53f0-47ca-b1ac-ced5ce24b2c0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "height": 384,
+        "width": 1872,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1264,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "1c905c29-e956-495c-ad86-356d14ccd456",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "height": 384,
+        "width": 1984,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1264,
+        352
+      ],
+      "typeVersion": 1,
+      "id": "c977405a-b9ce-46db-8017-eb48222c6d02",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "height": 352,
+        "width": 928,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1264,
+        784
+      ],
+      "typeVersion": 1,
+      "id": "8c0867e7-7358-41d5-873a-66ba94866b85",
+      "name": "Sticky Note5"
     }
   ],
   "pinData": {},
@@ -2947,6 +3139,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-06-30T04:00:20.025Z",
-  "versionId": "ebf92c30-8175-44b8-ac37-6d80b31bf2ac"
+  "updatedAt": "2026-06-30T17:00:53.312Z",
+  "versionId": "26b00baf-e616-47e9-8366-53fa9d295f63"
 }
