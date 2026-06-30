@@ -5,13 +5,7 @@
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
-        [
-          {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -28,8 +22,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -592,
-        -288
+        -1392,
+        -608
       ],
       "id": "f38f204a-8d3d-4ce1-bca8-e01bc8b83a2d",
       "name": "When clicking ‘Execute workflow’"
@@ -45,8 +39,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        -384,
-        -864
+        -1264,
+        -1072
       ],
       "id": "0770bde2-2c82-49d3-96d9-3ad14e75d1cb",
       "name": "Send an Email",
@@ -71,8 +65,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        -624,
-        -864
+        -1504,
+        -1072
       ],
       "id": "d7b854a2-137e-41bd-bb07-ec0710128623",
       "name": "HTTP Request - Teams Message",
@@ -85,11 +79,12 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        -384,
-        -288
+        -1040,
+        -1040
       ],
       "id": "11824db1-611a-446d-b43e-ac4adef462c9",
-      "name": "HTTP Request"
+      "name": "HTTP Request",
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -110,6 +105,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-29T00:10:38.608Z",
-  "versionId": "92e4bcd9-1a49-4be6-b236-bd795e2334fd"
+  "updatedAt": "2026-06-30T17:05:51.195Z",
+  "versionId": "03a69108-6a38-4c9f-9821-26cb21b7f119"
 }
