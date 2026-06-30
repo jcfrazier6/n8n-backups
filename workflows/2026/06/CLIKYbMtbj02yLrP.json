@@ -80,58 +80,7 @@
       "main": [
         [
           {
-            "node": "Wait for License Reply",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait for License Reply": {
-      "main": [
-        [
-          {
-            "node": "Re-Check License",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Re-Check License": {
-      "main": [
-        [
-          {
-            "node": "Re-Evaluate License",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Re-Evaluate License": {
-      "main": [
-        [
-          {
-            "node": "License Now Available?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "License Now Available?": {
-      "main": [
-        [
-          {
             "node": "Set Email Input",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Notify Admin - No License",
             "type": "main",
             "index": 0
           }
@@ -179,8 +128,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1024,
-        -288
+        1248,
+        -144
       ]
     },
     {
@@ -221,8 +170,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        1232,
-        -288
+        1456,
+        -144
       ],
       "credentials": {
         "oAuth2Api": {
@@ -241,8 +190,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1456,
-        -288
+        1680,
+        -144
       ]
     },
     {
@@ -279,7 +228,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Microsoft 365 Business Standard SKU part number\nconst TARGET_SKU = 'O365_BUSINESS_PREMIUM';\n\nconst items = $input.all();\nconst first = items[0]?.json;\n// Handle both direct value array and nested response\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\n// Find the target SKU\nconst sku = skus.find(s => s.skuPartNumber === TARGET_SKU);\n\nif (!sku) {\n  return [{\n    json: {\n      licenseFound: false,\n      licenseName: 'Microsoft 365 Business Standard',\n      skuPartNumber: TARGET_SKU,\n      available: false,\n      availableUnits: 0,\n      totalUnits: 0,\n      consumedUnits: 0,\n      capabilityStatus: null,\n      message: 'SKU not found in tenant — license may not be purchased'\n    }\n  }];\n}\n\nconst total    = sku.prepaidUnits?.enabled ?? 0;\nconst consumed = sku.consumedUnits ?? 0;\nconst available = total - consumed;\n\nreturn [{\n  json: {\n    licenseFound: true,\n    licenseName: 'Microsoft 365 Business Standard',\n    skuPartNumber: TARGET_SKU,\n    skuId: sku.skuId,\n    available: available > 0,\n    availableUnits: available,\n    totalUnits: total,\n    consumedUnits: consumed,\n    capabilityStatus: sku.capabilityStatus,\n    message: available > 0\n      ? `${available} license(s) available`\n      : 'No licenses available — all seats are consumed'\n  }\n}];\n"
+        "jsCode": "// Microsoft 365 Business Standard SKU part number\nconst TARGET_SKU = 'EXCHANGEENTERPRISE';\n\nconst items = $input.all();\nconst first = items[0]?.json;\n// Handle both direct value array and nested response\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\n// Find the target SKU\nconst sku = skus.find(s => s.skuPartNumber === TARGET_SKU);\n\nif (!sku) {\n  return [{\n    json: {\n      licenseFound: false,\n      licenseName: 'Exchange Online (Plan 2)',\n      skuPartNumber: TARGET_SKU,\n      available: false,\n      availableUnits: 0,\n      totalUnits: 0,\n      consumedUnits: 0,\n      capabilityStatus: null,\n      message: 'SKU not found in tenant — license may not be purchased'\n    }\n  }];\n}\n\nconst total    = sku.prepaidUnits?.enabled ?? 0;\nconst consumed = sku.consumedUnits ?? 0;\nconst available = total - consumed;\n\nreturn [{\n  json: {\n    licenseFound: true,\n    licenseName: 'Exchange Online (Plan 2)',\n    skuPartNumber: TARGET_SKU,\n    skuId: sku.skuId,\n    available: available > 0,\n    availableUnits: available,\n    totalUnits: total,\n    consumedUnits: consumed,\n    capabilityStatus: sku.capabilityStatus,\n    message: available > 0\n      ? `${available} license(s) available`\n      : 'No licenses available — all seats are consumed'\n  }\n}];\n"
       },
       "id": "code-license-1",
       "name": "Evaluate License",
@@ -292,29 +241,13 @@
     },
     {
       "parameters": {
-        "content": "Check License Availability",
-        "height": 400,
-        "width": 1696
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        368,
-        -304
-      ],
-      "typeVersion": 1,
-      "id": "c2834f1c-62a6-4c22-8603-5573beb26d5e",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
             "leftValue": "",
             "typeValidation": "strict",
-            "version": 2
+            "version": 3
           },
-          "combinator": "and",
           "conditions": [
             {
               "id": "license-check",
@@ -326,7 +259,8 @@
               },
               "rightValue": ""
             }
-          ]
+          ],
+          "combinator": "and"
         },
         "options": {}
       },
@@ -342,9 +276,9 @@
     {
       "parameters": {
         "fromEmail": "itadmin@michaelgraves.com",
-        "toEmail": "itadmin@michaelgraves.com",
+        "toEmail": "jcfrazier6@gmail.com",
         "subject": "Action Required: M365 Business Standard License Needed",
-        "html": "=<p>Hello,</p>\n<p>A new user account request has been initiated but there are <strong>no available Microsoft 365 Business Standard licenses</strong> in the tenant.</p>\n<ul>\n  <li><strong>License:</strong> Microsoft 365 Business Standard (O365_BUSINESS_PREMIUM)</li>\n  <li><strong>Total Seats:</strong> {{ $('Evaluate License').item.json.totalUnits }}</li>\n  <li><strong>Consumed:</strong> {{ $('Evaluate License').item.json.consumedUnits }}</li>\n  <li><strong>Available:</strong> 0</li>\n</ul>\n<p>Please purchase and assign an additional license, then reply to this email with <strong>\"License Ready\"</strong> to continue the onboarding process.</p>",
+        "html": "=<p>Hello,</p>\n<p>We have a need for $numberOfLicenses additional Microsoft 365 Business Standard license(s).</p>\n<p>Please purchase and assign a to the user(s) below.</p>\n<ul>\n  <li>$userOne</li>\n  <li>$userTwo</li>\n  <li>$userThree</li>\n</ul>",
         "options": {}
       },
       "id": "send-email-1",
@@ -353,7 +287,7 @@
       "typeVersion": 2.1,
       "position": [
         1008,
-        -112
+        -32
       ],
       "webhookId": "40e38cf4-e497-468e-af2e-3e2170ff4bd9",
       "credentials": {
@@ -362,102 +296,6 @@
           "name": "SMTP account"
         }
       }
-    },
-    {
-      "parameters": {
-        "resume": "webhook",
-        "options": {
-          "webhookSuffix": "license-ready"
-        }
-      },
-      "id": "wait-email-1",
-      "name": "Wait for License Reply",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        1232,
-        -112
-      ],
-      "webhookId": "eb0e3648-edbb-4472-9193-de83f4462a2b"
-    },
-    {
-      "parameters": {
-        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "oAuth2Api",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "$select",
-              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "recheck-license-1",
-      "name": "Re-Check License",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.4,
-      "position": [
-        1456,
-        -112
-      ],
-      "credentials": {
-        "oAuth2Api": {
-          "id": "SNckLHvZeuiqnLvO",
-          "name": "Entra OAuth2 API"
-        }
-      },
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "jsCode": "const TARGET_SKU = 'O365_BUSINESS_PREMIUM';\n\nconst items = $input.all();\nconst first = items[0]?.json;\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\nconst sku = skus.find(s => s.skuPartNumber === TARGET_SKU);\n\nif (!sku) {\n  return [{\n    json: {\n      licenseFound: false,\n      licenseName: 'Microsoft 365 Business Standard',\n      skuPartNumber: TARGET_SKU,\n      available: false,\n      availableUnits: 0,\n      totalUnits: 0,\n      consumedUnits: 0,\n      capabilityStatus: null,\n      message: 'SKU not found in tenant — license may not be purchased'\n    }\n  }];\n}\n\nconst total = sku.prepaidUnits?.enabled ?? 0;\nconst consumed = sku.consumedUnits ?? 0;\nconst available = total - consumed;\n\nreturn [{\n  json: {\n    licenseFound: true,\n    licenseName: 'Microsoft 365 Business Standard',\n    skuPartNumber: TARGET_SKU,\n    skuId: sku.skuId,\n    available: available > 0,\n    availableUnits: available,\n    totalUnits: total,\n    consumedUnits: consumed,\n    capabilityStatus: sku.capabilityStatus,\n    message: available > 0\n      ? `${available} license(s) available`\n      : 'No licenses available — all seats are consumed'\n  }\n}];\n"
-      },
-      "id": "recheck-eval-1",
-      "name": "Re-Evaluate License",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1664,
-        -112
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "combinator": "and",
-          "conditions": [
-            {
-              "id": "recheck-condition",
-              "leftValue": "={{ $json.available }}",
-              "operator": {
-                "operation": "true",
-                "type": "boolean",
-                "singleValue": true
-              },
-              "rightValue": ""
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "if-recheck-1",
-      "name": "License Now Available?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.3,
-      "position": [
-        1888,
-        -112
-      ]
     }
   ],
   "pinData": {
@@ -485,6 +323,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-06-29T01:46:24.563Z",
-  "versionId": "2e8573ca-9b86-4c4c-8576-505d37e61355"
+  "updatedAt": "2026-06-30T01:09:52.808Z",
+  "versionId": "e5e886e2-f14a-442b-a765-63db65656d21"
 }
