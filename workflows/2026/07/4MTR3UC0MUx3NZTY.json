@@ -1,0 +1,192 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-07-01T15:11:10.000Z",
+    "createdAt": "2026-07-01T15:11:06.964Z",
+    "versionId": "6160baba-4584-4141-875c-84de33ce4e32",
+    "workflowId": "4MTR3UC0MUx3NZTY",
+    "nodes": [
+      {
+        "parameters": {
+          "path": "ad-user-provisioning-launch",
+          "responseMode": "responseNode",
+          "options": {}
+        },
+        "id": "f734e3e8-f7fc-436a-b826-d42ea9cdf057",
+        "name": "Webhook: Launch Form",
+        "position": [
+          0,
+          0
+        ],
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "webhookId": "631920d6-bf54-42f7-94db-da91024b6582"
+      },
+      {
+        "parameters": {
+          "workflowId": {
+            "__rl": true,
+            "value": "uMGskDBRZZJea6ET",
+            "mode": "id",
+            "cachedResultUrl": "/workflow/uMGskDBRZZJea6ET"
+          },
+          "options": {}
+        },
+        "id": "c1f2e381-4a8d-40f9-a999-6baf7161a165",
+        "name": "Execute: Refresh Form Values",
+        "position": [
+          224,
+          0
+        ],
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.1
+      },
+      {
+        "parameters": {
+          "respondWith": "redirect",
+          "redirectURL": "http://192.168.84.6:5678/form/7e965f9b-c255-4613-bf15-dcb45cec816f",
+          "options": {}
+        },
+        "id": "3cc32191-e17f-4724-885a-e47f58fa27fe",
+        "name": "Redirect to Form",
+        "position": [
+          448,
+          0
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.1
+      }
+    ],
+    "connections": {
+      "Execute: Refresh Form Values": {
+        "main": [
+          [
+            {
+              "node": "Redirect to Form",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Webhook: Launch Form": {
+        "main": [
+          [
+            {
+              "node": "Execute: Refresh Form Values",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "IT Admin",
+    "name": "Version 6160baba",
+    "description": "",
+    "autosaved": true
+  },
+  "activeVersionId": "6160baba-4584-4141-875c-84de33ce4e32",
+  "connections": {
+    "Execute: Refresh Form Values": {
+      "main": [
+        [
+          {
+            "node": "Redirect to Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Launch Form": {
+      "main": [
+        [
+          {
+            "node": "Execute: Refresh Form Values",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-01T14:38:53.810Z",
+  "id": "4MTR3UC0MUx3NZTY",
+  "isArchived": false,
+  "meta": null,
+  "name": "AD User Provisioning Launcher",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ad-user-provisioning-launch",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f734e3e8-f7fc-436a-b826-d42ea9cdf057",
+      "name": "Webhook: Launch Form",
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "631920d6-bf54-42f7-94db-da91024b6582"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "uMGskDBRZZJea6ET",
+          "mode": "id",
+          "cachedResultUrl": "/workflow/uMGskDBRZZJea6ET"
+        },
+        "options": {}
+      },
+      "id": "c1f2e381-4a8d-40f9-a999-6baf7161a165",
+      "name": "Execute: Refresh Form Values",
+      "position": [
+        224,
+        0
+      ],
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "http://192.168.84.6:5678/form/7e965f9b-c255-4613-bf15-dcb45cec816f",
+        "options": {}
+      },
+      "id": "3cc32191-e17f-4724-885a-e47f58fa27fe",
+      "name": "Redirect to Form",
+      "position": [
+        448,
+        0
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-01T14:38:53.810Z",
+      "createdAt": "2026-07-01T14:38:53.810Z",
+      "role": "workflow:owner",
+      "workflowId": "4MTR3UC0MUx3NZTY",
+      "projectId": "RmOilgTSaNq34WG7"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-01T15:11:06.975Z",
+  "versionId": "6160baba-4584-4141-875c-84de33ce4e32"
+}
