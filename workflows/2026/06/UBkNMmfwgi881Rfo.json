@@ -1,0 +1,110 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2026-06-28T19:38:41.990Z",
+  "id": "UBkNMmfwgi881Rfo",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Testing",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1392,
+        -608
+      ],
+      "id": "f38f204a-8d3d-4ce1-bca8-e01bc8b83a2d",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "cfrazier@michaelgraves.com",
+        "subject": "Test Message",
+        "html": "This is a test",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1264,
+        -1072
+      ],
+      "id": "0770bde2-2c82-49d3-96d9-3ad14e75d1cb",
+      "name": "Send an Email",
+      "webhookId": "01f18df2-f956-4be8-886e-e25532db0b1d",
+      "credentials": {
+        "smtp": {
+          "id": "ORyqzt5CJoMm4aYV",
+          "name": "SMTP account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://default90513a2c7a3648c78b80f20fcc7953.74.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/b5295696fb454c19bdc47ad0b48e690e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YbfKLVs-S6BVLykG6mSTseA63Zc9mHFMVoTBfOxxac8",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"type\": \"AdaptiveCard\",\n  \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\n  \"version\": \"1.4\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Hello from n8n! This is a test message.\",\n      \"wrap\": true\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1504,
+        -1072
+      ],
+      "id": "d7b854a2-137e-41bd-bb07-ec0710128623",
+      "name": "HTTP Request - Teams Message",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1040,
+        -1040
+      ],
+      "id": "11824db1-611a-446d-b43e-ac4adef462c9",
+      "name": "HTTP Request",
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-06-28T19:38:41.990Z",
+      "createdAt": "2026-06-28T19:38:41.990Z",
+      "role": "workflow:owner",
+      "workflowId": "UBkNMmfwgi881Rfo",
+      "projectId": "NKrmQxH8bxVGvPKo"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-06-30T17:05:51.195Z",
+  "versionId": "03a69108-6a38-4c9f-9821-26cb21b7f119"
+}
