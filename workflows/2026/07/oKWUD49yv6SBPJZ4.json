@@ -1,0 +1,329 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Set Email Input": {
+      "main": [
+        [
+          {
+            "node": "Check Users (All Types)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Users (All Types)": {
+      "main": [
+        [
+          {
+            "node": "Consolidate Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Check License Availability",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check License Availability": {
+      "main": [
+        [
+          {
+            "node": "Evaluate License",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluate License": {
+      "main": [
+        [
+          {
+            "node": "License Available?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "License Available?": {
+      "main": [
+        [
+          {
+            "node": "Set Email Input",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Admin - No License",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Admin - No License": {
+      "main": [
+        [
+          {
+            "node": "Set Email Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-02T16:35:40.985Z",
+  "id": "oKWUD49yv6SBPJZ4",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "M365 Provisioning",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "00214401-f3c7-4039-8f84-4c6424b1e4f6",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1248,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "email-assign",
+              "name": "emailToCheck",
+              "type": "string",
+              "value": "={{ $json.email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "663661cd-32aa-45f5-9d5b-7a326793cbe0",
+      "name": "Set Email Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -208,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/users",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$filter",
+              "value": "={{ \"mail eq '\" + $('Set Email Input').item.json.emailToCheck + \"' or userPrincipalName eq '\" + $('Set Email Input').item.json.emailToCheck + \"' or proxyAddresses/any(a:a eq 'smtp:\" + $('Set Email Input').item.json.emailToCheck + \"')\" }}"
+            },
+            {
+              "name": "$select",
+              "value": "id,displayName,mail,userPrincipalName,mailNickname,userType,accountEnabled,isResourceAccount,assignedLicenses,onPremisesSyncEnabled,proxyAddresses,userPurpose"
+            },
+            {
+              "name": "$count",
+              "value": "true"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "ConsistencyLevel",
+              "value": "eventual"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bb794a9e-623c-4a29-b7f8-79f235dd845b",
+      "name": "Check Users (All Types)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        -64
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "t8BCD8pP06ajRhfw",
+          "name": "Entra OAuth2 API"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const matches = [];\nconst seenIds = new Set();\n\nfunction safeEmail() {\n  try {\n    return $('Set Email Input').first().json.emailToCheck.toLowerCase();\n  } catch(e) {\n    return '';\n  }\n}\n\nconst email = safeEmail();\n\nfunction addMatch(obj) {\n  if (!obj || !obj.id) return;\n  if (seenIds.has(obj.id)) return;\n  seenIds.add(obj.id);\n  matches.push(obj);\n}\n\n// ─────────────────────────────────────────────\n// USERS — covers all user-based account types:\n// Active, Shared Mailbox, Room, Equipment,\n// Guest, Hybrid, Disabled, Licensed/Unlicensed\n// ─────────────────────────────────────────────\nfunction safeGet(nodeName) {\n  try {\n    const items = $(nodeName).all();\n    if (!items || items.length === 0) return [];\n    const first = items[0].json;\n    return first?.value || (first?.id ? [first] : []);\n  } catch (e) {\n    return [];\n  }\n}\n\nfor (const u of safeGet('Check Users (All Types)')) {\n  const hasLicense  = u.assignedLicenses?.length > 0;\n  const isResource  = u.isResourceAccount === true;\n  const isGuest     = u.userType === 'Guest';\n  const isHybrid    = u.onPremisesSyncEnabled === true;\n  const isDisabled  = u.accountEnabled === false;\n  const purpose     = u.userPurpose?.toLowerCase();\n\n  let accountType;\n  if (purpose === 'shared')              accountType = 'Shared Mailbox';\n  else if (purpose === 'room')           accountType = 'Room Mailbox';\n  else if (purpose === 'equipment')      accountType = 'Equipment Mailbox';\n  else if (isGuest)                      accountType = 'Guest User';\n  else if (isResource && hasLicense)     accountType = 'Licensed Resource Account';\n  else if (isResource)                   accountType = 'Resource Account';\n  else if (isDisabled && !hasLicense)    accountType = 'Disabled Unlicensed User';\n  else if (isDisabled)                   accountType = 'Disabled User';\n  else if (isHybrid && hasLicense)       accountType = 'Hybrid AD User (Synced)';\n  else if (isHybrid)                     accountType = 'Hybrid AD User (Unlicensed)';\n  else if (hasLicense)                   accountType = 'Active Licensed User';\n  else                                   accountType = 'Unlicensed User';\n\n  addMatch({\n    accountType,\n    id: u.id,\n    displayName: u.displayName,\n    mail: u.mail,\n    userPrincipalName: u.userPrincipalName,\n    mailNickname: u.mailNickname,\n    accountEnabled: u.accountEnabled,\n    userPurpose: u.userPurpose || null,\n    isResourceAccount: u.isResourceAccount,\n    onPremisesSyncEnabled: u.onPremisesSyncEnabled,\n    assignedLicenses: u.assignedLicenses,\n    proxyAddresses: u.proxyAddresses,\n    raw: u\n  });\n}\n\n// ─────────────────────────────────────────────\n// FINAL OUTPUT\n// ─────────────────────────────────────────────\nreturn [{\n  json: {\n    emailChecked: email,\n    accountExists: matches.length > 0,\n    matchCount: matches.length,\n    accountTypes: [...new Set(matches.map(m => m.accountType))],\n    matches\n  }\n}];\n"
+      },
+      "id": "0493efe2-e14a-4ad6-a5ca-5f965c7b7f1e",
+      "name": "Consolidate Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -64
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1c3c346c-a538-455d-bf54-7dc19248e033",
+      "name": "Check License Availability",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1024,
+        -48
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "t8BCD8pP06ajRhfw",
+          "name": "Entra OAuth2 API"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Microsoft 365 Business Standard SKU part number\nconst TARGET_SKU = 'EXCHANGEENTERPRISE';\n\nconst items = $input.all();\nconst first = items[0]?.json;\n// Handle both direct value array and nested response\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\n// Find the target SKU\nconst sku = skus.find(s => s.skuPartNumber === TARGET_SKU);\n\nif (!sku) {\n  return [{\n    json: {\n      licenseFound: false,\n      licenseName: 'Exchange Online (Plan 2)',\n      skuPartNumber: TARGET_SKU,\n      available: false,\n      availableUnits: 0,\n      totalUnits: 0,\n      consumedUnits: 0,\n      capabilityStatus: null,\n      message: 'SKU not found in tenant — license may not be purchased'\n    }\n  }];\n}\n\nconst total    = sku.prepaidUnits?.enabled ?? 0;\nconst consumed = sku.consumedUnits ?? 0;\nconst available = total - consumed;\n\nreturn [{\n  json: {\n    licenseFound: true,\n    licenseName: 'Exchange Online (Plan 2)',\n    skuPartNumber: TARGET_SKU,\n    skuId: sku.skuId,\n    available: available > 0,\n    availableUnits: available,\n    totalUnits: total,\n    consumedUnits: consumed,\n    capabilityStatus: sku.capabilityStatus,\n    message: available > 0\n      ? `${available} license(s) available`\n      : 'No licenses available — all seats are consumed'\n  }\n}];\n"
+      },
+      "id": "402573eb-ad98-4406-b68b-ef8e5e3e6973",
+      "name": "Evaluate License",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "license-check",
+              "leftValue": "={{ $json.available }}",
+              "operator": {
+                "operation": "true",
+                "type": "boolean",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "e89001b9-5d5d-4df9-a78d-7c15f0186a49",
+      "name": "License Available?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -656,
+        -48
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "cfrazier@michaelgraves.com",
+        "subject": "Action Required: M365 License Needed",
+        "html": "=<p>Hello,</p>\n<p>We have a need for $numberOfLicenses additional $licenseName license(s).</p>\n<p>Please purchase and assign to the user(s) below.</p>\n<ul>\n  <li>$userOne</li>\n  <li>$userTwo</li>\n  <li>$userThree</li>\n</ul>",
+        "options": {}
+      },
+      "id": "8a6a936a-7f80-4e89-b847-0279d497ffd0",
+      "name": "Notify Admin - No License",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -448,
+        48
+      ],
+      "webhookId": "40e38cf4-e497-468e-af2e-3e2170ff4bd9",
+      "credentials": {
+        "smtp": {
+          "id": "zyzvCLXpv9nbOFvh",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "email": "Test@michaelgraves.com"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-02T16:35:40.985Z",
+      "createdAt": "2026-07-02T16:35:40.985Z",
+      "role": "workflow:owner",
+      "workflowId": "oKWUD49yv6SBPJZ4",
+      "projectId": "RmOilgTSaNq34WG7"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-03T00:21:41.266Z",
+  "versionId": "85c604e5-aef4-4301-b894-74447c4cc29d"
+}
