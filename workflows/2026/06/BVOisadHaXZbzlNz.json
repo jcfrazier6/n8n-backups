@@ -1767,6 +1767,9 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": []
+    },
+    "global": {
+      "failedFlows": []
     }
   },
   "tags": [],
