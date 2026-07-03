@@ -1,16 +1,15 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-01T19:38:52.025Z",
-    "createdAt": "2026-07-01T19:38:52.025Z",
-    "versionId": "21d74a7d-03f4-4a5f-a6d5-e0701475d21e",
+    "updatedAt": "2026-07-03T04:00:36.989Z",
+    "createdAt": "2026-07-03T04:00:36.989Z",
+    "versionId": "e7c13c46-1bd5-4387-ba5a-b414a54439d0",
     "workflowId": "qG72wXHcuGFT3JS4",
     "nodes": [
       {
         "parameters": {
           "authentication": "n8nUserAuth",
           "formTitle": "AD User Provisioning",
-          "formDescription": "Submit a request to create or update an Active Directory user account",
           "formFields": {
             "values": [
               {
@@ -281,15 +280,17 @@
               }
             ]
           },
-          "options": {}
+          "options": {
+            "customCss": "/* 1. APPLIES TOTAL BRAND BLACK TO THE ENTIRE PAGE & WRAPPERS */\nbody, \nmain, \n.form-container, \n.ndv-form, \n.form-card, \n.card, \n.form-wrapper, \ndiv[class*=\"card\"], \ndiv[class*=\"form\"],\nfieldset {\n    background-color: #000000 !important;\n    background: #000000 !important;\n    color: #FFFFFF !important;\n    border-color: #222222 !important;\n}\n\n/* 2. FORCE EVERY SINGLE FIELD LABEL ON THE PAGE TO PURE WHITE */\nlabel, \n.form-label, \n.field-label, \n.ndv-form-label, \nlegend,\nh1, h2, h3, p, span,\ndiv[class*=\"label\"],\nspan[class*=\"label\"],\np[class*=\"label\"] {\n    color: #FFFFFF !important;\n    opacity: 1 !important;\n    font-weight: 600 !important;\n}\n\n/* TARGET ONLY THE ASTERISK CHARACTER */\n/* This ensures only the tiny star element is red, leaving text white */\nspan.required,\n.required-asterisk,\nlabel span:last-child,\ndiv[class*=\"label\"] span:last-child {\n    color: #D8262D !important;\n}\n\n/* For validation message strings below the inputs (\"This field is required\") */\ndiv[class*=\"errorMessage\"],\n.invalid-feedback,\np[class*=\"error\"] {\n    color: #D8262D !important;\n    font-weight: normal !important;\n}\n\n/* 3. STRIP WHITE BACKGROUND FROM COMBOBOX OUTER CONTAINER WRAPPERS */\ndiv[class*=\"-control\"],\n.select-wrapper,\ndiv[class*=\"input-wrapper\"],\ndiv[class*=\"container\"] {\n    background-color: transparent !important;\n    background: transparent !important;\n    border: none !important;\n    padding: 0 !important;\n    box-shadow: none !important;\n}\n\n/* 4. ACTUAL INPUT FIELDS (FORCES BACKGROUND WHITE & TEXT SOLID BLACK) */\ninput, \ntextarea, \nselect, \n.form-control, \ndiv[class*=\"select__control\"],\ndiv[class*=\"control\"],\ndiv[class*=\"valueContainer\"],\nspan[class*=\"valueContainer\"],\ndiv[class*=\"singleValue\"],\nspan[class*=\"singleValue\"] {\n    background-color: #FFFFFF !important;\n    background: #FFFFFF !important;\n    color: #000000 !important; /* Force text black inside all inputs */\n    border: 1px solid #333333 !important;\n    border-radius: 4px !important;\n    padding: 10px !important;\n}\n\n/* Ensure placeholder text (\"Select an option...\") stays readable in dark grey */\ninput::placeholder,\ndiv[class*=\"placeholder\"],\nspan[class*=\"placeholder\"] {\n    color: #555555 !important;\n}\n\n/* 5. UNIFIED STYLING FOR COMBOBOX DROPDOWN OPTIONS OVERLAY */\nselect option, \n.dropdown-menu, \n.dropdown-item, \n.option, \n*[class*=\"option\"], \ndiv[class*=\"menu\"],\ndiv[class*=\"MenuList\"] {\n    background-color: #FFFFFF !important; \n    color: #000000 !important;            \n}\n\n/* Visual cue when hovering over options in the combobox menu */\nselect option:hover, \nselect option:focus, \n.dropdown-item:hover, \n*[class*=\"option\"]:hover,\ndiv[class*=\"option--is-focused\"] {\n    background-color: #D8262D !important; \n    color: #FFFFFF !important;            \n}\n\n/* Active box focus wrapper styling using MG Red */\ninput:focus, \ntextarea:focus, \nselect:focus,\ndiv[class*=\"control--is-focused\"] {\n    border-color: #D8262D !important;\n    outline: none !important;\n    box-shadow: 0 0 0 2px rgba(216, 38, 45, 0.4) !important;\n}\n\n/* 6. BRAND MG RED SUBMIT BUTTON */\nbutton[type=\"submit\"], \n.btn-submit, \nbutton {\n    background-color: #D8262D !important;\n    color: #FFFFFF !important;\n    border: none !important;\n    border-radius: 4px !important;\n    padding: 12px 24px !important;\n    font-weight: 700 !important;\n    text-transform: uppercase !important;\n    cursor: pointer !important;\n    transition: background-color 0.2s ease !important;\n    width: 100% !important;\n}\n\nbutton[type=\"submit\"]:hover, \n.btn-submit:hover, \nbutton:hover {\n    background-color: #B51D23 !important;\n}\n"
+          }
         },
         "id": "8081aa0a-84d6-43bf-9342-ba5ad6af8c73",
         "name": "On form submission",
         "type": "n8n-nodes-base.formTrigger",
         "typeVersion": 2.6,
         "position": [
-          -1424,
-          304
+          -1696,
+          288
         ],
         "webhookId": "57b471eb-6c4b-450e-833b-0f29b5c50ae8"
       },
@@ -302,8 +303,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -1232,
-          304
+          -1504,
+          288
         ]
       },
       {
@@ -326,8 +327,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          -1056,
-          304
+          -1328,
+          288
         ],
         "alwaysOutputData": true,
         "credentials": {
@@ -347,8 +348,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -880,
-          304
+          -1152,
+          288
         ],
         "alwaysOutputData": true
       },
@@ -381,8 +382,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          -704,
-          304
+          -976,
+          288
         ]
       },
       {
@@ -463,8 +464,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          -80,
-          512
+          -352,
+          496
         ],
         "alwaysOutputData": false,
         "credentials": {
@@ -484,8 +485,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          144,
-          512
+          -128,
+          496
         ]
       },
       {
@@ -514,8 +515,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          368,
-          512
+          96,
+          496
         ],
         "credentials": {
           "ldap": {
@@ -535,8 +536,8 @@
         "type": "n8n-nodes-base.form",
         "typeVersion": 2.5,
         "position": [
-          576,
-          512
+          304,
+          496
         ],
         "webhookId": "ad-prov-created-001"
       },
@@ -549,8 +550,8 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -1456,
-          160
+          -1728,
+          144
         ],
         "typeVersion": 1,
         "id": "e5551e42-691f-4435-9de2-90ee09d8df7e",
@@ -565,8 +566,8 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -1088,
-          160
+          -1360,
+          144
         ],
         "typeVersion": 1,
         "id": "1a77b84c-b946-4253-a98a-01bd36710d2a",
@@ -576,13 +577,13 @@
         "parameters": {
           "content": "## User Exists",
           "height": 432,
-          "width": 2192,
+          "width": 2512,
           "color": 4
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -352,
-          -48
+          -624,
+          -64
         ],
         "typeVersion": 1,
         "id": "86844933-ebfb-4954-b8a2-ae4ba4510c3e",
@@ -597,8 +598,8 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -352,
-          416
+          -624,
+          400
         ],
         "typeVersion": 1,
         "id": "fc30a22f-a55f-4d82-90b0-66cdb7f36ddf",
@@ -613,8 +614,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          -320,
-          512
+          -592,
+          496
         ]
       },
       {
@@ -625,8 +626,8 @@
         },
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          -1264,
-          160
+          -1536,
+          144
         ],
         "typeVersion": 1,
         "id": "34089aa9-4403-4327-a64c-99d6e82b91c5",
@@ -662,8 +663,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          -304,
-          48
+          -576,
+          32
         ],
         "credentials": {
           "ldap": {
@@ -683,8 +684,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          -80,
-          48
+          -352,
+          32
         ],
         "credentials": {
           "ldap": {
@@ -702,8 +703,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          128,
-          48
+          -144,
+          32
         ]
       },
       {
@@ -752,8 +753,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          352,
-          48
+          80,
+          32
         ],
         "credentials": {
           "ldap": {
@@ -778,10 +779,10 @@
               }
             ],
             "options": {
-              "version": 1,
-              "leftValue": "",
               "caseSensitive": true,
-              "typeValidation": "loose"
+              "leftValue": "",
+              "typeValidation": "loose",
+              "version": 1
             }
           },
           "options": {}
@@ -791,8 +792,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          576,
-          48
+          304,
+          32
         ],
         "alwaysOutputData": false
       },
@@ -800,10 +801,10 @@
         "parameters": {
           "conditions": {
             "options": {
-              "version": 3,
-              "leftValue": "",
               "caseSensitive": true,
-              "typeValidation": "strict"
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 3
             },
             "conditions": [
               {
@@ -825,8 +826,8 @@
         "type": "n8n-nodes-base.if",
         "typeVersion": 2.3,
         "position": [
-          864,
-          192
+          816,
+          64
         ],
         "alwaysOutputData": false
       },
@@ -848,7 +849,7 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          1040,
+          1088,
           -16
         ],
         "credentials": {
@@ -867,8 +868,8 @@
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          1248,
-          208
+          1280,
+          176
         ],
         "alwaysOutputData": true
       },
@@ -898,8 +899,8 @@
         "type": "n8n-nodes-base.ldap",
         "typeVersion": 1,
         "position": [
-          1440,
-          208
+          1488,
+          176
         ],
         "credentials": {
           "ldap": {
@@ -919,21 +920,15 @@
         "type": "n8n-nodes-base.form",
         "typeVersion": 2.5,
         "position": [
-          1632,
-          208
+          1696,
+          176
         ],
         "webhookId": "2610ab7f-2dc4-4885-99e1-74aaa1572e0b"
       },
       {
-        "id": "opt-set-001",
-        "name": "LDAP: Set optional attributes",
-        "type": "n8n-nodes-base.ldap",
-        "typeVersion": 1,
-        "position": [
-          800,
-          -80
-        ],
         "parameters": {
+          "operation": "update",
+          "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
           "attributes": {
             "replace": [
               {
@@ -949,10 +944,16 @@
                 "value": "={{ $('Code: Build update attributes').first().json.optionalReplace.find(f => f.id === 'info')?.value }}"
               }
             ]
-          },
-          "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
-          "operation": "update"
+          }
         },
+        "id": "opt-set-001",
+        "name": "LDAP: Set optional attributes",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          528,
+          -16
+        ],
         "credentials": {
           "ldap": {
             "id": "GTn2ld6OAhRI8O00",
@@ -962,15 +963,9 @@
         "continueOnFail": true
       },
       {
-        "id": "opt-del-001",
-        "name": "LDAP: Clear optional attributes",
-        "type": "n8n-nodes-base.ldap",
-        "typeVersion": 1,
-        "position": [
-          800,
-          80
-        ],
         "parameters": {
+          "operation": "update",
+          "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
           "attributes": {
             "delete": [
               {
@@ -983,10 +978,16 @@
                 "id": "info"
               }
             ]
-          },
-          "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
-          "operation": "update"
+          }
         },
+        "id": "opt-del-001",
+        "name": "LDAP: Clear optional attributes",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          544,
+          176
+        ],
         "credentials": {
           "ldap": {
             "id": "GTn2ld6OAhRI8O00",
@@ -1245,7 +1246,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "21d74a7d-03f4-4a5f-a6d5-e0701475d21e",
+  "activeVersionId": "e7c13c46-1bd5-4387-ba5a-b414a54439d0",
   "connections": {
     "On form submission": {
       "main": [
@@ -1501,7 +1502,6 @@
       "parameters": {
         "authentication": "n8nUserAuth",
         "formTitle": "AD User Provisioning",
-        "formDescription": "Submit a request to create or update an Active Directory user account",
         "formFields": {
           "values": [
             {
@@ -1772,15 +1772,17 @@
             }
           ]
         },
-        "options": {}
+        "options": {
+          "customCss": "/* 1. APPLIES TOTAL BRAND BLACK TO THE ENTIRE PAGE & WRAPPERS */\nbody, \nmain, \n.form-container, \n.ndv-form, \n.form-card, \n.card, \n.form-wrapper, \ndiv[class*=\"card\"], \ndiv[class*=\"form\"],\nfieldset {\n    background-color: #000000 !important;\n    background: #000000 !important;\n    color: #FFFFFF !important;\n    border-color: #222222 !important;\n}\n\n/* 2. FORCE EVERY SINGLE FIELD LABEL ON THE PAGE TO PURE WHITE */\nlabel, \n.form-label, \n.field-label, \n.ndv-form-label, \nlegend,\nh1, h2, h3, p, span,\ndiv[class*=\"label\"],\nspan[class*=\"label\"],\np[class*=\"label\"] {\n    color: #FFFFFF !important;\n    opacity: 1 !important;\n    font-weight: 600 !important;\n}\n\n/* TARGET ONLY THE ASTERISK CHARACTER */\n/* This ensures only the tiny star element is red, leaving text white */\nspan.required,\n.required-asterisk,\nlabel span:last-child,\ndiv[class*=\"label\"] span:last-child {\n    color: #D8262D !important;\n}\n\n/* For validation message strings below the inputs (\"This field is required\") */\ndiv[class*=\"errorMessage\"],\n.invalid-feedback,\np[class*=\"error\"] {\n    color: #D8262D !important;\n    font-weight: normal !important;\n}\n\n/* 3. STRIP WHITE BACKGROUND FROM COMBOBOX OUTER CONTAINER WRAPPERS */\ndiv[class*=\"-control\"],\n.select-wrapper,\ndiv[class*=\"input-wrapper\"],\ndiv[class*=\"container\"] {\n    background-color: transparent !important;\n    background: transparent !important;\n    border: none !important;\n    padding: 0 !important;\n    box-shadow: none !important;\n}\n\n/* 4. ACTUAL INPUT FIELDS (FORCES BACKGROUND WHITE & TEXT SOLID BLACK) */\ninput, \ntextarea, \nselect, \n.form-control, \ndiv[class*=\"select__control\"],\ndiv[class*=\"control\"],\ndiv[class*=\"valueContainer\"],\nspan[class*=\"valueContainer\"],\ndiv[class*=\"singleValue\"],\nspan[class*=\"singleValue\"] {\n    background-color: #FFFFFF !important;\n    background: #FFFFFF !important;\n    color: #000000 !important; /* Force text black inside all inputs */\n    border: 1px solid #333333 !important;\n    border-radius: 4px !important;\n    padding: 10px !important;\n}\n\n/* Ensure placeholder text (\"Select an option...\") stays readable in dark grey */\ninput::placeholder,\ndiv[class*=\"placeholder\"],\nspan[class*=\"placeholder\"] {\n    color: #555555 !important;\n}\n\n/* 5. UNIFIED STYLING FOR COMBOBOX DROPDOWN OPTIONS OVERLAY */\nselect option, \n.dropdown-menu, \n.dropdown-item, \n.option, \n*[class*=\"option\"], \ndiv[class*=\"menu\"],\ndiv[class*=\"MenuList\"] {\n    background-color: #FFFFFF !important; \n    color: #000000 !important;            \n}\n\n/* Visual cue when hovering over options in the combobox menu */\nselect option:hover, \nselect option:focus, \n.dropdown-item:hover, \n*[class*=\"option\"]:hover,\ndiv[class*=\"option--is-focused\"] {\n    background-color: #D8262D !important; \n    color: #FFFFFF !important;            \n}\n\n/* Active box focus wrapper styling using MG Red */\ninput:focus, \ntextarea:focus, \nselect:focus,\ndiv[class*=\"control--is-focused\"] {\n    border-color: #D8262D !important;\n    outline: none !important;\n    box-shadow: 0 0 0 2px rgba(216, 38, 45, 0.4) !important;\n}\n\n/* 6. BRAND MG RED SUBMIT BUTTON */\nbutton[type=\"submit\"], \n.btn-submit, \nbutton {\n    background-color: #D8262D !important;\n    color: #FFFFFF !important;\n    border: none !important;\n    border-radius: 4px !important;\n    padding: 12px 24px !important;\n    font-weight: 700 !important;\n    text-transform: uppercase !important;\n    cursor: pointer !important;\n    transition: background-color 0.2s ease !important;\n    width: 100% !important;\n}\n\nbutton[type=\"submit\"]:hover, \n.btn-submit:hover, \nbutton:hover {\n    background-color: #B51D23 !important;\n}\n"
+        }
       },
       "id": "8081aa0a-84d6-43bf-9342-ba5ad6af8c73",
       "name": "On form submission",
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.6,
       "position": [
-        -1424,
-        304
+        -1696,
+        288
       ],
       "webhookId": "57b471eb-6c4b-450e-833b-0f29b5c50ae8"
     },
@@ -1793,8 +1795,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1232,
-        304
+        -1504,
+        288
       ]
     },
     {
@@ -1817,8 +1819,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        -1056,
-        304
+        -1328,
+        288
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -1838,8 +1840,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -880,
-        304
+        -1152,
+        288
       ],
       "alwaysOutputData": true
     },
@@ -1872,8 +1874,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -704,
-        304
+        -976,
+        288
       ]
     },
     {
@@ -1954,8 +1956,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        -80,
-        512
+        -352,
+        496
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -1975,8 +1977,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        144,
-        512
+        -128,
+        496
       ]
     },
     {
@@ -2005,8 +2007,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        368,
-        512
+        96,
+        496
       ],
       "credentials": {
         "ldap": {
@@ -2026,8 +2028,8 @@
       "type": "n8n-nodes-base.form",
       "typeVersion": 2.5,
       "position": [
-        576,
-        512
+        304,
+        496
       ],
       "webhookId": "ad-prov-created-001"
     },
@@ -2040,8 +2042,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1456,
-        160
+        -1728,
+        144
       ],
       "typeVersion": 1,
       "id": "e5551e42-691f-4435-9de2-90ee09d8df7e",
@@ -2056,8 +2058,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1088,
-        160
+        -1360,
+        144
       ],
       "typeVersion": 1,
       "id": "1a77b84c-b946-4253-a98a-01bd36710d2a",
@@ -2067,13 +2069,13 @@
       "parameters": {
         "content": "## User Exists",
         "height": 432,
-        "width": 2192,
+        "width": 2512,
         "color": 4
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -352,
-        -48
+        -624,
+        -64
       ],
       "typeVersion": 1,
       "id": "86844933-ebfb-4954-b8a2-ae4ba4510c3e",
@@ -2088,8 +2090,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -352,
-        416
+        -624,
+        400
       ],
       "typeVersion": 1,
       "id": "fc30a22f-a55f-4d82-90b0-66cdb7f36ddf",
@@ -2104,8 +2106,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -320,
-        512
+        -592,
+        496
       ]
     },
     {
@@ -2116,8 +2118,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -1264,
-        160
+        -1536,
+        144
       ],
       "typeVersion": 1,
       "id": "34089aa9-4403-4327-a64c-99d6e82b91c5",
@@ -2153,8 +2155,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        -304,
-        48
+        -576,
+        32
       ],
       "credentials": {
         "ldap": {
@@ -2174,8 +2176,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        -80,
-        48
+        -352,
+        32
       ],
       "credentials": {
         "ldap": {
@@ -2193,8 +2195,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        128,
-        48
+        -144,
+        32
       ]
     },
     {
@@ -2243,8 +2245,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        352,
-        48
+        80,
+        32
       ],
       "credentials": {
         "ldap": {
@@ -2269,10 +2271,10 @@
             }
           ],
           "options": {
-            "version": 1,
-            "leftValue": "",
             "caseSensitive": true,
-            "typeValidation": "loose"
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
           }
         },
         "options": {}
@@ -2282,8 +2284,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        576,
-        48
+        304,
+        32
       ],
       "alwaysOutputData": false
     },
@@ -2291,10 +2293,10 @@
       "parameters": {
         "conditions": {
           "options": {
-            "version": 3,
-            "leftValue": "",
             "caseSensitive": true,
-            "typeValidation": "strict"
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
           },
           "conditions": [
             {
@@ -2316,8 +2318,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        864,
-        192
+        816,
+        64
       ],
       "alwaysOutputData": false
     },
@@ -2339,7 +2341,7 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        1040,
+        1088,
         -16
       ],
       "credentials": {
@@ -2358,8 +2360,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1248,
-        208
+        1280,
+        176
       ],
       "alwaysOutputData": true
     },
@@ -2389,8 +2391,8 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        1440,
-        208
+        1488,
+        176
       ],
       "credentials": {
         "ldap": {
@@ -2410,21 +2412,15 @@
       "type": "n8n-nodes-base.form",
       "typeVersion": 2.5,
       "position": [
-        1632,
-        208
+        1696,
+        176
       ],
       "webhookId": "2610ab7f-2dc4-4885-99e1-74aaa1572e0b"
     },
     {
-      "id": "opt-set-001",
-      "name": "LDAP: Set optional attributes",
-      "type": "n8n-nodes-base.ldap",
-      "typeVersion": 1,
-      "position": [
-        800,
-        -80
-      ],
       "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
         "attributes": {
           "replace": [
             {
@@ -2440,10 +2436,16 @@
               "value": "={{ $('Code: Build update attributes').first().json.optionalReplace.find(f => f.id === 'info')?.value }}"
             }
           ]
-        },
-        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
-        "operation": "update"
+        }
       },
+      "id": "opt-set-001",
+      "name": "LDAP: Set optional attributes",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        528,
+        -16
+      ],
       "credentials": {
         "ldap": {
           "id": "GTn2ld6OAhRI8O00",
@@ -2453,15 +2455,9 @@
       "continueOnFail": true
     },
     {
-      "id": "opt-del-001",
-      "name": "LDAP: Clear optional attributes",
-      "type": "n8n-nodes-base.ldap",
-      "typeVersion": 1,
-      "position": [
-        800,
-        80
-      ],
       "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
         "attributes": {
           "delete": [
             {
@@ -2474,10 +2470,16 @@
               "id": "info"
             }
           ]
-        },
-        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
-        "operation": "update"
+        }
       },
+      "id": "opt-del-001",
+      "name": "LDAP: Clear optional attributes",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        544,
+        176
+      ],
       "credentials": {
         "ldap": {
           "id": "GTn2ld6OAhRI8O00",
@@ -2505,6 +2507,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-02T04:00:37.129Z",
-  "versionId": "21d74a7d-03f4-4a5f-a6d5-e0701475d21e"
+  "updatedAt": "2026-07-03T04:00:36.996Z",
+  "versionId": "e7c13c46-1bd5-4387-ba5a-b414a54439d0"
 }
