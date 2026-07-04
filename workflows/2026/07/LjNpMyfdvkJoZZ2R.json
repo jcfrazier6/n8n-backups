@@ -1,0 +1,214 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-07-03T21:54:54.162Z",
+    "createdAt": "2026-07-03T21:54:54.162Z",
+    "versionId": "644da438-8c92-4503-95d4-c211e030202b",
+    "workflowId": "LjNpMyfdvkJoZZ2R",
+    "nodes": [
+      {
+        "parameters": {},
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          0,
+          0
+        ],
+        "id": "e2d234da-3035-471b-b2a0-ea15b76dfef5",
+        "name": "When clicking ‘Execute workflow’"
+      },
+      {
+        "id": "diag-ldap-search-001",
+        "name": "Diag: Search jfrazier",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          240,
+          0
+        ],
+        "parameters": {
+          "baseDN": "DC=MGA,DC=com",
+          "searchFor": "(objectclass=top)",
+          "attribute": "sAMAccountName",
+          "searchText": "jfrazier",
+          "returnAll": true,
+          "options": {
+            "attributes": [
+              "dn",
+              "distinguishedName",
+              "userAccountControl",
+              "pager",
+              "ipPhone",
+              "info",
+              "whenCreated"
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "GTn2ld6OAhRI8O00",
+            "name": "LDAP account"
+          }
+        }
+      },
+      {
+        "id": "diag-webhook-001",
+        "name": "Diag Webhook",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "httpMethod": "GET",
+          "path": "diag-jfrazier-check",
+          "responseMode": "lastNode"
+        },
+        "webhookId": "9d220067-36ad-4460-aa8e-11b995edfdc9"
+      }
+    ],
+    "connections": {
+      "When clicking ‘Execute workflow’": {
+        "main": [
+          [
+            {
+              "node": "Diag: Search jfrazier",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Diag Webhook": {
+        "main": [
+          [
+            {
+              "node": "Diag: Search jfrazier",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "IT Admin",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "activeVersionId": "644da438-8c92-4503-95d4-c211e030202b",
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Diag: Search jfrazier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Diag Webhook": {
+      "main": [
+        [
+          {
+            "node": "Diag: Search jfrazier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-03T16:09:26.475Z",
+  "id": "LjNpMyfdvkJoZZ2R",
+  "isArchived": false,
+  "meta": null,
+  "name": "Testing",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e2d234da-3035-471b-b2a0-ea15b76dfef5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "id": "diag-ldap-search-001",
+      "name": "Diag: Search jfrazier",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "(objectclass=top)",
+        "attribute": "sAMAccountName",
+        "searchText": "jfrazier",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "distinguishedName",
+            "userAccountControl",
+            "pager",
+            "ipPhone",
+            "info",
+            "whenCreated"
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "GTn2ld6OAhRI8O00",
+          "name": "LDAP account"
+        }
+      }
+    },
+    {
+      "id": "diag-webhook-001",
+      "name": "Diag Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "diag-jfrazier-check",
+        "responseMode": "lastNode"
+      },
+      "webhookId": "9d220067-36ad-4460-aa8e-11b995edfdc9"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-03T16:09:26.475Z",
+      "createdAt": "2026-07-03T16:09:26.475Z",
+      "role": "workflow:owner",
+      "workflowId": "LjNpMyfdvkJoZZ2R",
+      "projectId": "RmOilgTSaNq34WG7"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-03T21:55:20.621Z",
+  "versionId": "644da438-8c92-4503-95d4-c211e030202b"
+}
