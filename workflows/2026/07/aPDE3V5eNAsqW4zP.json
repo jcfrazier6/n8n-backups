@@ -1,0 +1,449 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "New Hire Form": {
+      "main": [
+        [
+          {
+            "node": "Compute Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Fields": {
+      "main": [
+        [
+          {
+            "node": "Check Existing User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Existing User": {
+      "main": [
+        [
+          {
+            "node": "Does User Exist?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Does User Exist?": {
+      "main": [
+        [
+          {
+            "node": "Create Entra ID User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Mailbox Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Mailbox Type": {
+      "main": [
+        [
+          {
+            "node": "Is Shared Mailbox?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Shared Mailbox?": {
+      "main": [
+        [
+          {
+            "node": "Convert Shared Mailbox to Regular",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "TODO - Alert IT - Duplicate Account",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert Shared Mailbox to Regular": {
+      "main": [
+        [
+          {
+            "node": "Wait for Directory Sync",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Directory Sync": {
+      "main": [
+        [
+          {
+            "node": "Reset Password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Password": {
+      "main": [
+        [
+          {
+            "node": "Enable and Rename User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-04T01:02:44.900Z",
+  "id": "aPDE3V5eNAsqW4zP",
+  "isArchived": false,
+  "meta": null,
+  "name": "365 - New Hire M365 Provisioning (MVP)",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "New Hire Account Request",
+        "formDescription": "Submit new-hire details to provision their Microsoft 365 account.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "First Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Last Name",
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "b8e59cf1-1367-45e6-a46b-1633e38f856a",
+      "name": "New Hire Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        240,
+        304
+      ],
+      "webhookId": "015c2f57-e6e6-46eb-9bd3-140e942954ff"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/users",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"mailNickname\": \"{{ $('Compute Fields').item.json.mailNickname }}\",\n  \"userPrincipalName\": \"{{ $('Compute Fields').item.json.userPrincipalName }}\",\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "4fc90b91-1f94-483a-9e1b-5ca68b11a305",
+      "name": "Create Entra ID User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1120,
+        192
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "HeTzgsWuLZnUmQjH",
+          "name": "Entra OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e870973c-5d25-4d60-84bf-0307e48b4332",
+              "name": "displayName",
+              "type": "string",
+              "value": "={{ $json['First Name'].trim() + ' ' + $json['Last Name'].trim() }}"
+            },
+            {
+              "id": "b57ee0c2-cdcc-4ca7-a6cf-a20ed3b81421",
+              "name": "mailNickname",
+              "type": "string",
+              "value": "={{ (() => { const f = $json['First Name'].trim(); const l = $json['Last Name'].trim(); return (f.charAt(0) + l).toLowerCase().replace(/[^a-z0-9]/g, ''); })() }}"
+            },
+            {
+              "id": "7cb30a6c-a772-4c4e-a2bc-7ce75ac8114d",
+              "name": "userPrincipalName",
+              "type": "string",
+              "value": "={{ (() => { const f = $json['First Name'].trim(); const l = $json['Last Name'].trim(); const nick = (f.charAt(0) + l).toLowerCase().replace(/[^a-z0-9]/g, ''); return nick + '@michaelgraves.com'; })() }}"
+            },
+            {
+              "id": "a1505102-c98e-47bb-8c91-6bd6be3a3416",
+              "name": "tempPassword",
+              "type": "string",
+              "value": "={{ 'MGAtemp' + $now.year }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bbae9d6b-1716-45c0-9516-75d50266e0f8",
+      "name": "Compute Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        464,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName,accountEnabled",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "35362956-4fb2-4e66-aa56-e4a3845efaa7",
+      "name": "Check Existing User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        688,
+        304
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "HeTzgsWuLZnUmQjH",
+          "name": "Entra OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "2850d1f3-d370-4877-bbad-d1de5d9a4984",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "number",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 404
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "9ff5aab5-8072-401b-b7a7-75ab21c1f80e",
+      "name": "Does User Exist?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=pwsh -NoProfile -NonInteractive -Command \"$ErrorActionPreference = 'Stop'; Connect-ExchangeOnline -CertificateThumbprint '9A5360CF006242900CE0C1636BC63392835DD5D0' -AppId '45c9b518-c0b0-4933-bfff-29ff6c11831a' -Organization 'michaelgravesarchitecture.onmicrosoft.com' -ShowBanner:$false; try { (Get-Mailbox -Identity '{{ $('Compute Fields').item.json.userPrincipalName }}').RecipientTypeDetails } finally { Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue } \""
+      },
+      "id": "f87e4428-2623-41ba-bd47-c60b1cc8c9d8",
+      "name": "Check Mailbox Type",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "a826ab01-0376-4a82-abce-bfc799eb90a4",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.stdout.trim() }}",
+              "rightValue": "SharedMailbox"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "98e1cd4c-cc2c-4a69-95be-29a4f7f1040c",
+      "name": "Is Shared Mailbox?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1344,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=pwsh -NoProfile -NonInteractive -Command \"$ErrorActionPreference = 'Stop'; Connect-ExchangeOnline -CertificateThumbprint '9A5360CF006242900CE0C1636BC63392835DD5D0' -AppId '45c9b518-c0b0-4933-bfff-29ff6c11831a' -Organization 'michaelgravesarchitecture.onmicrosoft.com' -ShowBanner:$false; try { Set-Mailbox -Identity '{{ $('Compute Fields').item.json.userPrincipalName }}' -Type Regular; Write-Output 'Converted' } finally { Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue } \""
+      },
+      "id": "2fae6fea-fec0-4cbe-ab5d-0c05ef3ca9f6",
+      "name": "Convert Shared Mailbox to Regular",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "3151b13c-6413-42ac-a247-a4ace33e427d",
+      "name": "Reset Password",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2000,
+        340
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "HeTzgsWuLZnUmQjH",
+          "name": "Entra OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "da9caf50-ba81-434f-b073-bce4fe2e0110",
+      "name": "TODO - Alert IT - Duplicate Account",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        512
+      ]
+    },
+    {
+      "id": "c0fe8cd7-fa9c-4c84-9acf-bb9e9b7f8c75",
+      "name": "Wait for Directory Sync",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1780,
+        340
+      ],
+      "parameters": {
+        "resume": "timeInterval",
+        "amount": 30,
+        "unit": "seconds"
+      },
+      "webhookId": "cf050e7f-7cf9-445d-829d-d6652d1cf85a"
+    },
+    {
+      "id": "647b4c1f-7d04-47d1-83b4-fab9c4c01ae6",
+      "name": "Enable and Rename User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2220,
+        340
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\"\n}",
+        "options": {}
+      },
+      "credentials": {
+        "oAuth2Api": {
+          "id": "HeTzgsWuLZnUmQjH",
+          "name": "Entra OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true,
+    "binaryMode": "separate"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-04T01:02:44.916Z",
+      "createdAt": "2026-07-04T01:02:44.916Z",
+      "role": "workflow:owner",
+      "workflowId": "aPDE3V5eNAsqW4zP",
+      "projectId": "RmOilgTSaNq34WG7"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-04T03:33:11.231Z",
+  "versionId": "eec8a245-b2a9-4087-aa94-7b88885eace5"
+}
