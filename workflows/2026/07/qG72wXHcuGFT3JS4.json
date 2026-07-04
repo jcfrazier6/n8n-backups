@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-03T04:00:36.989Z",
-    "createdAt": "2026-07-03T04:00:36.989Z",
-    "versionId": "e7c13c46-1bd5-4387-ba5a-b414a54439d0",
+    "updatedAt": "2026-07-04T04:00:36.919Z",
+    "createdAt": "2026-07-04T04:00:36.919Z",
+    "versionId": "a04d9a1a-ff9a-49b9-a408-62dcf7db3d1d",
     "workflowId": "qG72wXHcuGFT3JS4",
     "nodes": [
       {
@@ -543,70 +543,6 @@
       },
       {
         "parameters": {
-          "content": "## Trigger Workflow",
-          "height": 400,
-          "width": 160,
-          "color": 7
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          -1728,
-          144
-        ],
-        "typeVersion": 1,
-        "id": "e5551e42-691f-4435-9de2-90ee09d8df7e",
-        "name": "Sticky Note"
-      },
-      {
-        "parameters": {
-          "content": "## LDAP Search / User Exists?",
-          "height": 400,
-          "width": 544,
-          "color": 2
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          -1360,
-          144
-        ],
-        "typeVersion": 1,
-        "id": "1a77b84c-b946-4253-a98a-01bd36710d2a",
-        "name": "Sticky Note1"
-      },
-      {
-        "parameters": {
-          "content": "## User Exists",
-          "height": 432,
-          "width": 2512,
-          "color": 4
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          -624,
-          -64
-        ],
-        "typeVersion": 1,
-        "id": "86844933-ebfb-4954-b8a2-ae4ba4510c3e",
-        "name": "Sticky Note3"
-      },
-      {
-        "parameters": {
-          "content": "## User Doesn't Exist",
-          "height": 272,
-          "width": 1120,
-          "color": 5
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          -624,
-          400
-        ],
-        "typeVersion": 1,
-        "id": "fc30a22f-a55f-4d82-90b0-66cdb7f36ddf",
-        "name": "Sticky Note4"
-      },
-      {
-        "parameters": {
           "jsCode": "const a = $('Code: Build AD user attributes').first().json;\n\n// Core attributes — always included\nconst core = [\n  { id: 'objectClass',        value: a.objectClass },\n  { id: 'sAMAccountName',     value: a.sAMAccountName },\n  { id: 'userPrincipalName',  value: a.userPrincipalName },\n  { id: 'cn',                 value: a.cn },\n  { id: 'displayName',        value: a.displayName },\n  { id: 'givenName',          value: a.givenName },\n  { id: 'sn',                 value: a.sn },\n  { id: 'title',              value: a.title },\n  { id: 'company',            value: a.company },\n  { id: 'streetAddress',      value: a.streetAddress },\n  { id: 'l',                  value: a.l },\n  { id: 'st',                 value: a.st },\n  { id: 'postalCode',         value: a.postalCode },\n  { id: 'telephoneNumber',    value: a.telephoneNumber },\n  { id: 'userAccountControl', value: '514' },\n  { id: 'mail',               value: a.mail },\n];\n\n// Optional attributes — only include if non-empty\nconst optional = [\n  { id: 'pager',   value: a.pager },\n  { id: 'ipPhone', value: a.ipPhone },\n  { id: 'info',    value: a.info },\n].filter(attr => String(attr.value ?? '').trim() !== '');\n\nreturn [{ json: { ...a, createAttributes: [...core, ...optional] } }];"
         },
         "id": "pre-create-filter-001",
@@ -617,21 +553,6 @@
           -592,
           496
         ]
-      },
-      {
-        "parameters": {
-          "content": "## Build AD Account",
-          "height": 400,
-          "width": 160
-        },
-        "type": "n8n-nodes-base.stickyNote",
-        "position": [
-          -1536,
-          144
-        ],
-        "typeVersion": 1,
-        "id": "34089aa9-4403-4327-a64c-99d6e82b91c5",
-        "name": "Sticky Note6"
       },
       {
         "parameters": {
@@ -1246,7 +1167,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "e7c13c46-1bd5-4387-ba5a-b414a54439d0",
+  "activeVersionId": "a04d9a1a-ff9a-49b9-a408-62dcf7db3d1d",
   "connections": {
     "On form submission": {
       "main": [
@@ -2035,70 +1956,6 @@
     },
     {
       "parameters": {
-        "content": "## Trigger Workflow",
-        "height": 400,
-        "width": 160,
-        "color": 7
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -1728,
-        144
-      ],
-      "typeVersion": 1,
-      "id": "e5551e42-691f-4435-9de2-90ee09d8df7e",
-      "name": "Sticky Note"
-    },
-    {
-      "parameters": {
-        "content": "## LDAP Search / User Exists?",
-        "height": 400,
-        "width": 544,
-        "color": 2
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -1360,
-        144
-      ],
-      "typeVersion": 1,
-      "id": "1a77b84c-b946-4253-a98a-01bd36710d2a",
-      "name": "Sticky Note1"
-    },
-    {
-      "parameters": {
-        "content": "## User Exists",
-        "height": 432,
-        "width": 2512,
-        "color": 4
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -624,
-        -64
-      ],
-      "typeVersion": 1,
-      "id": "86844933-ebfb-4954-b8a2-ae4ba4510c3e",
-      "name": "Sticky Note3"
-    },
-    {
-      "parameters": {
-        "content": "## User Doesn't Exist",
-        "height": 272,
-        "width": 1120,
-        "color": 5
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -624,
-        400
-      ],
-      "typeVersion": 1,
-      "id": "fc30a22f-a55f-4d82-90b0-66cdb7f36ddf",
-      "name": "Sticky Note4"
-    },
-    {
-      "parameters": {
         "jsCode": "const a = $('Code: Build AD user attributes').first().json;\n\n// Core attributes — always included\nconst core = [\n  { id: 'objectClass',        value: a.objectClass },\n  { id: 'sAMAccountName',     value: a.sAMAccountName },\n  { id: 'userPrincipalName',  value: a.userPrincipalName },\n  { id: 'cn',                 value: a.cn },\n  { id: 'displayName',        value: a.displayName },\n  { id: 'givenName',          value: a.givenName },\n  { id: 'sn',                 value: a.sn },\n  { id: 'title',              value: a.title },\n  { id: 'company',            value: a.company },\n  { id: 'streetAddress',      value: a.streetAddress },\n  { id: 'l',                  value: a.l },\n  { id: 'st',                 value: a.st },\n  { id: 'postalCode',         value: a.postalCode },\n  { id: 'telephoneNumber',    value: a.telephoneNumber },\n  { id: 'userAccountControl', value: '514' },\n  { id: 'mail',               value: a.mail },\n];\n\n// Optional attributes — only include if non-empty\nconst optional = [\n  { id: 'pager',   value: a.pager },\n  { id: 'ipPhone', value: a.ipPhone },\n  { id: 'info',    value: a.info },\n].filter(attr => String(attr.value ?? '').trim() !== '');\n\nreturn [{ json: { ...a, createAttributes: [...core, ...optional] } }];"
       },
       "id": "pre-create-filter-001",
@@ -2109,21 +1966,6 @@
         -592,
         496
       ]
-    },
-    {
-      "parameters": {
-        "content": "## Build AD Account",
-        "height": 400,
-        "width": 160
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        -1536,
-        144
-      ],
-      "typeVersion": 1,
-      "id": "34089aa9-4403-4327-a64c-99d6e82b91c5",
-      "name": "Sticky Note6"
     },
     {
       "parameters": {
@@ -2507,6 +2349,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-03T04:00:36.996Z",
-  "versionId": "e7c13c46-1bd5-4387-ba5a-b414a54439d0"
+  "updatedAt": "2026-07-04T04:00:36.925Z",
+  "versionId": "a04d9a1a-ff9a-49b9-a408-62dcf7db3d1d"
 }
