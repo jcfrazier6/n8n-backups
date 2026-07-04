@@ -175,7 +175,7 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "t8BCD8pP06ajRhfw",
+          "id": "HeTzgsWuLZnUmQjH",
           "name": "Entra OAuth2 API"
         }
       },
@@ -220,7 +220,7 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "t8BCD8pP06ajRhfw",
+          "id": "HeTzgsWuLZnUmQjH",
           "name": "Entra OAuth2 API"
         }
       },
@@ -324,6 +324,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-03T00:21:41.266Z",
-  "versionId": "85c604e5-aef4-4301-b894-74447c4cc29d"
+  "updatedAt": "2026-07-03T17:55:06.078Z",
+  "versionId": "2f0e13cd-9829-4e70-8fc6-5b4ea27545cf"
 }
