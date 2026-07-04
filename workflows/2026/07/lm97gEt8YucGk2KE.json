@@ -137,6 +137,28 @@
           }
         ]
       ]
+    },
+    "Create Account": {
+      "main": [
+        [
+          {
+            "node": "Create user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create user": {
+      "main": [
+        [
+          {
+            "node": "Check License Availability1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-07-03T00:24:46.986Z",
@@ -226,7 +248,7 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "t8BCD8pP06ajRhfw",
+          "id": "HeTzgsWuLZnUmQjH",
           "name": "Entra OAuth2 API"
         }
       },
@@ -271,7 +293,7 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "t8BCD8pP06ajRhfw",
+          "id": "HeTzgsWuLZnUmQjH",
           "name": "Entra OAuth2 API"
         }
       },
@@ -391,7 +413,7 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "t8BCD8pP06ajRhfw",
+          "id": "HeTzgsWuLZnUmQjH",
           "name": "Entra OAuth2 API"
         }
       },
@@ -514,7 +536,74 @@
       ],
       "credentials": {
         "oAuth2Api": {
-          "id": "t8BCD8pP06ajRhfw",
+          "id": "HeTzgsWuLZnUmQjH",
+          "name": "Entra OAuth2 API"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/users",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\nJSON.stringify({\n  accountEnabled: $('When Executed by Another Workflow').first().json.accountEnabled !== undefined ? $('When Executed by Another Workflow').first().json.accountEnabled : true,\n  displayName: $('When Executed by Another Workflow').first().json.displayName,\n  userPrincipalName: $('When Executed by Another Workflow').first().json.email,\n  mailNickname: $('When Executed by Another Workflow').first().json.nickName,\n  passwordProfile: {\n    password: $('When Executed by Another Workflow').first().json.password,\n    forceChangePasswordNextSignIn: true\n  },\n  userType: 'Member'\n})\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -80,
+        112
+      ],
+      "id": "d5b40e7b-3293-49bb-aa31-96919ebf464d",
+      "name": "Create user",
+      "credentials": {
+        "oAuth2Api": {
+          "id": "HeTzgsWuLZnUmQjH",
+          "name": "Entra OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dadf7345-38b6-4a1e-86d3-67361140389d",
+      "name": "Check License Availability1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        128,
+        112
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "HeTzgsWuLZnUmQjH",
           "name": "Entra OAuth2 API"
         }
       },
@@ -525,7 +614,10 @@
     "When Executed by Another Workflow": [
       {
         "json": {
-          "email": "Test@michaelgraves.com"
+          "displayName": "IT Test",
+          "email": "Test@michaelgraves.com",
+          "nickName": "ittest",
+          "password": "mgaTemp1#"
         }
       }
     ]
@@ -547,6 +639,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-03T01:20:49.415Z",
-  "versionId": "6db8215a-8ecc-4d7b-8919-5bca7c37653e"
+  "updatedAt": "2026-07-03T18:08:48.561Z",
+  "versionId": "3c98edab-4147-4d70-84d6-d306b18877d6"
 }
