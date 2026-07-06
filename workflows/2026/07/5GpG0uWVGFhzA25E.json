@@ -1,0 +1,194 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-07-05T21:06:54.000Z",
+    "createdAt": "2026-07-05T21:02:52.411Z",
+    "versionId": "0004a76e-8b11-4c45-8052-3c5274a3150a",
+    "workflowId": "5GpG0uWVGFhzA25E",
+    "nodes": [
+      {
+        "id": "webhook-launch-nh-1",
+        "name": "Webhook: Launch Form",
+        "parameters": {
+          "options": {},
+          "path": "new-hire-provisioning-launch",
+          "responseMode": "responseNode"
+        },
+        "position": [
+          0,
+          0
+        ],
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "webhookId": "316f35cc-2c3f-4ac0-b88b-944582b97f34"
+      },
+      {
+        "id": "exec-refresh-nh-1",
+        "name": "Execute: Refresh Form Values",
+        "parameters": {
+          "options": {},
+          "workflowId": {
+            "__rl": true,
+            "cachedResultUrl": "/workflow/GVEihxtWAzcXXDe4",
+            "mode": "id",
+            "value": "GVEihxtWAzcXXDe4"
+          }
+        },
+        "position": [
+          224,
+          0
+        ],
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.1
+      },
+      {
+        "id": "redirect-form-nh-1",
+        "name": "Redirect to Form",
+        "parameters": {
+          "options": {},
+          "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
+          "respondWith": "redirect"
+        },
+        "position": [
+          448,
+          0
+        ],
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.1
+      }
+    ],
+    "connections": {
+      "Execute: Refresh Form Values": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Redirect to Form",
+              "type": "main"
+            }
+          ]
+        ]
+      },
+      "Webhook: Launch Form": {
+        "main": [
+          [
+            {
+              "index": 0,
+              "node": "Execute: Refresh Form Values",
+              "type": "main"
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "IT Admin",
+    "name": "Version 0004a76e",
+    "description": "",
+    "autosaved": false
+  },
+  "activeVersionId": "0004a76e-8b11-4c45-8052-3c5274a3150a",
+  "connections": {
+    "Execute: Refresh Form Values": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Redirect to Form",
+            "type": "main"
+          }
+        ]
+      ]
+    },
+    "Webhook: Launch Form": {
+      "main": [
+        [
+          {
+            "index": 0,
+            "node": "Execute: Refresh Form Values",
+            "type": "main"
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-05T21:02:52.411Z",
+  "id": "5GpG0uWVGFhzA25E",
+  "isArchived": false,
+  "meta": null,
+  "name": "365 - New Hire Provisioning Launcher",
+  "nodes": [
+    {
+      "id": "webhook-launch-nh-1",
+      "name": "Webhook: Launch Form",
+      "parameters": {
+        "options": {},
+        "path": "new-hire-provisioning-launch",
+        "responseMode": "responseNode"
+      },
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "316f35cc-2c3f-4ac0-b88b-944582b97f34"
+    },
+    {
+      "id": "exec-refresh-nh-1",
+      "name": "Execute: Refresh Form Values",
+      "parameters": {
+        "options": {},
+        "workflowId": {
+          "__rl": true,
+          "cachedResultUrl": "/workflow/GVEihxtWAzcXXDe4",
+          "mode": "id",
+          "value": "GVEihxtWAzcXXDe4"
+        }
+      },
+      "position": [
+        224,
+        0
+      ],
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1
+    },
+    {
+      "id": "redirect-form-nh-1",
+      "name": "Redirect to Form",
+      "parameters": {
+        "options": {},
+        "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
+        "respondWith": "redirect"
+      },
+      "position": [
+        448,
+        0
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-05T21:02:52.411Z",
+      "createdAt": "2026-07-05T21:02:52.411Z",
+      "role": "workflow:owner",
+      "workflowId": "5GpG0uWVGFhzA25E",
+      "projectId": "RmOilgTSaNq34WG7"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-05T21:02:52.411Z",
+  "versionId": "0004a76e-8b11-4c45-8052-3c5274a3150a"
+}
