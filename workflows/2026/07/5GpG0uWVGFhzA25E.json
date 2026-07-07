@@ -1,30 +1,36 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-05T21:06:54.000Z",
-    "createdAt": "2026-07-05T21:02:52.411Z",
-    "versionId": "0004a76e-8b11-4c45-8052-3c5274a3150a",
+    "updatedAt": "2026-07-06T18:40:50.273Z",
+    "createdAt": "2026-07-06T18:40:50.273Z",
+    "versionId": "7054c8e2-8373-4ced-8436-524333f83625",
     "workflowId": "5GpG0uWVGFhzA25E",
     "nodes": [
       {
         "id": "webhook-launch-nh-1",
         "name": "Webhook: Launch Form",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          0,
+          0
+        ],
         "parameters": {
           "options": {},
           "path": "new-hire-provisioning-launch",
           "responseMode": "responseNode"
         },
-        "position": [
-          0,
-          0
-        ],
-        "type": "n8n-nodes-base.webhook",
-        "typeVersion": 2,
         "webhookId": "316f35cc-2c3f-4ac0-b88b-944582b97f34"
       },
       {
         "id": "exec-refresh-nh-1",
         "name": "Execute: Refresh Form Values",
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.1,
+        "position": [
+          224,
+          0
+        ],
         "parameters": {
           "options": {},
           "workflowId": {
@@ -34,48 +40,117 @@
             "value": "GVEihxtWAzcXXDe4"
           }
         },
-        "position": [
-          224,
-          0
-        ],
-        "type": "n8n-nodes-base.executeWorkflow",
-        "typeVersion": 1.1
+        "onError": "continueErrorOutput"
       },
       {
-        "id": "redirect-form-nh-1",
-        "name": "Redirect to Form",
-        "parameters": {
-          "options": {},
-          "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
-          "respondWith": "redirect"
-        },
+        "id": "check-refresh-error-1",
+        "name": "Did Refresh Succeed?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
         "position": [
           448,
           0
         ],
+        "parameters": {
+          "conditions": {
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "refresh-error-check",
+                "leftValue": "={{ $json.error }}",
+                "operator": {
+                  "name": "filter.operator.exists",
+                  "operation": "exists",
+                  "type": "string"
+                },
+                "rightValue": ""
+              }
+            ],
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            }
+          },
+          "options": {}
+        }
+      },
+      {
+        "id": "redirect-form-nh-1",
+        "name": "Redirect to Form",
         "type": "n8n-nodes-base.respondToWebhook",
-        "typeVersion": 1.1
+        "typeVersion": 1.1,
+        "position": [
+          672,
+          -64
+        ],
+        "parameters": {
+          "options": {},
+          "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
+          "respondWith": "redirect"
+        }
+      },
+      {
+        "id": "show-error-page-1",
+        "name": "Show Error Page",
+        "type": "n8n-nodes-base.respondToWebhook",
+        "typeVersion": 1.1,
+        "position": [
+          672,
+          64
+        ],
+        "parameters": {
+          "options": {},
+          "respondWith": "text",
+          "responseBody": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Provisioning Form Unavailable</title>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }\n    .error-box { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 20px; border-radius: 4px; max-width: 600px; margin: 0 auto; }\n    h1 { color: #721c24; margin-top: 0; }\n    hr { border: none; border-top: 1px solid #f5c6cb; }\n  </style>\n</head>\n<body>\n  <div class=\"error-box\">\n    <h1>⚠️ Form Temporarily Unavailable</h1>\n    <p>The provisioning form could not be loaded at this time due to a system error.</p>\n    <p><strong>Please try again in a few moments.</strong> If the problem persists, contact IT.</p>\n    <hr>\n    <p><small>Error occurred while refreshing form options. This is typically a temporary connectivity or service issue.</small></p>\n  </div>\n</body>\n</html>"
+        }
       }
     ],
     "connections": {
-      "Execute: Refresh Form Values": {
-        "main": [
-          [
-            {
-              "index": 0,
-              "node": "Redirect to Form",
-              "type": "main"
-            }
-          ]
-        ]
-      },
       "Webhook: Launch Form": {
         "main": [
           [
             {
-              "index": 0,
               "node": "Execute: Refresh Form Values",
-              "type": "main"
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute: Refresh Form Values": {
+        "main": [
+          [
+            {
+              "node": "Did Refresh Succeed?",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Did Refresh Succeed?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Did Refresh Succeed?": {
+        "main": [
+          [
+            {
+              "node": "Show Error Page",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Redirect to Form",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -83,30 +158,55 @@
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": "Version 0004a76e",
-    "description": "",
+    "name": null,
+    "description": null,
     "autosaved": false
   },
-  "activeVersionId": "0004a76e-8b11-4c45-8052-3c5274a3150a",
+  "activeVersionId": "7054c8e2-8373-4ced-8436-524333f83625",
   "connections": {
-    "Execute: Refresh Form Values": {
-      "main": [
-        [
-          {
-            "index": 0,
-            "node": "Redirect to Form",
-            "type": "main"
-          }
-        ]
-      ]
-    },
     "Webhook: Launch Form": {
       "main": [
         [
           {
-            "index": 0,
             "node": "Execute: Refresh Form Values",
-            "type": "main"
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Refresh Form Values": {
+      "main": [
+        [
+          {
+            "node": "Did Refresh Succeed?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Did Refresh Succeed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Did Refresh Succeed?": {
+      "main": [
+        [
+          {
+            "node": "Show Error Page",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redirect to Form",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -121,22 +221,28 @@
     {
       "id": "webhook-launch-nh-1",
       "name": "Webhook: Launch Form",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
       "parameters": {
         "options": {},
         "path": "new-hire-provisioning-launch",
         "responseMode": "responseNode"
       },
-      "position": [
-        0,
-        0
-      ],
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
       "webhookId": "316f35cc-2c3f-4ac0-b88b-944582b97f34"
     },
     {
       "id": "exec-refresh-nh-1",
       "name": "Execute: Refresh Form Values",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
       "parameters": {
         "options": {},
         "workflowId": {
@@ -146,27 +252,71 @@
           "value": "GVEihxtWAzcXXDe4"
         }
       },
-      "position": [
-        224,
-        0
-      ],
-      "type": "n8n-nodes-base.executeWorkflow",
-      "typeVersion": 1.1
+      "onError": "continueErrorOutput"
     },
     {
-      "id": "redirect-form-nh-1",
-      "name": "Redirect to Form",
-      "parameters": {
-        "options": {},
-        "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
-        "respondWith": "redirect"
-      },
+      "id": "check-refresh-error-1",
+      "name": "Did Refresh Succeed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
       "position": [
         448,
         0
       ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "refresh-error-check",
+              "leftValue": "={{ $json.error }}",
+              "operator": {
+                "name": "filter.operator.exists",
+                "operation": "exists",
+                "type": "string"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "redirect-form-nh-1",
+      "name": "Redirect to Form",
       "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        -64
+      ],
+      "parameters": {
+        "options": {},
+        "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
+        "respondWith": "redirect"
+      }
+    },
+    {
+      "id": "show-error-page-1",
+      "name": "Show Error Page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        64
+      ],
+      "parameters": {
+        "options": {},
+        "respondWith": "text",
+        "responseBody": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Provisioning Form Unavailable</title>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }\n    .error-box { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 20px; border-radius: 4px; max-width: 600px; margin: 0 auto; }\n    h1 { color: #721c24; margin-top: 0; }\n    hr { border: none; border-top: 1px solid #f5c6cb; }\n  </style>\n</head>\n<body>\n  <div class=\"error-box\">\n    <h1>⚠️ Form Temporarily Unavailable</h1>\n    <p>The provisioning form could not be loaded at this time due to a system error.</p>\n    <p><strong>Please try again in a few moments.</strong> If the problem persists, contact IT.</p>\n    <hr>\n    <p><small>Error occurred while refreshing form options. This is typically a temporary connectivity or service issue.</small></p>\n  </div>\n</body>\n</html>"
+      }
     }
   ],
   "pinData": null,
@@ -189,6 +339,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-05T21:02:52.411Z",
-  "versionId": "0004a76e-8b11-4c45-8052-3c5274a3150a"
+  "updatedAt": "2026-07-06T18:40:50.280Z",
+  "versionId": "7054c8e2-8373-4ced-8436-524333f83625"
 }
