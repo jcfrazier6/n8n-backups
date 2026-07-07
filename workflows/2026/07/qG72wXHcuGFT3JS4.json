@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-04T04:00:36.919Z",
-    "createdAt": "2026-07-04T04:00:36.919Z",
-    "versionId": "a04d9a1a-ff9a-49b9-a408-62dcf7db3d1d",
+    "updatedAt": "2026-07-07T01:20:25.000Z",
+    "createdAt": "2026-07-07T01:20:10.707Z",
+    "versionId": "7da7e0e6-cff4-4063-96b1-d96f0ef7a69b",
     "workflowId": "qG72wXHcuGFT3JS4",
     "nodes": [
       {
@@ -270,6 +270,212 @@
                 "requiredField": true
               },
               {
+                "fieldLabel": "Groups",
+                "fieldType": "checkbox",
+                "fieldOptions": {
+                  "values": [
+                    {
+                      "option": "22453-ULM Project C1 Share"
+                    },
+                    {
+                      "option": "341 3rd Party"
+                    },
+                    {
+                      "option": "341 Nassau"
+                    },
+                    {
+                      "option": "Accounting_Share_Administrative"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_JCA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_KAA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_MGA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_MGC"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_PGN"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_PLX"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_S4D"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_WCK"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_WRA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_WSA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_JCA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_KAA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_MGA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_MGC"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_PGN"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_S4D"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_WCK"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_WRA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_WSA"
+                    },
+                    {
+                      "option": "Accounting_Share_Executive"
+                    },
+                    {
+                      "option": "AccountingDrive"
+                    },
+                    {
+                      "option": "AOC Folder Access"
+                    },
+                    {
+                      "option": "Arch Inq Group"
+                    },
+                    {
+                      "option": "Billings Courthouse"
+                    },
+                    {
+                      "option": "Business Development"
+                    },
+                    {
+                      "option": "communications group"
+                    },
+                    {
+                      "option": "Computer Support"
+                    },
+                    {
+                      "option": "Contract_Restriction_GG"
+                    },
+                    {
+                      "option": "employment group"
+                    },
+                    {
+                      "option": "Enterprise Key Admins"
+                    },
+                    {
+                      "option": "Fannie Mae"
+                    },
+                    {
+                      "option": "ftpusers"
+                    },
+                    {
+                      "option": "GFS Team"
+                    },
+                    {
+                      "option": "Graphics"
+                    },
+                    {
+                      "option": "info group"
+                    },
+                    {
+                      "option": "Key Admins"
+                    },
+                    {
+                      "option": "LocalAdmin"
+                    },
+                    {
+                      "option": "Marketing"
+                    },
+                    {
+                      "option": "MGA"
+                    },
+                    {
+                      "option": "MGA VPN Users"
+                    },
+                    {
+                      "option": "MGA_341_users"
+                    },
+                    {
+                      "option": "MGA_Missoni"
+                    },
+                    {
+                      "option": "MGA_NYC_Users"
+                    },
+                    {
+                      "option": "MGA-HKS_Document_Control"
+                    },
+                    {
+                      "option": "MGA-Pattigadda-Architecture"
+                    },
+                    {
+                      "option": "MGA-Pattigadda-Interiors"
+                    },
+                    {
+                      "option": "MGDG Info Group"
+                    },
+                    {
+                      "option": "N-able backup users"
+                    },
+                    {
+                      "option": "Nashville_Courthouse"
+                    },
+                    {
+                      "option": "NYC"
+                    },
+                    {
+                      "option": "PGN_CBE_Share"
+                    },
+                    {
+                      "option": "Principals"
+                    },
+                    {
+                      "option": "Products"
+                    },
+                    {
+                      "option": "Project Garnet Share"
+                    },
+                    {
+                      "option": "SCRead"
+                    },
+                    {
+                      "option": "SCWrite"
+                    },
+                    {
+                      "option": "Sentosa_FTP_Users"
+                    },
+                    {
+                      "option": "SepialineInstall"
+                    },
+                    {
+                      "option": "SQLServer2005SQLBrowserUser$MGACOLDC01"
+                    },
+                    {
+                      "option": "SQLServer2005SQLBrowserUser$MGAPGNDC01"
+                    },
+                    {
+                      "option": "SQLServer2005SQLBrowserUser$MGATNDC01"
+                    },
+                    {
+                      "option": "US_Embessy"
+                    }
+                  ]
+                }
+              },
+              {
                 "fieldLabel": "EMP ID"
               },
               {
@@ -280,9 +486,7 @@
               }
             ]
           },
-          "options": {
-            "customCss": "/* 1. APPLIES TOTAL BRAND BLACK TO THE ENTIRE PAGE & WRAPPERS */\nbody, \nmain, \n.form-container, \n.ndv-form, \n.form-card, \n.card, \n.form-wrapper, \ndiv[class*=\"card\"], \ndiv[class*=\"form\"],\nfieldset {\n    background-color: #000000 !important;\n    background: #000000 !important;\n    color: #FFFFFF !important;\n    border-color: #222222 !important;\n}\n\n/* 2. FORCE EVERY SINGLE FIELD LABEL ON THE PAGE TO PURE WHITE */\nlabel, \n.form-label, \n.field-label, \n.ndv-form-label, \nlegend,\nh1, h2, h3, p, span,\ndiv[class*=\"label\"],\nspan[class*=\"label\"],\np[class*=\"label\"] {\n    color: #FFFFFF !important;\n    opacity: 1 !important;\n    font-weight: 600 !important;\n}\n\n/* TARGET ONLY THE ASTERISK CHARACTER */\n/* This ensures only the tiny star element is red, leaving text white */\nspan.required,\n.required-asterisk,\nlabel span:last-child,\ndiv[class*=\"label\"] span:last-child {\n    color: #D8262D !important;\n}\n\n/* For validation message strings below the inputs (\"This field is required\") */\ndiv[class*=\"errorMessage\"],\n.invalid-feedback,\np[class*=\"error\"] {\n    color: #D8262D !important;\n    font-weight: normal !important;\n}\n\n/* 3. STRIP WHITE BACKGROUND FROM COMBOBOX OUTER CONTAINER WRAPPERS */\ndiv[class*=\"-control\"],\n.select-wrapper,\ndiv[class*=\"input-wrapper\"],\ndiv[class*=\"container\"] {\n    background-color: transparent !important;\n    background: transparent !important;\n    border: none !important;\n    padding: 0 !important;\n    box-shadow: none !important;\n}\n\n/* 4. ACTUAL INPUT FIELDS (FORCES BACKGROUND WHITE & TEXT SOLID BLACK) */\ninput, \ntextarea, \nselect, \n.form-control, \ndiv[class*=\"select__control\"],\ndiv[class*=\"control\"],\ndiv[class*=\"valueContainer\"],\nspan[class*=\"valueContainer\"],\ndiv[class*=\"singleValue\"],\nspan[class*=\"singleValue\"] {\n    background-color: #FFFFFF !important;\n    background: #FFFFFF !important;\n    color: #000000 !important; /* Force text black inside all inputs */\n    border: 1px solid #333333 !important;\n    border-radius: 4px !important;\n    padding: 10px !important;\n}\n\n/* Ensure placeholder text (\"Select an option...\") stays readable in dark grey */\ninput::placeholder,\ndiv[class*=\"placeholder\"],\nspan[class*=\"placeholder\"] {\n    color: #555555 !important;\n}\n\n/* 5. UNIFIED STYLING FOR COMBOBOX DROPDOWN OPTIONS OVERLAY */\nselect option, \n.dropdown-menu, \n.dropdown-item, \n.option, \n*[class*=\"option\"], \ndiv[class*=\"menu\"],\ndiv[class*=\"MenuList\"] {\n    background-color: #FFFFFF !important; \n    color: #000000 !important;            \n}\n\n/* Visual cue when hovering over options in the combobox menu */\nselect option:hover, \nselect option:focus, \n.dropdown-item:hover, \n*[class*=\"option\"]:hover,\ndiv[class*=\"option--is-focused\"] {\n    background-color: #D8262D !important; \n    color: #FFFFFF !important;            \n}\n\n/* Active box focus wrapper styling using MG Red */\ninput:focus, \ntextarea:focus, \nselect:focus,\ndiv[class*=\"control--is-focused\"] {\n    border-color: #D8262D !important;\n    outline: none !important;\n    box-shadow: 0 0 0 2px rgba(216, 38, 45, 0.4) !important;\n}\n\n/* 6. BRAND MG RED SUBMIT BUTTON */\nbutton[type=\"submit\"], \n.btn-submit, \nbutton {\n    background-color: #D8262D !important;\n    color: #FFFFFF !important;\n    border: none !important;\n    border-radius: 4px !important;\n    padding: 12px 24px !important;\n    font-weight: 700 !important;\n    text-transform: uppercase !important;\n    cursor: pointer !important;\n    transition: background-color 0.2s ease !important;\n    width: 100% !important;\n}\n\nbutton[type=\"submit\"]:hover, \n.btn-submit:hover, \nbutton:hover {\n    background-color: #B51D23 !important;\n}\n"
-          }
+          "options": {}
         },
         "id": "8081aa0a-84d6-43bf-9342-ba5ad6af8c73",
         "name": "On form submission",
@@ -296,7 +500,7 @@
       },
       {
         "parameters": {
-          "jsCode": "const item = $input.first().json;\n\nconst firstName   = String(item['First Name']      ?? '').trim();\nconst lastName    = String(item['Last Name']       ?? '').trim();\nconst jobTitle    = String(item['Job Title']       ?? '').trim();\nconst studioRaw   = String(item['Studio']          ?? '').trim();\nconst empId       = String(item['EMP ID']          ?? '').trim();\nconst phoneExt    = String(item['Phone Extension'] ?? '').trim();\nconst credentials = String(item['Credentials']     ?? '').trim();\n\nif (!firstName) throw new Error('First Name is required.');\nif (!lastName)  throw new Error('Last Name is required.');\nif (!studioRaw) throw new Error('Studio selection is required.');\n\n// Auto-detect delimiter\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts     = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] ?? '';\nconst street    = parts[1] ?? '';\nconst state     = parts[3] ?? '';\nconst zip       = parts[4] ?? '';\nconst phone     = parts[5] ?? '';\n\nconst dashIdx = labelPart.indexOf(' \\u2014 ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city    = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city)    throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity             = city.replace(/[-\\s]/g, '');\nconst sAMAccountName     = (firstName.charAt(0) + lastName).toLowerCase();\nconst displayName        = `${firstName} ${lastName}`;\nconst cn                 = displayName;\nconst dn                 = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst targetOU           = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName  = `${sAMAccountName}@michaelgraves.com`;\nconst mail               = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId)       optionalFields.pager   = empId;\nif (phoneExt)    optionalFields.ipPhone  = phoneExt;\nif (credentials) optionalFields.info     = credentials;\n\n// HTML completion pages\nconst successHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #38a169;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\u2705</span>\n    <h2 style=\"margin:0; color:#276749; font-size:20px;\">User Created Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been created.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nconst updatedHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #3182ce;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\ud83d\\udd04</span>\n    <h2 style=\"margin:0; color:#2b6cb0; font-size:20px;\">User Updated Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been updated and re-enabled.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nreturn [{\n  json: {\n    dn,\n    targetOU,\n    sAMAccountName,\n    displayName,\n    givenName: firstName,\n    sn: lastName,\n    cn,\n    title: jobTitle,\n    company,\n    streetAddress: street,\n    l: city,\n    st: state,\n    postalCode: zip,\n    telephoneNumber: phone,\n    userPrincipalName,\n    mail,\n    objectClass: 'user',\n    userAccountControl: '514',\n    successHtml,\n    updatedHtml,\n    ...optionalFields\n  }\n}];"
+          "jsCode": "const item = $input.first().json;\n\nconst firstName   = String(item['First Name']      ?? '').trim();\nconst lastName    = String(item['Last Name']       ?? '').trim();\nconst jobTitle    = String(item['Job Title']       ?? '').trim();\nconst studioRaw   = String(item['Studio']          ?? '').trim();\nconst empId       = String(item['EMP ID']          ?? '').trim();\nconst phoneExt    = String(item['Phone Extension'] ?? '').trim();\nconst credentials = String(item['Credentials']     ?? '').trim();\n\nif (!firstName) throw new Error('First Name is required.');\nif (!lastName)  throw new Error('Last Name is required.');\nif (!studioRaw) throw new Error('Studio selection is required.');\n\n// Auto-detect delimiter\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts     = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] ?? '';\nconst street    = parts[1] ?? '';\nconst state     = parts[3] ?? '';\nconst zip       = parts[4] ?? '';\nconst phone     = parts[5] ?? '';\n\nconst dashIdx = labelPart.indexOf(' \\u2014 ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city    = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city)    throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity             = city.replace(/[-\\s]/g, '');\nconst sAMAccountName     = (firstName.charAt(0) + lastName).toLowerCase();\nconst displayName        = `${firstName} ${lastName}`;\nconst cn                 = displayName;\nconst dn                 = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst targetOU           = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName  = `${sAMAccountName}@michaelgraves.com`;\nconst mail               = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId)       optionalFields.pager   = empId;\nif (phoneExt)    optionalFields.ipPhone  = phoneExt;\nif (credentials) optionalFields.info     = credentials;\n\nconst selectedGroups = Array.isArray(item['Groups']) ? item['Groups'] : (item['Groups'] ? [item['Groups']] : []);\nconst groupDns = selectedGroups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\n// HTML completion pages\nconst successHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #38a169;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\u2705</span>\n    <h2 style=\"margin:0; color:#276749; font-size:20px;\">User Created Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been created.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nconst updatedHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #3182ce;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\ud83d\\udd04</span>\n    <h2 style=\"margin:0; color:#2b6cb0; font-size:20px;\">User Updated Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been updated and re-enabled.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nreturn [{\n  json: {\n    dn,\n    targetOU,\n    sAMAccountName,\n    displayName,\n    givenName: firstName,\n    sn: lastName,\n    cn,\n    title: jobTitle,\n    company,\n    streetAddress: street,\n    l: city,\n    st: state,\n    postalCode: zip,\n    telephoneNumber: phone,\n    userPrincipalName,\n    mail,\n    objectClass: 'user',\n    userAccountControl: '514',\n    successHtml,\n    updatedHtml,\n    groupDns,\n    ...optionalFields\n  }\n}];"
         },
         "id": "39efa1c6-f857-4cdb-910e-515ab24186f5",
         "name": "Code: Build AD user attributes",
@@ -916,6 +1120,179 @@
           }
         },
         "continueOnFail": true
+      },
+      {
+        "parameters": {
+          "jsCode": "const a = $('Code: Build AD user attributes').first().json;\nreturn (a.groupDns || []).map(dn => ({ json: { groupDn: dn, userDn: a.dn } }));"
+        },
+        "id": "a1b2c3d4-1111-4aaa-9999-000000000001",
+        "name": "Code: Build groups to add (create)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          96,
+          704
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.groupDn }}",
+          "attributes": {
+            "add": [
+              {
+                "id": "member",
+                "value": "={{ $json.userDn }}"
+              }
+            ]
+          }
+        },
+        "id": "a1b2c3d4-1111-4aaa-9999-000000000002",
+        "name": "LDAP: Add group member (create)",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          320,
+          704
+        ],
+        "credentials": {
+          "ldap": {
+            "id": "GTn2ld6OAhRI8O00",
+            "name": "LDAP account"
+          }
+        },
+        "continueOnFail": true
+      },
+      {
+        "parameters": {
+          "baseDN": "OU=Security Groups,DC=MGA,DC=com",
+          "searchFor": "custom",
+          "customFilter": "={{ \"(&(objectClass=group)(member=\" + $('Code: Build AD user attributes').first().json.dn + \"))\" }}",
+          "returnAll": true,
+          "options": {
+            "attributes": [
+              "cn"
+            ]
+          }
+        },
+        "id": "a1b2c3d4-2222-4bbb-9999-000000000001",
+        "name": "LDAP: Search current group memberships",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          1696,
+          400
+        ],
+        "credentials": {
+          "ldap": {
+            "id": "GTn2ld6OAhRI8O00",
+            "name": "LDAP account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "const a = $('Code: Build AD user attributes').first().json;\nconst userDn = a.dn;\nconst desired = new Set(a.groupDns || []);\nconst current = new Set($input.all().map(item => `CN=${item.json.cn},OU=Security Groups,DC=MGA,DC=com`));\n\nconst actions = [];\nfor (const dn of desired) if (!current.has(dn)) actions.push({ groupDn: dn, action: 'add', userDn });\nfor (const dn of current) if (!desired.has(dn)) actions.push({ groupDn: dn, action: 'remove', userDn });\n\nreturn actions.map(item => ({ json: item }));"
+        },
+        "id": "a1b2c3d4-2222-4bbb-9999-000000000002",
+        "name": "Code: Build group membership diff",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1920,
+          400
+        ]
+      },
+      {
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "combinator": "and",
+            "conditions": [
+              {
+                "id": "group-action-add",
+                "leftValue": "={{ $json.action }}",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                },
+                "rightValue": "add"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "id": "a1b2c3d4-2222-4bbb-9999-000000000003",
+        "name": "IF: Group action = add?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.3,
+        "position": [
+          2144,
+          400
+        ]
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.groupDn }}",
+          "attributes": {
+            "add": [
+              {
+                "id": "member",
+                "value": "={{ $json.userDn }}"
+              }
+            ]
+          }
+        },
+        "id": "a1b2c3d4-2222-4bbb-9999-000000000004",
+        "name": "LDAP: Add group member (existing)",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          2368,
+          320
+        ],
+        "credentials": {
+          "ldap": {
+            "id": "GTn2ld6OAhRI8O00",
+            "name": "LDAP account"
+          }
+        },
+        "continueOnFail": true
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.groupDn }}",
+          "attributes": {
+            "delete": [
+              {
+                "id": "member",
+                "value": "={{ $json.userDn }}"
+              }
+            ]
+          }
+        },
+        "id": "a1b2c3d4-2222-4bbb-9999-000000000005",
+        "name": "LDAP: Remove group member (existing)",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          2368,
+          480
+        ],
+        "credentials": {
+          "ldap": {
+            "id": "GTn2ld6OAhRI8O00",
+            "name": "LDAP account"
+          }
+        },
+        "continueOnFail": true
       }
     ],
     "connections": {
@@ -1008,6 +1385,11 @@
           [
             {
               "node": "Form: User Created",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Code: Build groups to add (create)",
               "type": "main",
               "index": 0
             }
@@ -1116,6 +1498,11 @@
               "node": "Form: User Provisioned",
               "type": "main",
               "index": 0
+            },
+            {
+              "node": "LDAP: Search current group memberships",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -1159,15 +1546,66 @@
             }
           ]
         ]
+      },
+      "Code: Build groups to add (create)": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Add group member (create)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Search current group memberships": {
+        "main": [
+          [
+            {
+              "node": "Code: Build group membership diff",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code: Build group membership diff": {
+        "main": [
+          [
+            {
+              "node": "IF: Group action = add?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Group action = add?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Add group member (existing)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "LDAP: Remove group member (existing)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": null,
-    "description": null,
-    "autosaved": false
+    "name": "Version 7da7e0e6",
+    "description": "",
+    "autosaved": true
   },
-  "activeVersionId": "a04d9a1a-ff9a-49b9-a408-62dcf7db3d1d",
+  "activeVersionId": "7da7e0e6-cff4-4063-96b1-d96f0ef7a69b",
   "connections": {
     "On form submission": {
       "main": [
@@ -1258,6 +1696,11 @@
         [
           {
             "node": "Form: User Created",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code: Build groups to add (create)",
             "type": "main",
             "index": 0
           }
@@ -1366,6 +1809,11 @@
             "node": "Form: User Provisioned",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "LDAP: Search current group memberships",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -1404,6 +1852,57 @@
         [
           {
             "node": "IF: Account disabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build groups to add (create)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Add group member (create)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Search current group memberships": {
+      "main": [
+        [
+          {
+            "node": "Code: Build group membership diff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build group membership diff": {
+      "main": [
+        [
+          {
+            "node": "IF: Group action = add?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Group action = add?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Add group member (existing)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP: Remove group member (existing)",
             "type": "main",
             "index": 0
           }
@@ -1683,6 +2182,212 @@
               "requiredField": true
             },
             {
+              "fieldLabel": "Groups",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "22453-ULM Project C1 Share"
+                  },
+                  {
+                    "option": "341 3rd Party"
+                  },
+                  {
+                    "option": "341 Nassau"
+                  },
+                  {
+                    "option": "Accounting_Share_Administrative"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_JCA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_KAA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_MGA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_MGC"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_PGN"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_PLX"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_S4D"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_WCK"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_WRA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_WSA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_JCA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_KAA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_MGA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_MGC"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_PGN"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_S4D"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_WCK"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_WRA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_WSA"
+                  },
+                  {
+                    "option": "Accounting_Share_Executive"
+                  },
+                  {
+                    "option": "AccountingDrive"
+                  },
+                  {
+                    "option": "AOC Folder Access"
+                  },
+                  {
+                    "option": "Arch Inq Group"
+                  },
+                  {
+                    "option": "Billings Courthouse"
+                  },
+                  {
+                    "option": "Business Development"
+                  },
+                  {
+                    "option": "communications group"
+                  },
+                  {
+                    "option": "Computer Support"
+                  },
+                  {
+                    "option": "Contract_Restriction_GG"
+                  },
+                  {
+                    "option": "employment group"
+                  },
+                  {
+                    "option": "Enterprise Key Admins"
+                  },
+                  {
+                    "option": "Fannie Mae"
+                  },
+                  {
+                    "option": "ftpusers"
+                  },
+                  {
+                    "option": "GFS Team"
+                  },
+                  {
+                    "option": "Graphics"
+                  },
+                  {
+                    "option": "info group"
+                  },
+                  {
+                    "option": "Key Admins"
+                  },
+                  {
+                    "option": "LocalAdmin"
+                  },
+                  {
+                    "option": "Marketing"
+                  },
+                  {
+                    "option": "MGA"
+                  },
+                  {
+                    "option": "MGA VPN Users"
+                  },
+                  {
+                    "option": "MGA_341_users"
+                  },
+                  {
+                    "option": "MGA_Missoni"
+                  },
+                  {
+                    "option": "MGA_NYC_Users"
+                  },
+                  {
+                    "option": "MGA-HKS_Document_Control"
+                  },
+                  {
+                    "option": "MGA-Pattigadda-Architecture"
+                  },
+                  {
+                    "option": "MGA-Pattigadda-Interiors"
+                  },
+                  {
+                    "option": "MGDG Info Group"
+                  },
+                  {
+                    "option": "N-able backup users"
+                  },
+                  {
+                    "option": "Nashville_Courthouse"
+                  },
+                  {
+                    "option": "NYC"
+                  },
+                  {
+                    "option": "PGN_CBE_Share"
+                  },
+                  {
+                    "option": "Principals"
+                  },
+                  {
+                    "option": "Products"
+                  },
+                  {
+                    "option": "Project Garnet Share"
+                  },
+                  {
+                    "option": "SCRead"
+                  },
+                  {
+                    "option": "SCWrite"
+                  },
+                  {
+                    "option": "Sentosa_FTP_Users"
+                  },
+                  {
+                    "option": "SepialineInstall"
+                  },
+                  {
+                    "option": "SQLServer2005SQLBrowserUser$MGACOLDC01"
+                  },
+                  {
+                    "option": "SQLServer2005SQLBrowserUser$MGAPGNDC01"
+                  },
+                  {
+                    "option": "SQLServer2005SQLBrowserUser$MGATNDC01"
+                  },
+                  {
+                    "option": "US_Embessy"
+                  }
+                ]
+              }
+            },
+            {
               "fieldLabel": "EMP ID"
             },
             {
@@ -1693,9 +2398,7 @@
             }
           ]
         },
-        "options": {
-          "customCss": "/* 1. APPLIES TOTAL BRAND BLACK TO THE ENTIRE PAGE & WRAPPERS */\nbody, \nmain, \n.form-container, \n.ndv-form, \n.form-card, \n.card, \n.form-wrapper, \ndiv[class*=\"card\"], \ndiv[class*=\"form\"],\nfieldset {\n    background-color: #000000 !important;\n    background: #000000 !important;\n    color: #FFFFFF !important;\n    border-color: #222222 !important;\n}\n\n/* 2. FORCE EVERY SINGLE FIELD LABEL ON THE PAGE TO PURE WHITE */\nlabel, \n.form-label, \n.field-label, \n.ndv-form-label, \nlegend,\nh1, h2, h3, p, span,\ndiv[class*=\"label\"],\nspan[class*=\"label\"],\np[class*=\"label\"] {\n    color: #FFFFFF !important;\n    opacity: 1 !important;\n    font-weight: 600 !important;\n}\n\n/* TARGET ONLY THE ASTERISK CHARACTER */\n/* This ensures only the tiny star element is red, leaving text white */\nspan.required,\n.required-asterisk,\nlabel span:last-child,\ndiv[class*=\"label\"] span:last-child {\n    color: #D8262D !important;\n}\n\n/* For validation message strings below the inputs (\"This field is required\") */\ndiv[class*=\"errorMessage\"],\n.invalid-feedback,\np[class*=\"error\"] {\n    color: #D8262D !important;\n    font-weight: normal !important;\n}\n\n/* 3. STRIP WHITE BACKGROUND FROM COMBOBOX OUTER CONTAINER WRAPPERS */\ndiv[class*=\"-control\"],\n.select-wrapper,\ndiv[class*=\"input-wrapper\"],\ndiv[class*=\"container\"] {\n    background-color: transparent !important;\n    background: transparent !important;\n    border: none !important;\n    padding: 0 !important;\n    box-shadow: none !important;\n}\n\n/* 4. ACTUAL INPUT FIELDS (FORCES BACKGROUND WHITE & TEXT SOLID BLACK) */\ninput, \ntextarea, \nselect, \n.form-control, \ndiv[class*=\"select__control\"],\ndiv[class*=\"control\"],\ndiv[class*=\"valueContainer\"],\nspan[class*=\"valueContainer\"],\ndiv[class*=\"singleValue\"],\nspan[class*=\"singleValue\"] {\n    background-color: #FFFFFF !important;\n    background: #FFFFFF !important;\n    color: #000000 !important; /* Force text black inside all inputs */\n    border: 1px solid #333333 !important;\n    border-radius: 4px !important;\n    padding: 10px !important;\n}\n\n/* Ensure placeholder text (\"Select an option...\") stays readable in dark grey */\ninput::placeholder,\ndiv[class*=\"placeholder\"],\nspan[class*=\"placeholder\"] {\n    color: #555555 !important;\n}\n\n/* 5. UNIFIED STYLING FOR COMBOBOX DROPDOWN OPTIONS OVERLAY */\nselect option, \n.dropdown-menu, \n.dropdown-item, \n.option, \n*[class*=\"option\"], \ndiv[class*=\"menu\"],\ndiv[class*=\"MenuList\"] {\n    background-color: #FFFFFF !important; \n    color: #000000 !important;            \n}\n\n/* Visual cue when hovering over options in the combobox menu */\nselect option:hover, \nselect option:focus, \n.dropdown-item:hover, \n*[class*=\"option\"]:hover,\ndiv[class*=\"option--is-focused\"] {\n    background-color: #D8262D !important; \n    color: #FFFFFF !important;            \n}\n\n/* Active box focus wrapper styling using MG Red */\ninput:focus, \ntextarea:focus, \nselect:focus,\ndiv[class*=\"control--is-focused\"] {\n    border-color: #D8262D !important;\n    outline: none !important;\n    box-shadow: 0 0 0 2px rgba(216, 38, 45, 0.4) !important;\n}\n\n/* 6. BRAND MG RED SUBMIT BUTTON */\nbutton[type=\"submit\"], \n.btn-submit, \nbutton {\n    background-color: #D8262D !important;\n    color: #FFFFFF !important;\n    border: none !important;\n    border-radius: 4px !important;\n    padding: 12px 24px !important;\n    font-weight: 700 !important;\n    text-transform: uppercase !important;\n    cursor: pointer !important;\n    transition: background-color 0.2s ease !important;\n    width: 100% !important;\n}\n\nbutton[type=\"submit\"]:hover, \n.btn-submit:hover, \nbutton:hover {\n    background-color: #B51D23 !important;\n}\n"
-        }
+        "options": {}
       },
       "id": "8081aa0a-84d6-43bf-9342-ba5ad6af8c73",
       "name": "On form submission",
@@ -1709,7 +2412,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const item = $input.first().json;\n\nconst firstName   = String(item['First Name']      ?? '').trim();\nconst lastName    = String(item['Last Name']       ?? '').trim();\nconst jobTitle    = String(item['Job Title']       ?? '').trim();\nconst studioRaw   = String(item['Studio']          ?? '').trim();\nconst empId       = String(item['EMP ID']          ?? '').trim();\nconst phoneExt    = String(item['Phone Extension'] ?? '').trim();\nconst credentials = String(item['Credentials']     ?? '').trim();\n\nif (!firstName) throw new Error('First Name is required.');\nif (!lastName)  throw new Error('Last Name is required.');\nif (!studioRaw) throw new Error('Studio selection is required.');\n\n// Auto-detect delimiter\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts     = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] ?? '';\nconst street    = parts[1] ?? '';\nconst state     = parts[3] ?? '';\nconst zip       = parts[4] ?? '';\nconst phone     = parts[5] ?? '';\n\nconst dashIdx = labelPart.indexOf(' \\u2014 ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city    = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city)    throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity             = city.replace(/[-\\s]/g, '');\nconst sAMAccountName     = (firstName.charAt(0) + lastName).toLowerCase();\nconst displayName        = `${firstName} ${lastName}`;\nconst cn                 = displayName;\nconst dn                 = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst targetOU           = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName  = `${sAMAccountName}@michaelgraves.com`;\nconst mail               = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId)       optionalFields.pager   = empId;\nif (phoneExt)    optionalFields.ipPhone  = phoneExt;\nif (credentials) optionalFields.info     = credentials;\n\n// HTML completion pages\nconst successHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #38a169;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\u2705</span>\n    <h2 style=\"margin:0; color:#276749; font-size:20px;\">User Created Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been created.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nconst updatedHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #3182ce;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\ud83d\\udd04</span>\n    <h2 style=\"margin:0; color:#2b6cb0; font-size:20px;\">User Updated Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been updated and re-enabled.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nreturn [{\n  json: {\n    dn,\n    targetOU,\n    sAMAccountName,\n    displayName,\n    givenName: firstName,\n    sn: lastName,\n    cn,\n    title: jobTitle,\n    company,\n    streetAddress: street,\n    l: city,\n    st: state,\n    postalCode: zip,\n    telephoneNumber: phone,\n    userPrincipalName,\n    mail,\n    objectClass: 'user',\n    userAccountControl: '514',\n    successHtml,\n    updatedHtml,\n    ...optionalFields\n  }\n}];"
+        "jsCode": "const item = $input.first().json;\n\nconst firstName   = String(item['First Name']      ?? '').trim();\nconst lastName    = String(item['Last Name']       ?? '').trim();\nconst jobTitle    = String(item['Job Title']       ?? '').trim();\nconst studioRaw   = String(item['Studio']          ?? '').trim();\nconst empId       = String(item['EMP ID']          ?? '').trim();\nconst phoneExt    = String(item['Phone Extension'] ?? '').trim();\nconst credentials = String(item['Credentials']     ?? '').trim();\n\nif (!firstName) throw new Error('First Name is required.');\nif (!lastName)  throw new Error('Last Name is required.');\nif (!studioRaw) throw new Error('Studio selection is required.');\n\n// Auto-detect delimiter\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts     = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] ?? '';\nconst street    = parts[1] ?? '';\nconst state     = parts[3] ?? '';\nconst zip       = parts[4] ?? '';\nconst phone     = parts[5] ?? '';\n\nconst dashIdx = labelPart.indexOf(' \\u2014 ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city    = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city)    throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity             = city.replace(/[-\\s]/g, '');\nconst sAMAccountName     = (firstName.charAt(0) + lastName).toLowerCase();\nconst displayName        = `${firstName} ${lastName}`;\nconst cn                 = displayName;\nconst dn                 = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst targetOU           = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName  = `${sAMAccountName}@michaelgraves.com`;\nconst mail               = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId)       optionalFields.pager   = empId;\nif (phoneExt)    optionalFields.ipPhone  = phoneExt;\nif (credentials) optionalFields.info     = credentials;\n\nconst selectedGroups = Array.isArray(item['Groups']) ? item['Groups'] : (item['Groups'] ? [item['Groups']] : []);\nconst groupDns = selectedGroups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\n// HTML completion pages\nconst successHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #38a169;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\u2705</span>\n    <h2 style=\"margin:0; color:#276749; font-size:20px;\">User Created Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been created.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nconst updatedHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #3182ce;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">\\ud83d\\udd04</span>\n    <h2 style=\"margin:0; color:#2b6cb0; font-size:20px;\">User Updated Successfully</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0 0 12px;\">\n    The Active Directory account <strong style=\"color:#2d3748;\">${sAMAccountName}</strong> has been updated and re-enabled.\n  </p>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">\n    The user can log in with their temporary password and will be prompted to change it on first sign-in.\n  </p>\n</div>`;\n\nreturn [{\n  json: {\n    dn,\n    targetOU,\n    sAMAccountName,\n    displayName,\n    givenName: firstName,\n    sn: lastName,\n    cn,\n    title: jobTitle,\n    company,\n    streetAddress: street,\n    l: city,\n    st: state,\n    postalCode: zip,\n    telephoneNumber: phone,\n    userPrincipalName,\n    mail,\n    objectClass: 'user',\n    userAccountControl: '514',\n    successHtml,\n    updatedHtml,\n    groupDns,\n    ...optionalFields\n  }\n}];"
       },
       "id": "39efa1c6-f857-4cdb-910e-515ab24186f5",
       "name": "Code: Build AD user attributes",
@@ -2329,6 +3032,179 @@
         }
       },
       "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const a = $('Code: Build AD user attributes').first().json;\nreturn (a.groupDns || []).map(dn => ({ json: { groupDn: dn, userDn: a.dn } }));"
+      },
+      "id": "a1b2c3d4-1111-4aaa-9999-000000000001",
+      "name": "Code: Build groups to add (create)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        704
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.groupDn }}",
+        "attributes": {
+          "add": [
+            {
+              "id": "member",
+              "value": "={{ $json.userDn }}"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-1111-4aaa-9999-000000000002",
+      "name": "LDAP: Add group member (create)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        320,
+        704
+      ],
+      "credentials": {
+        "ldap": {
+          "id": "GTn2ld6OAhRI8O00",
+          "name": "LDAP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "baseDN": "OU=Security Groups,DC=MGA,DC=com",
+        "searchFor": "custom",
+        "customFilter": "={{ \"(&(objectClass=group)(member=\" + $('Code: Build AD user attributes').first().json.dn + \"))\" }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "cn"
+          ]
+        }
+      },
+      "id": "a1b2c3d4-2222-4bbb-9999-000000000001",
+      "name": "LDAP: Search current group memberships",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1696,
+        400
+      ],
+      "credentials": {
+        "ldap": {
+          "id": "GTn2ld6OAhRI8O00",
+          "name": "LDAP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const a = $('Code: Build AD user attributes').first().json;\nconst userDn = a.dn;\nconst desired = new Set(a.groupDns || []);\nconst current = new Set($input.all().map(item => `CN=${item.json.cn},OU=Security Groups,DC=MGA,DC=com`));\n\nconst actions = [];\nfor (const dn of desired) if (!current.has(dn)) actions.push({ groupDn: dn, action: 'add', userDn });\nfor (const dn of current) if (!desired.has(dn)) actions.push({ groupDn: dn, action: 'remove', userDn });\n\nreturn actions.map(item => ({ json: item }));"
+      },
+      "id": "a1b2c3d4-2222-4bbb-9999-000000000002",
+      "name": "Code: Build group membership diff",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "group-action-add",
+              "leftValue": "={{ $json.action }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "add"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-2222-4bbb-9999-000000000003",
+      "name": "IF: Group action = add?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2144,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.groupDn }}",
+        "attributes": {
+          "add": [
+            {
+              "id": "member",
+              "value": "={{ $json.userDn }}"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-2222-4bbb-9999-000000000004",
+      "name": "LDAP: Add group member (existing)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        2368,
+        320
+      ],
+      "credentials": {
+        "ldap": {
+          "id": "GTn2ld6OAhRI8O00",
+          "name": "LDAP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.groupDn }}",
+        "attributes": {
+          "delete": [
+            {
+              "id": "member",
+              "value": "={{ $json.userDn }}"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-2222-4bbb-9999-000000000005",
+      "name": "LDAP: Remove group member (existing)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        2368,
+        480
+      ],
+      "credentials": {
+        "ldap": {
+          "id": "GTn2ld6OAhRI8O00",
+          "name": "LDAP account"
+        }
+      },
+      "continueOnFail": true
     }
   ],
   "pinData": {},
@@ -2349,6 +3225,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-06T04:00:37.127Z",
-  "versionId": "a04d9a1a-ff9a-49b9-a408-62dcf7db3d1d"
+  "updatedAt": "2026-07-07T04:00:36.712Z",
+  "versionId": "7da7e0e6-cff4-4063-96b1-d96f0ef7a69b"
 }
