@@ -1148,7 +1148,7 @@
       "main": [
         [
           {
-            "node": "Send an Email",
+            "node": "Send a message",
             "type": "main",
             "index": 0
           }
@@ -1743,8 +1743,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1344,
-        576
+        1456,
+        304
       ],
       "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536",
       "credentials": {
@@ -1752,15 +1752,16 @@
           "id": "Ya5Hdbwc6vugCG4l",
           "name": "SMTP account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
         "authentication": "microsoftEntraServicePrincipalApi",
         "mailbox": {
           "__rl": true,
-          "mode": "id",
-          "value": ""
+          "value": "itadmin@michaelgraves.com",
+          "mode": "id"
         },
         "toRecipients": "itadmin@michaelgraves.com",
         "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
@@ -1770,19 +1771,18 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        1664,
-        288
+        1296,
+        576
       ],
       "id": "d18205bb-1e86-4243-8ed8-646fc525d6bb",
       "name": "Send a message",
       "webhookId": "214283bf-a68c-4ec9-a10e-3941ed090268",
       "credentials": {
         "microsoftEntraServicePrincipalApi": {
-          "id": "vxzpO98YDD3KtBPP",
-          "name": "Microsoft Outlook account"
+          "id": "daNTcFeBfRqDEFPb",
+          "name": "Microsoft Entra Service Principal account"
         }
-      },
-      "disabled": true
+      }
     }
   ],
   "pinData": {},
@@ -1812,6 +1812,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-17T02:25:01.985Z",
-  "versionId": "a9612968-d33a-4e1d-9c7c-105055ba21c0"
+  "updatedAt": "2026-07-17T02:38:55.095Z",
+  "versionId": "2e25e9ff-a137-49d8-9484-611c15abea60"
 }
