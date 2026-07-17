@@ -1148,7 +1148,7 @@
       "main": [
         [
           {
-            "node": "Send a message",
+            "node": "Send an Email",
             "type": "main",
             "index": 0
           }
@@ -1743,8 +1743,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1296,
-        272
+        1344,
+        576
       ],
       "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536",
       "credentials": {
@@ -1752,11 +1752,16 @@
           "id": "Ya5Hdbwc6vugCG4l",
           "name": "SMTP account"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
+        "authentication": "microsoftEntraServicePrincipalApi",
+        "mailbox": {
+          "__rl": true,
+          "mode": "id",
+          "value": ""
+        },
         "toRecipients": "itadmin@michaelgraves.com",
         "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
         "bodyContent": "={{ $json.htmlBody }}",
@@ -1765,18 +1770,19 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        1280,
-        576
+        1664,
+        288
       ],
       "id": "d18205bb-1e86-4243-8ed8-646fc525d6bb",
       "name": "Send a message",
       "webhookId": "214283bf-a68c-4ec9-a10e-3941ed090268",
       "credentials": {
-        "microsoftOutlookOAuth2Api": {
-          "id": "PgHqtOZrFEN9jyZo",
+        "microsoftEntraServicePrincipalApi": {
+          "id": "vxzpO98YDD3KtBPP",
           "name": "Microsoft Outlook account"
         }
-      }
+      },
+      "disabled": true
     }
   ],
   "pinData": {},
@@ -1806,6 +1812,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-17T01:26:19.096Z",
-  "versionId": "bca23a98-d7a9-44f1-940e-f7354b41fad2"
+  "updatedAt": "2026-07-17T01:45:51.719Z",
+  "versionId": "15ef72d9-367f-47fb-9e73-391f50143829"
 }
