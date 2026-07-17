@@ -1,0 +1,182 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Webhook: Launch Form": {
+      "main": [
+        [
+          {
+            "node": "Execute: Refresh Form Values",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: Refresh Form Values": {
+      "main": [
+        [
+          {
+            "node": "Did Refresh Succeed?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Did Refresh Succeed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Did Refresh Succeed?": {
+      "main": [
+        [
+          {
+            "node": "Show Error Page",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redirect to Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-16T23:56:59.818Z",
+  "id": "bkVFN85XWDqCvPLe",
+  "isArchived": false,
+  "meta": null,
+  "name": "365 - User Provisioning - Launcher",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "path": "new-hire-provisioning-launch",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "8f478e22-84cf-4d35-b1a3-af72186c54e7",
+      "name": "Webhook: Launch Form",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -672,
+        64
+      ],
+      "webhookId": "316f35cc-2c3f-4ac0-b88b-944582b97f34"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "cachedResultUrl": "/workflow/GVEihxtWAzcXXDe4",
+          "mode": "id",
+          "value": "GVEihxtWAzcXXDe4"
+        },
+        "options": {}
+      },
+      "id": "b96b64ae-b1c6-4bc1-b5e9-e0a76b6547ae",
+      "name": "Execute: Refresh Form Values",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1,
+      "position": [
+        -448,
+        64
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "refresh-error-check",
+              "leftValue": "={{ $json.error }}",
+              "operator": {
+                "name": "filter.operator.exists",
+                "operation": "exists",
+                "type": "string"
+              },
+              "rightValue": ""
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          }
+        },
+        "options": {}
+      },
+      "id": "706408c7-d421-4eed-b0ab-fbb6867bc64b",
+      "name": "Did Refresh Succeed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "http://192.168.84.6:5678/form/015c2f57-e6e6-46eb-9bd3-140e942954ff",
+        "options": {}
+      },
+      "id": "92779dac-68be-4709-a3c2-64481dce9f60",
+      "name": "Redirect to Form",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Provisioning Form Unavailable</title>\n  <style>\n    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }\n    .error-box { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 20px; border-radius: 4px; max-width: 600px; margin: 0 auto; }\n    h1 { color: #721c24; margin-top: 0; }\n    hr { border: none; border-top: 1px solid #f5c6cb; }\n  </style>\n</head>\n<body>\n  <div class=\"error-box\">\n    <h1>⚠️ Form Temporarily Unavailable</h1>\n    <p>The provisioning form could not be loaded at this time due to a system error.</p>\n    <p><strong>Please try again in a few moments.</strong> If the problem persists, contact IT.</p>\n    <hr>\n    <p><small>Error occurred while refreshing form options. This is typically a temporary connectivity or service issue.</small></p>\n  </div>\n</body>\n</html>",
+        "options": {}
+      },
+      "id": "f9cf5eab-0cc3-4773-9752-bdbe6a675c07",
+      "name": "Show Error Page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        128
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-16T23:56:59.819Z",
+      "createdAt": "2026-07-16T23:56:59.819Z",
+      "role": "workflow:owner",
+      "workflowId": "bkVFN85XWDqCvPLe",
+      "projectId": "9efpp4J5DO3tFlq4"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-16T23:56:59.818Z",
+  "versionId": "1e681188-272d-4c97-8d44-9e171539529c"
+}
