@@ -1,0 +1,112 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Diag: Search jfrazier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Diag Webhook": {
+      "main": [
+        [
+          {
+            "node": "Diag: Search jfrazier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-16T23:59:36.149Z",
+  "id": "MfWpGJljxphXVxiq",
+  "isArchived": false,
+  "meta": null,
+  "name": "Testing",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e63be95f-d122-4c66-889b-9650e1c1512e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "(objectclass=top)",
+        "attribute": "sAMAccountName",
+        "searchText": "jfrazier",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "distinguishedName",
+            "userAccountControl",
+            "pager",
+            "ipPhone",
+            "info",
+            "whenCreated"
+          ]
+        }
+      },
+      "id": "b7fcc874-6a92-44f7-9529-bf47c357659a",
+      "name": "Diag: Search jfrazier",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "path": "diag-jfrazier-check",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "3ae228ba-e754-47c2-877f-bfe5b477f082",
+      "name": "Diag Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "9d220067-36ad-4460-aa8e-11b995edfdc9"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-16T23:59:36.152Z",
+      "createdAt": "2026-07-16T23:59:36.152Z",
+      "role": "workflow:owner",
+      "workflowId": "MfWpGJljxphXVxiq",
+      "projectId": "9efpp4J5DO3tFlq4"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-16T23:59:36.149Z",
+  "versionId": "b4492a88-5de2-4c45-b925-6b86d3876e18"
+}
