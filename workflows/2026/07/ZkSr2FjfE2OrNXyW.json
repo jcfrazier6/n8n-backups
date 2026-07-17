@@ -235,7 +235,7 @@
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
-    "availableInMCP": false
+    "availableInMCP": true
   },
   "shared": [
     {
@@ -249,6 +249,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-16T23:56:48.040Z",
+  "updatedAt": "2026-07-17T13:49:07.435Z",
   "versionId": "0bb26199-f35b-4774-9156-c5393db8e8b1"
 }
