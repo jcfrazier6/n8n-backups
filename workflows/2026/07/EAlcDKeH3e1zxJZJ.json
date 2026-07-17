@@ -1,0 +1,2055 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-07-17T23:33:06.763Z",
+    "createdAt": "2026-07-17T23:33:06.763Z",
+    "versionId": "61701413-028b-498e-9e3b-c986ac87d883",
+    "workflowId": "EAlcDKeH3e1zxJZJ",
+    "nodes": [
+      {
+        "id": "formTrigger",
+        "name": "On form submission",
+        "type": "n8n-nodes-base.formTrigger",
+        "typeVersion": 2.6,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "authentication": "n8nUserAuth",
+          "formTitle": "AD User Provisioning",
+          "formFields": {
+            "values": [
+              {
+                "fieldLabel": "Existing Employee",
+                "fieldType": "dropdown",
+                "fieldOptions": {
+                  "values": []
+                }
+              },
+              {
+                "fieldLabel": "First Name"
+              },
+              {
+                "fieldLabel": "Last Name"
+              },
+              {
+                "fieldLabel": "Job Title",
+                "fieldType": "dropdown",
+                "fieldOptions": {
+                  "values": [
+                    {
+                      "option": "3-D Visualization Artist"
+                    },
+                    {
+                      "option": "3rd Party"
+                    },
+                    {
+                      "option": "Accounting Assistant"
+                    },
+                    {
+                      "option": "Accounting Summer Intern"
+                    },
+                    {
+                      "option": "Admin Support Specialist"
+                    },
+                    {
+                      "option": "Administrative Intern"
+                    },
+                    {
+                      "option": "Administrative Support Specialist"
+                    },
+                    {
+                      "option": "Architect"
+                    },
+                    {
+                      "option": "Architect / Senior Project Manager"
+                    },
+                    {
+                      "option": "Architectural Design Intern"
+                    },
+                    {
+                      "option": "Architectural Designer"
+                    },
+                    {
+                      "option": "Architectural Designer II"
+                    },
+                    {
+                      "option": "Architectural Technologist"
+                    },
+                    {
+                      "option": "Associate"
+                    },
+                    {
+                      "option": "Associate Principal"
+                    },
+                    {
+                      "option": "Business Analyst"
+                    },
+                    {
+                      "option": "Business Development & Communications Manager"
+                    },
+                    {
+                      "option": "Business Operations Manager"
+                    },
+                    {
+                      "option": "CEO"
+                    },
+                    {
+                      "option": "CFO"
+                    },
+                    {
+                      "option": "Chief Design Technology Officer"
+                    },
+                    {
+                      "option": "Communications & Business Development Manager"
+                    },
+                    {
+                      "option": "Construction Administrator"
+                    },
+                    {
+                      "option": "Controller"
+                    },
+                    {
+                      "option": "COO"
+                    },
+                    {
+                      "option": "Design Production Specialist"
+                    },
+                    {
+                      "option": "Design Technology Manager"
+                    },
+                    {
+                      "option": "Design Technology Specialist"
+                    },
+                    {
+                      "option": "Director of Finance"
+                    },
+                    {
+                      "option": "Director of Human Resources"
+                    },
+                    {
+                      "option": "Director of Interior Design"
+                    },
+                    {
+                      "option": "Director of IT"
+                    },
+                    {
+                      "option": "Director of Marketing"
+                    },
+                    {
+                      "option": "Director of Resource Management"
+                    },
+                    {
+                      "option": "Graphic Design Manager"
+                    },
+                    {
+                      "option": "Historic Preservation Specialist"
+                    },
+                    {
+                      "option": "Interior Design Intern"
+                    },
+                    {
+                      "option": "Interior Designer"
+                    },
+                    {
+                      "option": "International Director of Interior Design"
+                    },
+                    {
+                      "option": "Investor"
+                    },
+                    {
+                      "option": "Jr. Interior Designer"
+                    },
+                    {
+                      "option": "Marketing Intern"
+                    },
+                    {
+                      "option": "Marketing Manager"
+                    },
+                    {
+                      "option": "Principal"
+                    },
+                    {
+                      "option": "Principal-Emeritus"
+                    },
+                    {
+                      "option": "Project Architect"
+                    },
+                    {
+                      "option": "Project Interior Designer"
+                    },
+                    {
+                      "option": "Project Manager"
+                    },
+                    {
+                      "option": "Senior 3-D Visualization Artist"
+                    },
+                    {
+                      "option": "Senior Accountant"
+                    },
+                    {
+                      "option": "Senior Architect"
+                    },
+                    {
+                      "option": "Senior Architectural Designer"
+                    },
+                    {
+                      "option": "Senior Associate"
+                    },
+                    {
+                      "option": "Senior Associate, Director of Planning"
+                    },
+                    {
+                      "option": "Senior Associate, Senior Director of Interior Design"
+                    },
+                    {
+                      "option": "Senior Project Manager"
+                    },
+                    {
+                      "option": "Sr. Accountant"
+                    },
+                    {
+                      "option": "Sr. Architectural Designer"
+                    },
+                    {
+                      "option": "Sr. Associate"
+                    },
+                    {
+                      "option": "Sr. Project Architect"
+                    },
+                    {
+                      "option": "Sr. Project Manager"
+                    },
+                    {
+                      "option": "Staff Accountant"
+                    },
+                    {
+                      "option": "Test User"
+                    }
+                  ]
+                }
+              },
+              {
+                "fieldLabel": "Studio",
+                "fieldType": "dropdown",
+                "fieldOptions": {
+                  "values": [
+                    {
+                      "option": "JCA — Hackensack ~~ 171 Main Street | Suite 301 ~~ Hackensack ~~ NJ ~~ 07601 ~~ 201.678.1201"
+                    },
+                    {
+                      "option": "KAA — Chicago ~~ 900 N. Franklin Street | Suite 405-B ~~ Chicago ~~ IL ~~ 60610 ~~ 312.471.2505"
+                    },
+                    {
+                      "option": "KAA — Long Beach ~~ 4265 E. Conant Street | Suite 101 ~~ Long Beach ~~ CA ~~ 90808 ~~ 562.597.8760"
+                    },
+                    {
+                      "option": "MGA — Princeton ~~ 341 Nassau Street ~~ Princeton ~~ NJ ~~ 08540 ~~ 609.924.6409"
+                    },
+                    {
+                      "option": "MGA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 609.924.6409"
+                    },
+                    {
+                      "option": "MGC — Charlotte ~~ 4431 Monroe Road ~~ Charlotte ~~ NC ~~ 28205 ~~ 609.924.6409"
+                    },
+                    {
+                      "option": "PGN — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 202.822.5995"
+                    },
+                    {
+                      "option": "PLX — Allen ~~ 1513 Greenbriar Drive | Suite 201 ~~ Allen ~~ TX ~~ 75013 ~~ 469.949.8528"
+                    },
+                    {
+                      "option": "S4D — Knoxville ~~ 18 Emory Place | Suite 100 ~~ Knoxville ~~ TN ~~ 37917 ~~ 865.523.5001"
+                    },
+                    {
+                      "option": "WCK — Philadelphia ~~ 1518 Walnut Street | Suite 1308 ~~ Philadelphia ~~ PA ~~ 19103 ~~ 267.738.0956"
+                    },
+                    {
+                      "option": "WRA — Winston-Salem ~~ 530 N. Trade Street | Suite 301 ~~ Winston-Salem ~~ NC ~~ 27101 ~~ 336.725.1371"
+                    },
+                    {
+                      "option": "WSA — Baltimore ~~ 233 E. Redwood Street | Suite 1200 ~~ Baltimore ~~ MD ~~ 21202 ~~ 410.290.9680"
+                    },
+                    {
+                      "option": "WSA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 571.451.2538"
+                    },
+                    {
+                      "option": "WSA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 410.290.9680"
+                    }
+                  ]
+                }
+              },
+              {
+                "fieldLabel": "EMP ID"
+              },
+              {
+                "fieldLabel": "Phone Extension"
+              },
+              {
+                "fieldLabel": "Credentials"
+              },
+              {
+                "fieldLabel": "Home Folder (Z: Drive)",
+                "fieldType": "checkbox",
+                "fieldOptions": {
+                  "values": [
+                    {
+                      "option": "Set up home folder (Z: drive)"
+                    }
+                  ]
+                }
+              },
+              {
+                "fieldLabel": "Groups",
+                "fieldType": "checkbox",
+                "fieldOptions": {
+                  "values": [
+                    {
+                      "option": "22453-ULM Project C1 Share"
+                    },
+                    {
+                      "option": "341 3rd Party"
+                    },
+                    {
+                      "option": "341 Nassau"
+                    },
+                    {
+                      "option": "Accounting_Share_Administrative"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_JCA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_KAA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_MGA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_MGC"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_PGN"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_PLX"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_S4D"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_WCK"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_WRA"
+                    },
+                    {
+                      "option": "Accounting_Share_BusinessUnit_WSA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_JCA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_KAA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_MGA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_MGC"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_PGN"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_S4D"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_WCK"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_WRA"
+                    },
+                    {
+                      "option": "Accounting_Share_Department_WSA"
+                    },
+                    {
+                      "option": "Accounting_Share_Executive"
+                    },
+                    {
+                      "option": "AOC Folder Access"
+                    },
+                    {
+                      "option": "Arch Inq Group"
+                    },
+                    {
+                      "option": "Billings Courthouse"
+                    },
+                    {
+                      "option": "Business Development"
+                    },
+                    {
+                      "option": "communications group"
+                    },
+                    {
+                      "option": "Computer Support"
+                    },
+                    {
+                      "option": "Contract_Restriction_GG"
+                    },
+                    {
+                      "option": "employment group"
+                    },
+                    {
+                      "option": "Enterprise Key Admins"
+                    },
+                    {
+                      "option": "Fannie Mae"
+                    },
+                    {
+                      "option": "ftpusers"
+                    },
+                    {
+                      "option": "GFS Team"
+                    },
+                    {
+                      "option": "Graphics"
+                    },
+                    {
+                      "option": "info group"
+                    },
+                    {
+                      "option": "Key Admins"
+                    },
+                    {
+                      "option": "LocalAdmin"
+                    },
+                    {
+                      "option": "Marketing"
+                    },
+                    {
+                      "option": "MGA"
+                    },
+                    {
+                      "option": "MGA VPN Users"
+                    },
+                    {
+                      "option": "MGA_341_users"
+                    },
+                    {
+                      "option": "MGA_Missoni"
+                    },
+                    {
+                      "option": "MGA_NYC_Users"
+                    },
+                    {
+                      "option": "MGA-HKS_Document_Control"
+                    },
+                    {
+                      "option": "MGA-Pattigadda-Architecture"
+                    },
+                    {
+                      "option": "MGA-Pattigadda-Interiors"
+                    },
+                    {
+                      "option": "MGDG Info Group"
+                    },
+                    {
+                      "option": "N-able backup users"
+                    },
+                    {
+                      "option": "Nashville_Courthouse"
+                    },
+                    {
+                      "option": "NYC"
+                    },
+                    {
+                      "option": "PGN_CBE_Share"
+                    },
+                    {
+                      "option": "Principals"
+                    },
+                    {
+                      "option": "Products"
+                    },
+                    {
+                      "option": "Project Garnet Share"
+                    },
+                    {
+                      "option": "SCRead"
+                    },
+                    {
+                      "option": "SCWrite"
+                    },
+                    {
+                      "option": "Sentosa_FTP_Users"
+                    },
+                    {
+                      "option": "SepialineInstall"
+                    },
+                    {
+                      "option": "SQLServer2005SQLBrowserUser$MGACOLDC01"
+                    },
+                    {
+                      "option": "SQLServer2005SQLBrowserUser$MGAPGNDC01"
+                    },
+                    {
+                      "option": "SQLServer2005SQLBrowserUser$MGATNDC01"
+                    },
+                    {
+                      "option": "US_Embessy"
+                    },
+                    {
+                      "option": "WRA_Partners"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "options": {}
+        },
+        "webhookId": "65a75b55-2033-44a1-8c78-e2f891409f34"
+      },
+      {
+        "id": "resolveIdentity",
+        "name": "Resolve identity",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          224,
+          0
+        ],
+        "parameters": {
+          "jsCode": "const item = $input.first().json;\nconst existingSelection = String(item['Existing Employee'] || '').trim();\nconst firstNameTyped = String(item['First Name'] || '').trim();\nconst lastNameTyped = String(item['Last Name'] || '').trim();\n\nlet sAMAccountName = '', firstName = '', lastName = '', pickedExisting = false;\n\nif (existingSelection) {\n  const m = existingSelection.match(/\\(([^)]+)\\)\\s*$/);\n  if (!m) throw new Error(`Could not parse username from Existing Employee selection: ${existingSelection}`);\n  sAMAccountName = m[1].trim();\n  const namePart = existingSelection.slice(0, m.index).trim();\n  const spaceIdx = namePart.indexOf(' ');\n  firstName = spaceIdx !== -1 ? namePart.substring(0, spaceIdx).trim() : namePart;\n  lastName = spaceIdx !== -1 ? namePart.substring(spaceIdx + 1).trim() : '';\n  pickedExisting = true;\n} else if (firstNameTyped && lastNameTyped) {\n  firstName = firstNameTyped;\n  lastName = lastNameTyped;\n  sAMAccountName = (firstName.charAt(0) + lastName).toLowerCase();\n} else {\n  throw new Error('Select an existing employee, or enter both First Name and Last Name.');\n}\n\nconst homeFolderRaw = item['Home Folder (Z: Drive)'];\nconst homeFolderChecked = Array.isArray(homeFolderRaw) ? homeFolderRaw.length > 0 : !!homeFolderRaw;\n\nreturn [{ json: {\n  ...item,\n  sAMAccountName, firstName, lastName, pickedExisting, homeFolderChecked\n} }];"
+        }
+      },
+      {
+        "id": "searchUser",
+        "name": "LDAP: Search for existing user",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          448,
+          0
+        ],
+        "parameters": {
+          "baseDN": "DC=MGA,DC=com",
+          "searchFor": "sAMAccountName",
+          "searchText": "={{ $json.sAMAccountName }}",
+          "returnAll": true,
+          "options": {
+            "attributes": [
+              "dn",
+              "distinguishedName",
+              "userAccountControl",
+              "cn",
+              "title",
+              "company",
+              "streetAddress",
+              "l",
+              "st",
+              "postalCode",
+              "telephoneNumber",
+              "mail"
+            ]
+          },
+          "attribute": "sAMAccountName"
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueErrorOutput",
+        "alwaysOutputData": true
+      },
+      {
+        "id": "stopSearchFailed",
+        "name": "Stop: LDAP search failed",
+        "type": "n8n-nodes-base.stopAndError",
+        "typeVersion": 1,
+        "position": [
+          672,
+          160
+        ],
+        "parameters": {
+          "errorType": "errorMessage",
+          "errorMessage": "=LDAP search for existing user failed: {{ $json.error?.message || $json.error || 'unknown error' }}"
+        }
+      },
+      {
+        "id": "routeExistsNew",
+        "name": "Code: Route - exists or new",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          672,
+          -80
+        ],
+        "parameters": {
+          "jsCode": "const resolved = $('Resolve identity').first().json;\nconst searchResults = $input.all();\nconst firstJson = searchResults.length > 0 ? searchResults[0].json : {};\nconst userExists = searchResults.length > 0 && !!firstJson.dn;\n\nlet existingDn = null, userAccountControl = null, isEnabled = false, existing = {};\nif (userExists) {\n  existingDn = firstJson.dn || firstJson.distinguishedName || null;\n  userAccountControl = parseInt(firstJson.userAccountControl ?? '514', 10);\n  isEnabled = (userAccountControl & 2) === 0;\n  existing = {\n    cn: firstJson.cn, title: firstJson.title, company: firstJson.company,\n    streetAddress: firstJson.streetAddress, l: firstJson.l, st: firstJson.st,\n    postalCode: firstJson.postalCode, telephoneNumber: firstJson.telephoneNumber,\n    mail: firstJson.mail\n  };\n}\n\nreturn [{ json: {\n  ...resolved, userExists, existingDn, isEnabled, existing\n} }];"
+        }
+      },
+      {
+        "id": "ifUserExists",
+        "name": "IF: User exists?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          896,
+          -80
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $json.userExists }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "execUpdate",
+        "name": "Execute: AD - Update User",
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.3,
+        "position": [
+          1120,
+          -160
+        ],
+        "parameters": {
+          "source": "database",
+          "workflowId": {
+            "__rl": true,
+            "value": "nS1MT9j3xDpQZMKj",
+            "mode": "id",
+            "cachedResultName": "AD - Update User"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "sAMAccountName": "={{ $('Code: Route - exists or new').first().json.sAMAccountName }}",
+              "dn": "={{ $('Code: Route - exists or new').first().json.existingDn }}",
+              "isEnabled": "={{ $('Code: Route - exists or new').first().json.isEnabled }}",
+              "existing": "={{ $('Code: Route - exists or new').first().json.existing }}",
+              "jobTitle": "={{ $('Resolve identity').first().json['Job Title'] }}",
+              "studioRaw": "={{ $('Resolve identity').first().json['Studio'] }}",
+              "groups": "={{ $('Resolve identity').first().json['Groups'] }}",
+              "empId": "={{ $('Resolve identity').first().json['EMP ID'] }}",
+              "phoneExt": "={{ $('Resolve identity').first().json['Phone Extension'] }}",
+              "credentials": "={{ $('Resolve identity').first().json['Credentials'] }}",
+              "homeFolder": "={{ $('Resolve identity').first().json.homeFolderChecked }}"
+            },
+            "matchingColumns": [],
+            "schema": [
+              {
+                "id": "sAMAccountName",
+                "displayName": "sAMAccountName",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "dn",
+                "displayName": "dn",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "isEnabled",
+                "displayName": "isEnabled",
+                "type": "boolean",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "existing",
+                "displayName": "existing",
+                "type": "object",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "jobTitle",
+                "displayName": "jobTitle",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "studioRaw",
+                "displayName": "studioRaw",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "groups",
+                "displayName": "groups",
+                "type": "array",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "empId",
+                "displayName": "empId",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "phoneExt",
+                "displayName": "phoneExt",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "credentials",
+                "displayName": "credentials",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "homeFolder",
+                "displayName": "homeFolder",
+                "type": "boolean",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              }
+            ]
+          },
+          "mode": "once",
+          "options": {
+            "waitForSubWorkflow": true
+          }
+        }
+      },
+      {
+        "id": "execCreate",
+        "name": "Execute: AD - Create User",
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.3,
+        "position": [
+          1120,
+          0
+        ],
+        "parameters": {
+          "source": "database",
+          "workflowId": {
+            "__rl": true,
+            "value": "wmUIdqI5hf83jd3I",
+            "mode": "id",
+            "cachedResultName": "AD - Create User"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "sAMAccountName": "={{ $('Code: Route - exists or new').first().json.sAMAccountName }}",
+              "firstName": "={{ $('Resolve identity').first().json.firstName }}",
+              "lastName": "={{ $('Resolve identity').first().json.lastName }}",
+              "jobTitle": "={{ $('Resolve identity').first().json['Job Title'] }}",
+              "studioRaw": "={{ $('Resolve identity').first().json['Studio'] }}",
+              "groups": "={{ $('Resolve identity').first().json['Groups'] }}",
+              "empId": "={{ $('Resolve identity').first().json['EMP ID'] }}",
+              "phoneExt": "={{ $('Resolve identity').first().json['Phone Extension'] }}",
+              "credentials": "={{ $('Resolve identity').first().json['Credentials'] }}",
+              "homeFolder": "={{ $('Resolve identity').first().json.homeFolderChecked }}"
+            },
+            "matchingColumns": [],
+            "schema": [
+              {
+                "id": "sAMAccountName",
+                "displayName": "sAMAccountName",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "firstName",
+                "displayName": "firstName",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "lastName",
+                "displayName": "lastName",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "jobTitle",
+                "displayName": "jobTitle",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "studioRaw",
+                "displayName": "studioRaw",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "groups",
+                "displayName": "groups",
+                "type": "array",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "empId",
+                "displayName": "empId",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "phoneExt",
+                "displayName": "phoneExt",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "credentials",
+                "displayName": "credentials",
+                "type": "string",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              },
+              {
+                "id": "homeFolder",
+                "displayName": "homeFolder",
+                "type": "boolean",
+                "required": false,
+                "defaultMatch": false,
+                "canBeUsedToMatch": true
+              }
+            ]
+          },
+          "mode": "once",
+          "options": {
+            "waitForSubWorkflow": true
+          }
+        }
+      },
+      {
+        "id": "buildResponse",
+        "name": "Code: Build response",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1344,
+          -80
+        ],
+        "parameters": {
+          "jsCode": "const result = $input.first().json;\nconst route = $('Code: Route - exists or new').first().json;\n\nconst isCreate = !route.userExists;\nconst isReenable = !!result.reenabled;\n\nlet heading, message, color, icon;\nif (!result.success) {\n  heading = 'Provisioning Error';\n  color = '#c53030';\n  icon = '⚠️';\n  message = `Something went wrong: ${(result.errors || []).join('; ') || 'Unknown error'}`;\n} else if (isCreate) {\n  heading = 'User Created Successfully';\n  color = '#276749';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been created. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else if (isReenable) {\n  heading = 'User Re-enabled Successfully';\n  color = '#2b6cb0';\n  icon = '🔄';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated and re-enabled. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else {\n  heading = 'User Updated Successfully';\n  color = '#2b6cb0';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated.`;\n}\n\nconst warningsHtml = (result.success && result.errors && result.errors.length > 0)\n  ? `<p style=\"color:#c05621; font-size:13px; margin-top:12px;\">Note: ${result.errors.join('; ')}</p>`\n  : '';\n\nconst responseHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid ${color};\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">${icon}</span>\n    <h2 style=\"margin:0; color:${color}; font-size:20px;\">${heading}</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">${message}</p>\n  ${warningsHtml}\n</div>`;\n\nreturn [{ json: { responseHtml } }];"
+        }
+      },
+      {
+        "id": "respondForm",
+        "name": "Form: Response",
+        "type": "n8n-nodes-base.form",
+        "typeVersion": 2.5,
+        "position": [
+          1568,
+          -80
+        ],
+        "parameters": {
+          "operation": "completion",
+          "respondWith": "showText",
+          "responseText": "={{ $json.responseHtml }}"
+        },
+        "webhookId": "14cb1d93-ae0d-458b-8360-076acf0b259c"
+      }
+    ],
+    "connections": {
+      "On form submission": {
+        "main": [
+          [
+            {
+              "node": "Resolve identity",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Resolve identity": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Search for existing user",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Search for existing user": {
+        "main": [
+          [
+            {
+              "node": "Code: Route - exists or new",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Stop: LDAP search failed",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code: Route - exists or new": {
+        "main": [
+          [
+            {
+              "node": "IF: User exists?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: User exists?": {
+        "main": [
+          [
+            {
+              "node": "Execute: AD - Update User",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Execute: AD - Create User",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute: AD - Update User": {
+        "main": [
+          [
+            {
+              "node": "Code: Build response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Execute: AD - Create User": {
+        "main": [
+          [
+            {
+              "node": "Code: Build response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code: Build response": {
+        "main": [
+          [
+            {
+              "node": "Form: Response",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "IT Admin",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "activeVersionId": "61701413-028b-498e-9e3b-c986ac87d883",
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Resolve identity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve identity": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Search for existing user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Search for existing user": {
+      "main": [
+        [
+          {
+            "node": "Code: Route - exists or new",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop: LDAP search failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Route - exists or new": {
+      "main": [
+        [
+          {
+            "node": "IF: User exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: User exists?": {
+      "main": [
+        [
+          {
+            "node": "Execute: AD - Update User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Execute: AD - Create User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: AD - Update User": {
+      "main": [
+        [
+          {
+            "node": "Code: Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute: AD - Create User": {
+      "main": [
+        [
+          {
+            "node": "Code: Build response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build response": {
+      "main": [
+        [
+          {
+            "node": "Form: Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-17T23:01:31.908Z",
+  "id": "EAlcDKeH3e1zxJZJ",
+  "isArchived": false,
+  "meta": null,
+  "name": "AD - Provisioning Router",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "id": "formTrigger",
+      "name": "On form submission",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "authentication": "n8nUserAuth",
+        "formTitle": "AD User Provisioning",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Existing Employee",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": []
+              }
+            },
+            {
+              "fieldLabel": "First Name"
+            },
+            {
+              "fieldLabel": "Last Name"
+            },
+            {
+              "fieldLabel": "Job Title",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "3-D Visualization Artist"
+                  },
+                  {
+                    "option": "3rd Party"
+                  },
+                  {
+                    "option": "Accounting Assistant"
+                  },
+                  {
+                    "option": "Accounting Summer Intern"
+                  },
+                  {
+                    "option": "Admin Support Specialist"
+                  },
+                  {
+                    "option": "Administrative Intern"
+                  },
+                  {
+                    "option": "Administrative Support Specialist"
+                  },
+                  {
+                    "option": "Architect"
+                  },
+                  {
+                    "option": "Architect / Senior Project Manager"
+                  },
+                  {
+                    "option": "Architectural Design Intern"
+                  },
+                  {
+                    "option": "Architectural Designer"
+                  },
+                  {
+                    "option": "Architectural Designer II"
+                  },
+                  {
+                    "option": "Architectural Technologist"
+                  },
+                  {
+                    "option": "Associate"
+                  },
+                  {
+                    "option": "Associate Principal"
+                  },
+                  {
+                    "option": "Business Analyst"
+                  },
+                  {
+                    "option": "Business Development & Communications Manager"
+                  },
+                  {
+                    "option": "Business Operations Manager"
+                  },
+                  {
+                    "option": "CEO"
+                  },
+                  {
+                    "option": "CFO"
+                  },
+                  {
+                    "option": "Chief Design Technology Officer"
+                  },
+                  {
+                    "option": "Communications & Business Development Manager"
+                  },
+                  {
+                    "option": "Construction Administrator"
+                  },
+                  {
+                    "option": "Controller"
+                  },
+                  {
+                    "option": "COO"
+                  },
+                  {
+                    "option": "Design Production Specialist"
+                  },
+                  {
+                    "option": "Design Technology Manager"
+                  },
+                  {
+                    "option": "Design Technology Specialist"
+                  },
+                  {
+                    "option": "Director of Finance"
+                  },
+                  {
+                    "option": "Director of Human Resources"
+                  },
+                  {
+                    "option": "Director of Interior Design"
+                  },
+                  {
+                    "option": "Director of IT"
+                  },
+                  {
+                    "option": "Director of Marketing"
+                  },
+                  {
+                    "option": "Director of Resource Management"
+                  },
+                  {
+                    "option": "Graphic Design Manager"
+                  },
+                  {
+                    "option": "Historic Preservation Specialist"
+                  },
+                  {
+                    "option": "Interior Design Intern"
+                  },
+                  {
+                    "option": "Interior Designer"
+                  },
+                  {
+                    "option": "International Director of Interior Design"
+                  },
+                  {
+                    "option": "Investor"
+                  },
+                  {
+                    "option": "Jr. Interior Designer"
+                  },
+                  {
+                    "option": "Marketing Intern"
+                  },
+                  {
+                    "option": "Marketing Manager"
+                  },
+                  {
+                    "option": "Principal"
+                  },
+                  {
+                    "option": "Principal-Emeritus"
+                  },
+                  {
+                    "option": "Project Architect"
+                  },
+                  {
+                    "option": "Project Interior Designer"
+                  },
+                  {
+                    "option": "Project Manager"
+                  },
+                  {
+                    "option": "Senior 3-D Visualization Artist"
+                  },
+                  {
+                    "option": "Senior Accountant"
+                  },
+                  {
+                    "option": "Senior Architect"
+                  },
+                  {
+                    "option": "Senior Architectural Designer"
+                  },
+                  {
+                    "option": "Senior Associate"
+                  },
+                  {
+                    "option": "Senior Associate, Director of Planning"
+                  },
+                  {
+                    "option": "Senior Associate, Senior Director of Interior Design"
+                  },
+                  {
+                    "option": "Senior Project Manager"
+                  },
+                  {
+                    "option": "Sr. Accountant"
+                  },
+                  {
+                    "option": "Sr. Architectural Designer"
+                  },
+                  {
+                    "option": "Sr. Associate"
+                  },
+                  {
+                    "option": "Sr. Project Architect"
+                  },
+                  {
+                    "option": "Sr. Project Manager"
+                  },
+                  {
+                    "option": "Staff Accountant"
+                  },
+                  {
+                    "option": "Test User"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Studio",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "JCA — Hackensack ~~ 171 Main Street | Suite 301 ~~ Hackensack ~~ NJ ~~ 07601 ~~ 201.678.1201"
+                  },
+                  {
+                    "option": "KAA — Chicago ~~ 900 N. Franklin Street | Suite 405-B ~~ Chicago ~~ IL ~~ 60610 ~~ 312.471.2505"
+                  },
+                  {
+                    "option": "KAA — Long Beach ~~ 4265 E. Conant Street | Suite 101 ~~ Long Beach ~~ CA ~~ 90808 ~~ 562.597.8760"
+                  },
+                  {
+                    "option": "MGA — Princeton ~~ 341 Nassau Street ~~ Princeton ~~ NJ ~~ 08540 ~~ 609.924.6409"
+                  },
+                  {
+                    "option": "MGA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 609.924.6409"
+                  },
+                  {
+                    "option": "MGC — Charlotte ~~ 4431 Monroe Road ~~ Charlotte ~~ NC ~~ 28205 ~~ 609.924.6409"
+                  },
+                  {
+                    "option": "PGN — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 202.822.5995"
+                  },
+                  {
+                    "option": "PLX — Allen ~~ 1513 Greenbriar Drive | Suite 201 ~~ Allen ~~ TX ~~ 75013 ~~ 469.949.8528"
+                  },
+                  {
+                    "option": "S4D — Knoxville ~~ 18 Emory Place | Suite 100 ~~ Knoxville ~~ TN ~~ 37917 ~~ 865.523.5001"
+                  },
+                  {
+                    "option": "WCK — Philadelphia ~~ 1518 Walnut Street | Suite 1308 ~~ Philadelphia ~~ PA ~~ 19103 ~~ 267.738.0956"
+                  },
+                  {
+                    "option": "WRA — Winston-Salem ~~ 530 N. Trade Street | Suite 301 ~~ Winston-Salem ~~ NC ~~ 27101 ~~ 336.725.1371"
+                  },
+                  {
+                    "option": "WSA — Baltimore ~~ 233 E. Redwood Street | Suite 1200 ~~ Baltimore ~~ MD ~~ 21202 ~~ 410.290.9680"
+                  },
+                  {
+                    "option": "WSA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 571.451.2538"
+                  },
+                  {
+                    "option": "WSA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 410.290.9680"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "EMP ID"
+            },
+            {
+              "fieldLabel": "Phone Extension"
+            },
+            {
+              "fieldLabel": "Credentials"
+            },
+            {
+              "fieldLabel": "Home Folder (Z: Drive)",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Set up home folder (Z: drive)"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Groups",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "22453-ULM Project C1 Share"
+                  },
+                  {
+                    "option": "341 3rd Party"
+                  },
+                  {
+                    "option": "341 Nassau"
+                  },
+                  {
+                    "option": "Accounting_Share_Administrative"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_JCA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_KAA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_MGA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_MGC"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_PGN"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_PLX"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_S4D"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_WCK"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_WRA"
+                  },
+                  {
+                    "option": "Accounting_Share_BusinessUnit_WSA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_JCA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_KAA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_MGA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_MGC"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_PGN"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_S4D"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_WCK"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_WRA"
+                  },
+                  {
+                    "option": "Accounting_Share_Department_WSA"
+                  },
+                  {
+                    "option": "Accounting_Share_Executive"
+                  },
+                  {
+                    "option": "AOC Folder Access"
+                  },
+                  {
+                    "option": "Arch Inq Group"
+                  },
+                  {
+                    "option": "Billings Courthouse"
+                  },
+                  {
+                    "option": "Business Development"
+                  },
+                  {
+                    "option": "communications group"
+                  },
+                  {
+                    "option": "Computer Support"
+                  },
+                  {
+                    "option": "Contract_Restriction_GG"
+                  },
+                  {
+                    "option": "employment group"
+                  },
+                  {
+                    "option": "Enterprise Key Admins"
+                  },
+                  {
+                    "option": "Fannie Mae"
+                  },
+                  {
+                    "option": "ftpusers"
+                  },
+                  {
+                    "option": "GFS Team"
+                  },
+                  {
+                    "option": "Graphics"
+                  },
+                  {
+                    "option": "info group"
+                  },
+                  {
+                    "option": "Key Admins"
+                  },
+                  {
+                    "option": "LocalAdmin"
+                  },
+                  {
+                    "option": "Marketing"
+                  },
+                  {
+                    "option": "MGA"
+                  },
+                  {
+                    "option": "MGA VPN Users"
+                  },
+                  {
+                    "option": "MGA_341_users"
+                  },
+                  {
+                    "option": "MGA_Missoni"
+                  },
+                  {
+                    "option": "MGA_NYC_Users"
+                  },
+                  {
+                    "option": "MGA-HKS_Document_Control"
+                  },
+                  {
+                    "option": "MGA-Pattigadda-Architecture"
+                  },
+                  {
+                    "option": "MGA-Pattigadda-Interiors"
+                  },
+                  {
+                    "option": "MGDG Info Group"
+                  },
+                  {
+                    "option": "N-able backup users"
+                  },
+                  {
+                    "option": "Nashville_Courthouse"
+                  },
+                  {
+                    "option": "NYC"
+                  },
+                  {
+                    "option": "PGN_CBE_Share"
+                  },
+                  {
+                    "option": "Principals"
+                  },
+                  {
+                    "option": "Products"
+                  },
+                  {
+                    "option": "Project Garnet Share"
+                  },
+                  {
+                    "option": "SCRead"
+                  },
+                  {
+                    "option": "SCWrite"
+                  },
+                  {
+                    "option": "Sentosa_FTP_Users"
+                  },
+                  {
+                    "option": "SepialineInstall"
+                  },
+                  {
+                    "option": "SQLServer2005SQLBrowserUser$MGACOLDC01"
+                  },
+                  {
+                    "option": "SQLServer2005SQLBrowserUser$MGAPGNDC01"
+                  },
+                  {
+                    "option": "SQLServer2005SQLBrowserUser$MGATNDC01"
+                  },
+                  {
+                    "option": "US_Embessy"
+                  },
+                  {
+                    "option": "WRA_Partners"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "webhookId": "65a75b55-2033-44a1-8c78-e2f891409f34"
+    },
+    {
+      "id": "resolveIdentity",
+      "name": "Resolve identity",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst existingSelection = String(item['Existing Employee'] || '').trim();\nconst firstNameTyped = String(item['First Name'] || '').trim();\nconst lastNameTyped = String(item['Last Name'] || '').trim();\n\nlet sAMAccountName = '', firstName = '', lastName = '', pickedExisting = false;\n\nif (existingSelection) {\n  const m = existingSelection.match(/\\(([^)]+)\\)\\s*$/);\n  if (!m) throw new Error(`Could not parse username from Existing Employee selection: ${existingSelection}`);\n  sAMAccountName = m[1].trim();\n  const namePart = existingSelection.slice(0, m.index).trim();\n  const spaceIdx = namePart.indexOf(' ');\n  firstName = spaceIdx !== -1 ? namePart.substring(0, spaceIdx).trim() : namePart;\n  lastName = spaceIdx !== -1 ? namePart.substring(spaceIdx + 1).trim() : '';\n  pickedExisting = true;\n} else if (firstNameTyped && lastNameTyped) {\n  firstName = firstNameTyped;\n  lastName = lastNameTyped;\n  sAMAccountName = (firstName.charAt(0) + lastName).toLowerCase();\n} else {\n  throw new Error('Select an existing employee, or enter both First Name and Last Name.');\n}\n\nconst homeFolderRaw = item['Home Folder (Z: Drive)'];\nconst homeFolderChecked = Array.isArray(homeFolderRaw) ? homeFolderRaw.length > 0 : !!homeFolderRaw;\n\nreturn [{ json: {\n  ...item,\n  sAMAccountName, firstName, lastName, pickedExisting, homeFolderChecked\n} }];"
+      }
+    },
+    {
+      "id": "searchUser",
+      "name": "LDAP: Search for existing user",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "sAMAccountName",
+        "searchText": "={{ $json.sAMAccountName }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "distinguishedName",
+            "userAccountControl",
+            "cn",
+            "title",
+            "company",
+            "streetAddress",
+            "l",
+            "st",
+            "postalCode",
+            "telephoneNumber",
+            "mail"
+          ]
+        },
+        "attribute": "sAMAccountName"
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "alwaysOutputData": true
+    },
+    {
+      "id": "stopSearchFailed",
+      "name": "Stop: LDAP search failed",
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        672,
+        160
+      ],
+      "parameters": {
+        "errorType": "errorMessage",
+        "errorMessage": "=LDAP search for existing user failed: {{ $json.error?.message || $json.error || 'unknown error' }}"
+      }
+    },
+    {
+      "id": "routeExistsNew",
+      "name": "Code: Route - exists or new",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        -80
+      ],
+      "parameters": {
+        "jsCode": "const resolved = $('Resolve identity').first().json;\nconst searchResults = $input.all();\nconst firstJson = searchResults.length > 0 ? searchResults[0].json : {};\nconst userExists = searchResults.length > 0 && !!firstJson.dn;\n\nlet existingDn = null, userAccountControl = null, isEnabled = false, existing = {};\nif (userExists) {\n  existingDn = firstJson.dn || firstJson.distinguishedName || null;\n  userAccountControl = parseInt(firstJson.userAccountControl ?? '514', 10);\n  isEnabled = (userAccountControl & 2) === 0;\n  existing = {\n    cn: firstJson.cn, title: firstJson.title, company: firstJson.company,\n    streetAddress: firstJson.streetAddress, l: firstJson.l, st: firstJson.st,\n    postalCode: firstJson.postalCode, telephoneNumber: firstJson.telephoneNumber,\n    mail: firstJson.mail\n  };\n}\n\nreturn [{ json: {\n  ...resolved, userExists, existingDn, isEnabled, existing\n} }];"
+      }
+    },
+    {
+      "id": "ifUserExists",
+      "name": "IF: User exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        -80
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.userExists }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "execUpdate",
+      "name": "Execute: AD - Update User",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1120,
+        -160
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "nS1MT9j3xDpQZMKj",
+          "mode": "id",
+          "cachedResultName": "AD - Update User"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sAMAccountName": "={{ $('Code: Route - exists or new').first().json.sAMAccountName }}",
+            "dn": "={{ $('Code: Route - exists or new').first().json.existingDn }}",
+            "isEnabled": "={{ $('Code: Route - exists or new').first().json.isEnabled }}",
+            "existing": "={{ $('Code: Route - exists or new').first().json.existing }}",
+            "jobTitle": "={{ $('Resolve identity').first().json['Job Title'] }}",
+            "studioRaw": "={{ $('Resolve identity').first().json['Studio'] }}",
+            "groups": "={{ $('Resolve identity').first().json['Groups'] }}",
+            "empId": "={{ $('Resolve identity').first().json['EMP ID'] }}",
+            "phoneExt": "={{ $('Resolve identity').first().json['Phone Extension'] }}",
+            "credentials": "={{ $('Resolve identity').first().json['Credentials'] }}",
+            "homeFolder": "={{ $('Resolve identity').first().json.homeFolderChecked }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "sAMAccountName",
+              "displayName": "sAMAccountName",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "dn",
+              "displayName": "dn",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "isEnabled",
+              "displayName": "isEnabled",
+              "type": "boolean",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "existing",
+              "displayName": "existing",
+              "type": "object",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "jobTitle",
+              "displayName": "jobTitle",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "studioRaw",
+              "displayName": "studioRaw",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "groups",
+              "displayName": "groups",
+              "type": "array",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "empId",
+              "displayName": "empId",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneExt",
+              "displayName": "phoneExt",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "credentials",
+              "displayName": "credentials",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "homeFolder",
+              "displayName": "homeFolder",
+              "type": "boolean",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      }
+    },
+    {
+      "id": "execCreate",
+      "name": "Execute: AD - Create User",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1120,
+        0
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "wmUIdqI5hf83jd3I",
+          "mode": "id",
+          "cachedResultName": "AD - Create User"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "sAMAccountName": "={{ $('Code: Route - exists or new').first().json.sAMAccountName }}",
+            "firstName": "={{ $('Resolve identity').first().json.firstName }}",
+            "lastName": "={{ $('Resolve identity').first().json.lastName }}",
+            "jobTitle": "={{ $('Resolve identity').first().json['Job Title'] }}",
+            "studioRaw": "={{ $('Resolve identity').first().json['Studio'] }}",
+            "groups": "={{ $('Resolve identity').first().json['Groups'] }}",
+            "empId": "={{ $('Resolve identity').first().json['EMP ID'] }}",
+            "phoneExt": "={{ $('Resolve identity').first().json['Phone Extension'] }}",
+            "credentials": "={{ $('Resolve identity').first().json['Credentials'] }}",
+            "homeFolder": "={{ $('Resolve identity').first().json.homeFolderChecked }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "sAMAccountName",
+              "displayName": "sAMAccountName",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "firstName",
+              "displayName": "firstName",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "lastName",
+              "displayName": "lastName",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "jobTitle",
+              "displayName": "jobTitle",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "studioRaw",
+              "displayName": "studioRaw",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "groups",
+              "displayName": "groups",
+              "type": "array",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "empId",
+              "displayName": "empId",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phoneExt",
+              "displayName": "phoneExt",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "credentials",
+              "displayName": "credentials",
+              "type": "string",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "homeFolder",
+              "displayName": "homeFolder",
+              "type": "boolean",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      }
+    },
+    {
+      "id": "buildResponse",
+      "name": "Code: Build response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -80
+      ],
+      "parameters": {
+        "jsCode": "const result = $input.first().json;\nconst route = $('Code: Route - exists or new').first().json;\n\nconst isCreate = !route.userExists;\nconst isReenable = !!result.reenabled;\n\nlet heading, message, color, icon;\nif (!result.success) {\n  heading = 'Provisioning Error';\n  color = '#c53030';\n  icon = '⚠️';\n  message = `Something went wrong: ${(result.errors || []).join('; ') || 'Unknown error'}`;\n} else if (isCreate) {\n  heading = 'User Created Successfully';\n  color = '#276749';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been created. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else if (isReenable) {\n  heading = 'User Re-enabled Successfully';\n  color = '#2b6cb0';\n  icon = '🔄';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated and re-enabled. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else {\n  heading = 'User Updated Successfully';\n  color = '#2b6cb0';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated.`;\n}\n\nconst warningsHtml = (result.success && result.errors && result.errors.length > 0)\n  ? `<p style=\"color:#c05621; font-size:13px; margin-top:12px;\">Note: ${result.errors.join('; ')}</p>`\n  : '';\n\nconst responseHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid ${color};\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">${icon}</span>\n    <h2 style=\"margin:0; color:${color}; font-size:20px;\">${heading}</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">${message}</p>\n  ${warningsHtml}\n</div>`;\n\nreturn [{ json: { responseHtml } }];"
+      }
+    },
+    {
+      "id": "respondForm",
+      "name": "Form: Response",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        1568,
+        -80
+      ],
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ $json.responseHtml }}"
+      },
+      "webhookId": "14cb1d93-ae0d-458b-8360-076acf0b259c"
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-17T23:01:31.909Z",
+      "createdAt": "2026-07-17T23:01:31.909Z",
+      "role": "workflow:owner",
+      "workflowId": "EAlcDKeH3e1zxJZJ",
+      "projectId": "9efpp4J5DO3tFlq4"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-07-17T23:33:06.762Z",
+  "versionId": "61701413-028b-498e-9e3b-c986ac87d883"
+}
