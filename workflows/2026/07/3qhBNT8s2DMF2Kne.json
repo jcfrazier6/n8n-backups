@@ -1732,7 +1732,7 @@
     },
     {
       "parameters": {
-        "fromEmail": "itadmin@michaelgraves.com",
+        "fromEmail": "cfrazier@michaelgraves.com",
         "toEmail": "itadmin@michaelgraves.com",
         "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
         "html": "={{ $json.htmlBody }}",
@@ -1812,6 +1812,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-17T01:45:51.719Z",
-  "versionId": "15ef72d9-367f-47fb-9e73-391f50143829"
+  "updatedAt": "2026-07-17T02:25:01.985Z",
+  "versionId": "a9612968-d33a-4e1d-9c7c-105055ba21c0"
 }
