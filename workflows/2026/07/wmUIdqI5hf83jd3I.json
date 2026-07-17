@@ -1,0 +1,1163 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-07-17T22:54:38.440Z",
+    "createdAt": "2026-07-17T22:54:38.440Z",
+    "versionId": "7af00e2c-f05e-494f-8add-8875cd578da7",
+    "workflowId": "wmUIdqI5hf83jd3I",
+    "nodes": [
+      {
+        "id": "trigger",
+        "name": "When Executed by Another Workflow",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.1,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "sAMAccountName",
+                "type": "string"
+              },
+              {
+                "name": "firstName",
+                "type": "string"
+              },
+              {
+                "name": "lastName",
+                "type": "string"
+              },
+              {
+                "name": "jobTitle",
+                "type": "string"
+              },
+              {
+                "name": "studioRaw",
+                "type": "string"
+              },
+              {
+                "name": "groups",
+                "type": "array"
+              },
+              {
+                "name": "empId",
+                "type": "string"
+              },
+              {
+                "name": "phoneExt",
+                "type": "string"
+              },
+              {
+                "name": "credentials",
+                "type": "string"
+              },
+              {
+                "name": "homeFolder",
+                "type": "boolean"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "buildAttrs",
+        "name": "Build create attributes",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          224,
+          0
+        ],
+        "parameters": {
+          "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst firstName = String(item.firstName || '').trim();\nconst lastName = String(item.lastName || '').trim();\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to create a user.');\nif (!firstName) throw new Error('First Name is required to create a user.');\nif (!lastName) throw new Error('Last Name is required to create a user.');\nif (!studioRaw) throw new Error('Studio is required to create a new account (needed to place it in the correct OU).');\n\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] || '';\nconst street = parts[1] || '';\nconst state = parts[3] || '';\nconst zip = parts[4] || '';\nconst phone = parts[5] || '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\nconst displayName = `${firstName} ${lastName}`;\nconst cn = displayName;\nconst dn = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName = `${sAMAccountName}@michaelgraves.com`;\nconst mail = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId) optionalFields.pager = empId;\nif (phoneExt) optionalFields.ipPhone = phoneExt;\nif (credentials) optionalFields.info = credentials;\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalFields.homeDrive = 'Z:';\n  optionalFields.homeDirectory = bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName;\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nreturn [{ json: {\n  sAMAccountName, dn, displayName, givenName: firstName, sn: lastName, cn,\n  title: jobTitle, company, streetAddress: street, l: city, st: state,\n  postalCode: zip, telephoneNumber: phone, userPrincipalName, mail,\n  groupDns, ...optionalFields\n} }];"
+        }
+      },
+      {
+        "id": "createUser",
+        "name": "LDAP: Create AD user",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          448,
+          0
+        ],
+        "parameters": {
+          "operation": "create",
+          "dn": "={{ $json.dn }}",
+          "attributes": {
+            "attribute": [
+              {
+                "id": "objectClass",
+                "value": "user"
+              },
+              {
+                "id": "sAMAccountName",
+                "value": "={{ $json.sAMAccountName }}"
+              },
+              {
+                "id": "userPrincipalName",
+                "value": "={{ $json.userPrincipalName }}"
+              },
+              {
+                "id": "cn",
+                "value": "={{ $json.cn }}"
+              },
+              {
+                "id": "displayName",
+                "value": "={{ $json.displayName }}"
+              },
+              {
+                "id": "givenName",
+                "value": "={{ $json.givenName }}"
+              },
+              {
+                "id": "sn",
+                "value": "={{ $json.sn }}"
+              },
+              {
+                "id": "title",
+                "value": "={{ $json.title }}"
+              },
+              {
+                "id": "company",
+                "value": "={{ $json.company }}"
+              },
+              {
+                "id": "streetAddress",
+                "value": "={{ $json.streetAddress }}"
+              },
+              {
+                "id": "l",
+                "value": "={{ $json.l }}"
+              },
+              {
+                "id": "st",
+                "value": "={{ $json.st }}"
+              },
+              {
+                "id": "postalCode",
+                "value": "={{ $json.postalCode }}"
+              },
+              {
+                "id": "telephoneNumber",
+                "value": "={{ $json.telephoneNumber }}"
+              },
+              {
+                "id": "userAccountControl",
+                "value": "514"
+              },
+              {
+                "id": "mail",
+                "value": "={{ $json.mail }}"
+              },
+              {
+                "id": "pager",
+                "value": "={{ $json.pager }}"
+              },
+              {
+                "id": "ipPhone",
+                "value": "={{ $json.ipPhone }}"
+              },
+              {
+                "id": "info",
+                "value": "={{ $json.info }}"
+              },
+              {
+                "id": "homeDrive",
+                "value": "={{ $json.homeDrive }}"
+              },
+              {
+                "id": "homeDirectory",
+                "value": "={{ $json.homeDirectory }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueErrorOutput"
+      },
+      {
+        "id": "createFailed",
+        "name": "Record create failure",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          672,
+          160
+        ],
+        "parameters": {
+          "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn [{ json: { success: false, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, stage: 'create', errors: ['Failed to create AD user: ' + ($input.first().json.error?.message || $input.first().json.error || 'unknown error')] } }];"
+        }
+      },
+      {
+        "id": "genPassword",
+        "name": "Generate password",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          672,
+          -80
+        ],
+        "parameters": {
+          "jsCode": "const attrs = $('Build create attributes').first().json;\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\n\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(quoted.charCodeAt(i) & 0xFF, (quoted.charCodeAt(i) >>> 8) & 0xFF);\n  }\n  return encoded;\n}\n\nreturn [{ json: { ...attrs, unicodePwd: encodePassword(plainPassword) } }];"
+        }
+      },
+      {
+        "id": "setPassword",
+        "name": "LDAP: Set password",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          896,
+          -80
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.dn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "unicodePwd",
+                "value": "={{ $json.unicodePwd }}"
+              },
+              {
+                "id": "userAccountControl",
+                "value": "512"
+              },
+              {
+                "id": "pwdLastSet",
+                "value": "0"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueErrorOutput"
+      },
+      {
+        "id": "passwordFailed",
+        "name": "Record password failure",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1120,
+          80
+        ],
+        "parameters": {
+          "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn [{ json: { success: false, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, stage: 'set_password', errors: ['Account created but password could not be set (check LDAPS/connection security): ' + ($input.first().json.error?.message || $input.first().json.error || 'unknown error')] } }];"
+        }
+      },
+      {
+        "id": "hasGroups",
+        "name": "IF: Has groups?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1120,
+          -160
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $('Build create attributes').first().json.groupDns.length }}",
+                "rightValue": 0,
+                "operator": {
+                  "type": "number",
+                  "operation": "gt"
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "buildGroupItems",
+        "name": "Build group add items",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1344,
+          -240
+        ],
+        "parameters": {
+          "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn attrs.groupDns.map(groupDn => ({ json: { groupDn, userDn: attrs.dn } }));"
+        }
+      },
+      {
+        "id": "addGroupMember",
+        "name": "LDAP: Add group member",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          1568,
+          -240
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.groupDn }}",
+          "attributes": {
+            "add": [
+              {
+                "id": "member",
+                "value": "={{ $json.userDn }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueErrorOutput"
+      },
+      {
+        "id": "aggregateGroups",
+        "name": "Aggregate group results",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1792,
+          -240
+        ],
+        "parameters": {
+          "jsCode": "const attrs = $('Build create attributes').first().json;\nconst items = $input.all();\nconst errors = items.filter(i => i.json.error).map(i => `Failed to add to group ${i.json.groupDn || 'unknown'}: ${i.json.error?.message || i.json.error}`);\nreturn [{ json: { success: errors.length === 0, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, errors } }];"
+        }
+      },
+      {
+        "id": "noGroups",
+        "name": "No groups - success",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          1344,
+          -80
+        ],
+        "parameters": {
+          "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn [{ json: { success: true, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, errors: [] } }];"
+        }
+      },
+      {
+        "id": "returnNode",
+        "name": "Return",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          2016,
+          0
+        ],
+        "parameters": {
+          "mode": "manual",
+          "assignments": {
+            "assignments": [
+              {
+                "id": "a1",
+                "name": "success",
+                "type": "boolean",
+                "value": "={{ $json.success }}"
+              },
+              {
+                "id": "a2",
+                "name": "sAMAccountName",
+                "type": "string",
+                "value": "={{ $json.sAMAccountName }}"
+              },
+              {
+                "id": "a3",
+                "name": "dn",
+                "type": "string",
+                "value": "={{ $json.dn }}"
+              },
+              {
+                "id": "a4",
+                "name": "errors",
+                "type": "array",
+                "value": "={{ $json.errors || [] }}"
+              }
+            ]
+          },
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "When Executed by Another Workflow": {
+        "main": [
+          [
+            {
+              "node": "Build create attributes",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build create attributes": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Create AD user",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Create AD user": {
+        "main": [
+          [
+            {
+              "node": "Generate password",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Record create failure",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Record create failure": {
+        "main": [
+          [
+            {
+              "node": "Return",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Generate password": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Set password",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Set password": {
+        "main": [
+          [
+            {
+              "node": "IF: Has groups?",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Record password failure",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Record password failure": {
+        "main": [
+          [
+            {
+              "node": "Return",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Has groups?": {
+        "main": [
+          [
+            {
+              "node": "Build group add items",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "No groups - success",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Build group add items": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Add group member",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Add group member": {
+        "main": [
+          [
+            {
+              "node": "Aggregate group results",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Aggregate group results",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Aggregate group results": {
+        "main": [
+          [
+            {
+              "node": "Return",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "No groups - success": {
+        "main": [
+          [
+            {
+              "node": "Return",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "IT Admin",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "activeVersionId": "7af00e2c-f05e-494f-8add-8875cd578da7",
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Build create attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build create attributes": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Create AD user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Create AD user": {
+      "main": [
+        [
+          {
+            "node": "Generate password",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Record create failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record create failure": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate password": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set password": {
+      "main": [
+        [
+          {
+            "node": "IF: Has groups?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Record password failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Record password failure": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Has groups?": {
+      "main": [
+        [
+          {
+            "node": "Build group add items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No groups - success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build group add items": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Add group member",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Add group member": {
+      "main": [
+        [
+          {
+            "node": "Aggregate group results",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Aggregate group results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate group results": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "No groups - success": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-17T22:54:27.350Z",
+  "id": "wmUIdqI5hf83jd3I",
+  "isArchived": false,
+  "meta": null,
+  "name": "AD - Create User",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "sAMAccountName",
+              "type": "string"
+            },
+            {
+              "name": "firstName",
+              "type": "string"
+            },
+            {
+              "name": "lastName",
+              "type": "string"
+            },
+            {
+              "name": "jobTitle",
+              "type": "string"
+            },
+            {
+              "name": "studioRaw",
+              "type": "string"
+            },
+            {
+              "name": "groups",
+              "type": "array"
+            },
+            {
+              "name": "empId",
+              "type": "string"
+            },
+            {
+              "name": "phoneExt",
+              "type": "string"
+            },
+            {
+              "name": "credentials",
+              "type": "string"
+            },
+            {
+              "name": "homeFolder",
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "buildAttrs",
+      "name": "Build create attributes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst firstName = String(item.firstName || '').trim();\nconst lastName = String(item.lastName || '').trim();\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to create a user.');\nif (!firstName) throw new Error('First Name is required to create a user.');\nif (!lastName) throw new Error('Last Name is required to create a user.');\nif (!studioRaw) throw new Error('Studio is required to create a new account (needed to place it in the correct OU).');\n\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] || '';\nconst street = parts[1] || '';\nconst state = parts[3] || '';\nconst zip = parts[4] || '';\nconst phone = parts[5] || '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\nconst displayName = `${firstName} ${lastName}`;\nconst cn = displayName;\nconst dn = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName = `${sAMAccountName}@michaelgraves.com`;\nconst mail = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId) optionalFields.pager = empId;\nif (phoneExt) optionalFields.ipPhone = phoneExt;\nif (credentials) optionalFields.info = credentials;\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalFields.homeDrive = 'Z:';\n  optionalFields.homeDirectory = bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName;\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nreturn [{ json: {\n  sAMAccountName, dn, displayName, givenName: firstName, sn: lastName, cn,\n  title: jobTitle, company, streetAddress: street, l: city, st: state,\n  postalCode: zip, telephoneNumber: phone, userPrincipalName, mail,\n  groupDns, ...optionalFields\n} }];"
+      }
+    },
+    {
+      "id": "createUser",
+      "name": "LDAP: Create AD user",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "parameters": {
+        "operation": "create",
+        "dn": "={{ $json.dn }}",
+        "attributes": {
+          "attribute": [
+            {
+              "id": "objectClass",
+              "value": "user"
+            },
+            {
+              "id": "sAMAccountName",
+              "value": "={{ $json.sAMAccountName }}"
+            },
+            {
+              "id": "userPrincipalName",
+              "value": "={{ $json.userPrincipalName }}"
+            },
+            {
+              "id": "cn",
+              "value": "={{ $json.cn }}"
+            },
+            {
+              "id": "displayName",
+              "value": "={{ $json.displayName }}"
+            },
+            {
+              "id": "givenName",
+              "value": "={{ $json.givenName }}"
+            },
+            {
+              "id": "sn",
+              "value": "={{ $json.sn }}"
+            },
+            {
+              "id": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "company",
+              "value": "={{ $json.company }}"
+            },
+            {
+              "id": "streetAddress",
+              "value": "={{ $json.streetAddress }}"
+            },
+            {
+              "id": "l",
+              "value": "={{ $json.l }}"
+            },
+            {
+              "id": "st",
+              "value": "={{ $json.st }}"
+            },
+            {
+              "id": "postalCode",
+              "value": "={{ $json.postalCode }}"
+            },
+            {
+              "id": "telephoneNumber",
+              "value": "={{ $json.telephoneNumber }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "514"
+            },
+            {
+              "id": "mail",
+              "value": "={{ $json.mail }}"
+            },
+            {
+              "id": "pager",
+              "value": "={{ $json.pager }}"
+            },
+            {
+              "id": "ipPhone",
+              "value": "={{ $json.ipPhone }}"
+            },
+            {
+              "id": "info",
+              "value": "={{ $json.info }}"
+            },
+            {
+              "id": "homeDrive",
+              "value": "={{ $json.homeDrive }}"
+            },
+            {
+              "id": "homeDirectory",
+              "value": "={{ $json.homeDirectory }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "createFailed",
+      "name": "Record create failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        160
+      ],
+      "parameters": {
+        "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn [{ json: { success: false, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, stage: 'create', errors: ['Failed to create AD user: ' + ($input.first().json.error?.message || $input.first().json.error || 'unknown error')] } }];"
+      }
+    },
+    {
+      "id": "genPassword",
+      "name": "Generate password",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        -80
+      ],
+      "parameters": {
+        "jsCode": "const attrs = $('Build create attributes').first().json;\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\n\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(quoted.charCodeAt(i) & 0xFF, (quoted.charCodeAt(i) >>> 8) & 0xFF);\n  }\n  return encoded;\n}\n\nreturn [{ json: { ...attrs, unicodePwd: encodePassword(plainPassword) } }];"
+      }
+    },
+    {
+      "id": "setPassword",
+      "name": "LDAP: Set password",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -80
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "unicodePwd",
+              "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "passwordFailed",
+      "name": "Record password failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        80
+      ],
+      "parameters": {
+        "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn [{ json: { success: false, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, stage: 'set_password', errors: ['Account created but password could not be set (check LDAPS/connection security): ' + ($input.first().json.error?.message || $input.first().json.error || 'unknown error')] } }];"
+      }
+    },
+    {
+      "id": "hasGroups",
+      "name": "IF: Has groups?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        -160
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $('Build create attributes').first().json.groupDns.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "buildGroupItems",
+      "name": "Build group add items",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -240
+      ],
+      "parameters": {
+        "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn attrs.groupDns.map(groupDn => ({ json: { groupDn, userDn: attrs.dn } }));"
+      }
+    },
+    {
+      "id": "addGroupMember",
+      "name": "LDAP: Add group member",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        -240
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.groupDn }}",
+        "attributes": {
+          "add": [
+            {
+              "id": "member",
+              "value": "={{ $json.userDn }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "aggregateGroups",
+      "name": "Aggregate group results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1792,
+        -240
+      ],
+      "parameters": {
+        "jsCode": "const attrs = $('Build create attributes').first().json;\nconst items = $input.all();\nconst errors = items.filter(i => i.json.error).map(i => `Failed to add to group ${i.json.groupDn || 'unknown'}: ${i.json.error?.message || i.json.error}`);\nreturn [{ json: { success: errors.length === 0, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, errors } }];"
+      }
+    },
+    {
+      "id": "noGroups",
+      "name": "No groups - success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        -80
+      ],
+      "parameters": {
+        "jsCode": "const attrs = $('Build create attributes').first().json;\nreturn [{ json: { success: true, sAMAccountName: attrs.sAMAccountName, dn: attrs.dn, errors: [] } }];"
+      }
+    },
+    {
+      "id": "returnNode",
+      "name": "Return",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2016,
+        0
+      ],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "success",
+              "type": "boolean",
+              "value": "={{ $json.success }}"
+            },
+            {
+              "id": "a2",
+              "name": "sAMAccountName",
+              "type": "string",
+              "value": "={{ $json.sAMAccountName }}"
+            },
+            {
+              "id": "a3",
+              "name": "dn",
+              "type": "string",
+              "value": "={{ $json.dn }}"
+            },
+            {
+              "id": "a4",
+              "name": "errors",
+              "type": "array",
+              "value": "={{ $json.errors || [] }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-17T22:54:27.352Z",
+      "createdAt": "2026-07-17T22:54:27.352Z",
+      "role": "workflow:owner",
+      "workflowId": "wmUIdqI5hf83jd3I",
+      "projectId": "9efpp4J5DO3tFlq4"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-17T23:11:03.982Z",
+  "versionId": "7af00e2c-f05e-494f-8add-8875cd578da7"
+}
