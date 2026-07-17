@@ -1,0 +1,1510 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "New Hire Form": {
+      "main": [
+        [
+          {
+            "node": "Compute Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Fields": {
+      "main": [
+        [
+          {
+            "node": "Check Existing User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Existing User": {
+      "main": [
+        [
+          {
+            "node": "Does User Exist?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Does User Exist?": {
+      "main": [
+        [
+          {
+            "node": "Check License (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Shared Mailbox?": {
+      "main": [
+        [
+          {
+            "node": "Check License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Existing Account License",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check License (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "Evaluate License (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluate License (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "License Available? (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "License Available? (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "Create Entra ID User",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Notify Admin - No License (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Admin - No License (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "Create Entra ID User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Entra ID User": {
+      "main": [
+        [
+          {
+            "node": "Increment Retries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Retries": {
+      "main": [
+        [
+          {
+            "node": "Poll Account Ready",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Poll Account Ready": {
+      "main": [
+        [
+          {
+            "node": "Account Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Account Ready?": {
+      "main": [
+        [
+          {
+            "node": "Was License Available? (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Retries Exceeded?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retries Exceeded?": {
+      "main": [
+        [
+          {
+            "node": "Notify Admin - Account Never Ready",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prep Retry",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prep Retry": {
+      "main": [
+        [
+          {
+            "node": "Wait 5s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5s": {
+      "main": [
+        [
+          {
+            "node": "Increment Retries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was License Available? (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "Re-check License (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Summary (Created)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Re-check License (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "Evaluate License (Create Path - Recheck)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluate License (Create Path - Recheck)": {
+      "main": [
+        [
+          {
+            "node": "Assign License (Create Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assign License (Create Path)": {
+      "main": [
+        [
+          {
+            "node": "Build Summary (Created)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check License (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "Check Current Account License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Current Account License (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "Evaluate License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluate License (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "License Available? (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "License Available? (Reenable Path)": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Notify Admin - No License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Directory Sync": {
+      "main": [
+        [
+          {
+            "node": "Reset Password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Password": {
+      "main": [
+        [
+          {
+            "node": "Enable and Rename User",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enable and Rename User": {
+      "main": [
+        [
+          {
+            "node": "Was License Available? (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was License Available? (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "Re-check License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Summary (Reenabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Re-check License (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "Re-check Current Account License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Re-check Current Account License (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "Evaluate License (Reenable Path - Recheck)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Evaluate License (Reenable Path - Recheck)": {
+      "main": [
+        [
+          {
+            "node": "Assign License (Reenable Path)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assign License (Reenable Path)": {
+      "main": [
+        [
+          {
+            "node": "Build Summary (Reenabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Summary (Created)": {
+      "main": [
+        [
+          {
+            "node": "Notify Admin - Provisioning Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Summary (Reenabled)": {
+      "main": [
+        [
+          {
+            "node": "Notify Admin - Provisioning Complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify Admin - Provisioning Complete": {
+      "main": [
+        [
+          {
+            "node": "Workflow End - Provisioning Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Existing Account License": {
+      "main": [
+        [
+          {
+            "node": "Get Existing License Names",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Existing License Names": {
+      "main": [
+        [
+          {
+            "node": "Notify Admin - Duplicate Account",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-16T23:57:51.158Z",
+  "id": "vkQX8BZZfODovo74",
+  "isArchived": false,
+  "meta": null,
+  "name": "365 - User Provisioning",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "New Hire Account Request",
+        "formDescription": "Submit new-hire details to provision their Microsoft 365 account.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "First Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Last Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "License Type",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Exchange Online (Plan 2) (0 available)"
+                  },
+                  {
+                    "option": "Microsoft 365 Audio Conferencing (2 available)"
+                  },
+                  {
+                    "option": "Microsoft 365 Business Basic (1 available)"
+                  },
+                  {
+                    "option": "Microsoft 365 Business Standard (0 available)"
+                  },
+                  {
+                    "option": "Microsoft 365 Copilot (0 available)"
+                  },
+                  {
+                    "option": "Microsoft Teams Premium (0 available)"
+                  },
+                  {
+                    "option": "OneDrive for Business (Plan 2) (0 available)"
+                  },
+                  {
+                    "option": "Planner and Project Plan 3 (0 available)"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "2179b869-5029-49b2-b4ce-654acf97ba0b",
+      "name": "New Hire Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -3808,
+        576
+      ],
+      "webhookId": "6e8564c3-815c-4e20-bee8-2d03f74511b0"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e870973c-5d25-4d60-84bf-0307e48b4332",
+              "name": "displayName",
+              "type": "string",
+              "value": "={{ $json['First Name'].trim() + ' ' + $json['Last Name'].trim() }}"
+            },
+            {
+              "id": "b57ee0c2-cdcc-4ca7-a6cf-a20ed3b81421",
+              "name": "mailNickname",
+              "type": "string",
+              "value": "={{ (() => { const f = $json['First Name'].trim(); const l = $json['Last Name'].trim(); return (f.charAt(0) + l).toLowerCase().replace(/[^a-z0-9]/g, ''); })() }}"
+            },
+            {
+              "id": "7cb30a6c-a772-4c4e-a2bc-7ce75ac8114d",
+              "name": "userPrincipalName",
+              "type": "string",
+              "value": "={{ (() => { const f = $json['First Name'].trim(); const l = $json['Last Name'].trim(); const nick = (f.charAt(0) + l).toLowerCase().replace(/[^a-z0-9]/g, ''); return nick + '@michaelgraves.com'; })() }}"
+            },
+            {
+              "id": "a1505102-c98e-47bb-8c91-6bd6be3a3416",
+              "name": "tempPassword",
+              "type": "string",
+              "value": "={{ 'MGAtemp' + $now.year }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0be0bb4a-b1ba-45ff-841f-4af63b816f93",
+      "name": "Compute Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3584,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName,accountEnabled",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "188f1141-2a6d-4047-8d5d-88ef8abd9f6d",
+      "name": "Check Existing User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -3360,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2850d1f3-d370-4877-bbad-d1de5d9a4984",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "number",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 404
+            }
+          ],
+          "combinator": "and",
+          "conditions[0]": {
+            "leftValue": "={{ $json.statusCode }}",
+            "rightValue": 404,
+            "operator": {
+              "name": "filter.operator.equals",
+              "operation": "equals",
+              "type": "number"
+            }
+          }
+        },
+        "options": {}
+      },
+      "id": "c17fef67-f0d3-4137-b091-ae50d2e16f3b",
+      "name": "Does User Exist?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -3136,
+        576
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=pwsh -NoProfile -NonInteractive -Command \"$ErrorActionPreference = 'Stop'; Connect-ExchangeOnline -CertificateThumbprint '9A5360CF006242900CE0C1636BC63392835DD5D0' -AppId '45c9b518-c0b0-4933-bfff-29ff6c11831a' -Organization 'michaelgravesarchitecture.onmicrosoft.com' -ShowBanner:$false; try { (Get-Mailbox -Identity '{{ $('Compute Fields').item.json.userPrincipalName }}').RecipientTypeDetails } finally { Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue } \""
+      },
+      "id": "d6e0e124-345d-468e-97cd-4338f2f2c731",
+      "name": "Check Mailbox Type",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -2912,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a826ab01-0376-4a82-abce-bfc799eb90a4",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.stdout.trim() }}",
+              "rightValue": "SharedMailbox"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a341b327-d327-490f-b498-89e1b519ed76",
+      "name": "Is Shared Mailbox?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -2688,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0f050d7d-99fb-41af-ae3d-2e44dffa0b34",
+      "name": "Check License (Reenable Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2464,
+        864
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {}
+      },
+      "id": "f4476129-75f3-4359-95fe-a577aee3171c",
+      "name": "Check Existing Account License",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2464,
+        1056
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {}
+      },
+      "id": "d8a1d184-1533-41cf-9ce6-33a0c3d4fd50",
+      "name": "Check Current Account License (Reenable Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2240,
+        864
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const SKU_FRIENDLY_NAMES = {\n  'SPE_E3': 'Microsoft 365 E3',\n  'SPE_E5': 'Microsoft 365 E5',\n  'SPE_F1': 'Microsoft 365 F3',\n  'SPB': 'Microsoft 365 Business Premium',\n  'O365_BUSINESS_PREMIUM': 'Microsoft 365 Business Standard',\n  'O365_BUSINESS_ESSENTIALS': 'Microsoft 365 Business Basic',\n  'ENTERPRISEPACK': 'Office 365 E3',\n  'ENTERPRISEPREMIUM': 'Office 365 E5',\n  'ENTERPRISEWITHSCAL': 'Office 365 E4',\n  'STANDARDPACK': 'Office 365 E1',\n  'DESKLESSPACK': 'Office 365 F3',\n  'EXCHANGEENTERPRISE': 'Exchange Online (Plan 2)',\n  'EXCHANGESTANDARD': 'Exchange Online (Plan 1)',\n  'EMS': 'Enterprise Mobility + Security E3',\n  'EMSPREMIUM': 'Enterprise Mobility + Security E5',\n  'AAD_PREMIUM': 'Microsoft Entra ID P1',\n  'AAD_PREMIUM_P2': 'Microsoft Entra ID P2',\n  'FLOW_FREE': 'Microsoft Power Automate Free',\n  'MCOMEETADV': 'Microsoft 365 Audio Conferencing',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'Microsoft_Teams_Premium': 'Microsoft Teams Premium',\n  'POWER_BI_STANDARD': 'Power BI (free)',\n  'Power_Pages_vTrial_for_Makers': 'Power Pages vTrial for Makers',\n  'PROJECTPROFESSIONAL': 'Planner and Project Plan 3',\n  'RIGHTSMANAGEMENT_ADHOC': 'Azure Information Protection (Ad Hoc)',\n  'Teams_Premium_(for_Departments)': 'Teams Premium (for Departments)',\n  'WACONEDRIVEENTERPRISE': 'OneDrive for Business (Plan 2)'\n};\n\nfunction genericTitleCase(skuPartNumber) {\n  return skuPartNumber.replace(/_/g, ' ').split(' ').map(word => {\n    if (!word) return word;\n    const isAcronym = word.length <= 4 && word === word.toUpperCase() && /^[A-Z0-9]+$/.test(word);\n    if (isAcronym) return word;\n    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();\n  }).join(' ');\n}\n\nfunction friendlyName(skuPartNumber) {\n  if (SKU_FRIENDLY_NAMES[skuPartNumber]) return SKU_FRIENDLY_NAMES[skuPartNumber];\n  return genericTitleCase(skuPartNumber);\n}\n\nconst selectedRaw = $('New Hire Form').item.json['License Type'];\nconst selectedList = Array.isArray(selectedRaw) ? selectedRaw : (selectedRaw ? [selectedRaw] : []);\nconst targetFriendlyNames = selectedList.map(s => s.split(' (')[0].trim());\n\nconst tenantFirst = $('Check License (Reenable Path)').item.json;\nconst skus = Array.isArray(tenantFirst?.value) ? tenantFirst.value : (Array.isArray(tenantFirst) ? tenantFirst : []);\n\nconst currentFirst = $input.all()[0]?.json;\nconst currentDetails = Array.isArray(currentFirst?.value) ? currentFirst.value : (Array.isArray(currentFirst) ? currentFirst : []);\n\nconst licenses = targetFriendlyNames.map(targetFriendlyName => {\n  const sku = skus.find(s => friendlyName(s.skuPartNumber) === targetFriendlyName);\n  if (!sku) {\n    return { licenseName: targetFriendlyName, licenseAvailable: false, availableUnits: 0, skuId: null, skuPartNumber: null, alreadyAssigned: false };\n  }\n  const total = sku.prepaidUnits?.enabled ?? 0;\n  const consumed = sku.consumedUnits ?? 0;\n  const available = total - consumed;\n  const alreadyAssigned = currentDetails.some(d => d.skuPartNumber === sku.skuPartNumber);\n  return { licenseName: friendlyName(sku.skuPartNumber), licenseAvailable: available > 0, availableUnits: available, skuId: sku.skuId, skuPartNumber: sku.skuPartNumber, alreadyAssigned };\n});\n\nconst availableLicenses = licenses.filter(l => l.licenseAvailable);\nconst unavailableLicenses = licenses.filter(l => !l.licenseAvailable);\n\nconst requestedSkuPartNumbers = licenses.map(l => l.skuPartNumber).filter(Boolean);\nconst licensesToAdd = availableLicenses.filter(l => !l.alreadyAssigned);\nconst licensesToRemove = currentDetails\n  .filter(d => !requestedSkuPartNumbers.includes(d.skuPartNumber))\n  .map(d => ({ skuId: d.skuId, licenseName: friendlyName(d.skuPartNumber) }));\n\nreturn [{ json: { licenses, availableLicenses, unavailableLicenses, licensesToAdd, licensesToRemove, anyAvailable: availableLicenses.length > 0, allAvailable: unavailableLicenses.length === 0, anyChange: licensesToAdd.length > 0 || licensesToRemove.length > 0 } }];"
+      },
+      "id": "cb63819c-bf8f-4e56-b479-dbf1fe5bc111",
+      "name": "Evaluate License (Reenable Path)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2016,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "Action Required: Possible Duplicate Account - New Hire Provisioning",
+        "html": "=<p>Hello,</p>\n<p>The new hire provisioning workflow found that <strong>{{ $('Compute Fields').item.json.displayName }}</strong> ({{ $('Compute Fields').item.json.userPrincipalName }}) already has an existing M365 account, and that account is <strong>not</strong> a shared mailbox.</p>\n<p>This indicates a likely duplicate account. Please review before any further action is taken.</p>\n<ul>\n  <li>User Principal Name: {{ $('Compute Fields').item.json.userPrincipalName }}</li>\n  <li>Display Name: {{ $('Compute Fields').item.json.displayName }}</li>\n  <li>Detected Mailbox Type: {{ $('Check Mailbox Type').item.json.stdout.trim() }}</li>\n  <li>Current License(s): {{ $json.existingLicenses.length ? $json.existingLicenses.join(', ') : 'None assigned' }}</li>\n</ul>",
+        "options": {}
+      },
+      "id": "335838ad-d6ab-4718-b390-58d07c0b5e00",
+      "name": "Notify Admin - Duplicate Account",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -2016,
+        1056
+      ],
+      "webhookId": "77e88312-7f46-4519-b31c-8593f1538453"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "lic-avail-reenable",
+              "leftValue": "={{ $json.allAvailable }}",
+              "operator": {
+                "operation": "true",
+                "type": "boolean",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "1179d17d-8a52-45da-9ab5-1af32e05d33d",
+      "name": "License Available? (Reenable Path)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1792,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "Action Required: No License Available - New Hire (Reenabled Account)",
+        "html": "=<p>Hello,</p>\n<p>An existing M365 mailbox is being converted/reenabled for <strong>{{ $('Compute Fields').item.json.displayName }}</strong> ({{ $('Compute Fields').item.json.userPrincipalName }}), but the following requested license(s) currently have no available seats:</p>\n<ul>{{ $json.unavailableLicenses.map(l => '<li>' + l.licenseName + '</li>').join('') }}</ul>\n<p>The account will still be reenabled; any other requested license(s) with available seats will be assigned normally. Please purchase/free up seats and assign the above manually.</p>",
+        "options": {}
+      },
+      "id": "2a92e0d4-cf2a-4788-95ce-1c6a712db4e8",
+      "name": "Notify Admin - No License (Reenable Path)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1568,
+        944
+      ],
+      "webhookId": "f066f7db-3e3d-4742-94e5-b99448cd3e06"
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f05cc5bc-5188-42ad-9240-eaf96c7081ee",
+      "name": "Check License (Create Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -2016,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "command": "=pwsh -NoProfile -NonInteractive -Command \"$ErrorActionPreference = 'Stop'; Connect-ExchangeOnline -CertificateThumbprint '9A5360CF006242900CE0C1636BC63392835DD5D0' -AppId '45c9b518-c0b0-4933-bfff-29ff6c11831a' -Organization 'michaelgravesarchitecture.onmicrosoft.com' -ShowBanner:$false; try { Set-Mailbox -Identity '{{ $('Compute Fields').item.json.userPrincipalName }}' -Type Regular; Write-Output 'Converted' } finally { Disconnect-ExchangeOnline -Confirm:$false -ErrorAction SilentlyContinue } \""
+      },
+      "id": "5cea91dd-dbb3-4e40-9889-ccad26d69652",
+      "name": "Convert Shared Mailbox to Regular",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -1344,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const SKU_FRIENDLY_NAMES = {\n  'SPE_E3': 'Microsoft 365 E3',\n  'SPE_E5': 'Microsoft 365 E5',\n  'SPE_F1': 'Microsoft 365 F3',\n  'SPB': 'Microsoft 365 Business Premium',\n  'O365_BUSINESS_PREMIUM': 'Microsoft 365 Business Standard',\n  'O365_BUSINESS_ESSENTIALS': 'Microsoft 365 Business Basic',\n  'ENTERPRISEPACK': 'Office 365 E3',\n  'ENTERPRISEPREMIUM': 'Office 365 E5',\n  'ENTERPRISEWITHSCAL': 'Office 365 E4',\n  'STANDARDPACK': 'Office 365 E1',\n  'DESKLESSPACK': 'Office 365 F3',\n  'EXCHANGEENTERPRISE': 'Exchange Online (Plan 2)',\n  'EXCHANGESTANDARD': 'Exchange Online (Plan 1)',\n  'EMS': 'Enterprise Mobility + Security E3',\n  'EMSPREMIUM': 'Enterprise Mobility + Security E5',\n  'AAD_PREMIUM': 'Microsoft Entra ID P1',\n  'AAD_PREMIUM_P2': 'Microsoft Entra ID P2',\n  'FLOW_FREE': 'Microsoft Power Automate Free',\n  'MCOMEETADV': 'Microsoft 365 Audio Conferencing',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'Microsoft_Teams_Premium': 'Microsoft Teams Premium',\n  'POWER_BI_STANDARD': 'Power BI (free)',\n  'Power_Pages_vTrial_for_Makers': 'Power Pages vTrial for Makers',\n  'PROJECTPROFESSIONAL': 'Planner and Project Plan 3',\n  'RIGHTSMANAGEMENT_ADHOC': 'Azure Information Protection (Ad Hoc)',\n  'Teams_Premium_(for_Departments)': 'Teams Premium (for Departments)',\n  'WACONEDRIVEENTERPRISE': 'OneDrive for Business (Plan 2)'\n};\n\nfunction genericTitleCase(skuPartNumber) {\n  return skuPartNumber.replace(/_/g, ' ').split(' ').map(word => {\n    if (!word) return word;\n    const isAcronym = word.length <= 4 && word === word.toUpperCase() && /^[A-Z0-9]+$/.test(word);\n    if (isAcronym) return word;\n    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();\n  }).join(' ');\n}\n\nfunction friendlyName(skuPartNumber) {\n  if (SKU_FRIENDLY_NAMES[skuPartNumber]) return SKU_FRIENDLY_NAMES[skuPartNumber];\n  return genericTitleCase(skuPartNumber);\n}\n\nconst selectedRaw = $('New Hire Form').item.json['License Type'];\nconst selectedList = Array.isArray(selectedRaw) ? selectedRaw : (selectedRaw ? [selectedRaw] : []);\nconst targetFriendlyNames = selectedList.map(s => s.split(' (')[0].trim());\n\nconst items = $input.all();\nconst first = items[0]?.json;\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\nconst licenses = targetFriendlyNames.map(targetFriendlyName => {\n  const sku = skus.find(s => friendlyName(s.skuPartNumber) === targetFriendlyName);\n  if (!sku) {\n    return { licenseName: targetFriendlyName, licenseAvailable: false, availableUnits: 0, skuId: null };\n  }\n  const total = sku.prepaidUnits?.enabled ?? 0;\n  const consumed = sku.consumedUnits ?? 0;\n  const available = total - consumed;\n  return { licenseName: friendlyName(sku.skuPartNumber), licenseAvailable: available > 0, availableUnits: available, skuId: sku.skuId };\n});\n\nconst availableLicenses = licenses.filter(l => l.licenseAvailable);\nconst unavailableLicenses = licenses.filter(l => !l.licenseAvailable);\n\nreturn [{ json: { licenses, availableLicenses, unavailableLicenses, anyAvailable: availableLicenses.length > 0, allAvailable: unavailableLicenses.length === 0 } }];"
+      },
+      "id": "c94d7c18-ab2c-4058-903b-85d182a0700d",
+      "name": "Evaluate License (Create Path)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "lic-avail-create",
+              "leftValue": "={{ $json.allAvailable }}",
+              "operator": {
+                "operation": "true",
+                "type": "boolean",
+                "singleValue": true
+              },
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0ab23c6a-c26e-47ce-8d21-600cfdef858b",
+      "name": "License Available? (Create Path)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1568,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "Action Required: No License Available - New Hire (New Account)",
+        "html": "=<p>Hello,</p>\n<p>A new M365 account is being created for <strong>{{ $('Compute Fields').item.json.displayName }}</strong> ({{ $('Compute Fields').item.json.userPrincipalName }}), but the following requested license(s) currently have no available seats:</p>\n<ul>{{ $json.unavailableLicenses.map(l => '<li>' + l.licenseName + '</li>').join('') }}</ul>\n<p>The account will still be created; any other requested license(s) with available seats will be assigned normally. Please purchase/free up seats and assign the above manually.</p>",
+        "options": {}
+      },
+      "id": "9c4d311e-a40c-4d53-98d6-81f22895b17b",
+      "name": "Notify Admin - No License (Create Path)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -1344,
+        448
+      ],
+      "webhookId": "eedb2ba7-10dd-486a-9fc2-65b17dda37a8"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "id": "c36f116f-7977-4993-8fa2-85c0caa77b2d",
+      "name": "Wait for Directory Sync",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        864
+      ],
+      "webhookId": "cf050e7f-7cf9-445d-829d-d6652d1cf85a"
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "427d3529-82c1-4617-8442-136deaffc25d",
+      "name": "Reset Password",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -896,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.microsoft.com/v1.0/users",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"mailNickname\": \"{{ $('Compute Fields').item.json.mailNickname }}\",\n  \"userPrincipalName\": \"{{ $('Compute Fields').item.json.userPrincipalName }}\",\n  \"usageLocation\": \"US\",\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
+        "options": {}
+      },
+      "id": "97e0f273-3cbb-4c4b-b30c-8789ff30e7b3",
+      "name": "Create Entra ID User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -1120,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"usageLocation\": \"US\"\n}",
+        "options": {}
+      },
+      "id": "5f39fc1f-d7df-4f42-be62-89885a255c34",
+      "name": "Enable and Rename User",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -672,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const retries = (typeof $json.retries === 'number') ? $json.retries + 1 : 0;\nreturn [{ json: { retries } }];"
+      },
+      "id": "b68fd2fa-3ad1-4241-b23b-f22230ceafa3",
+      "name": "Increment Retries",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -896,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "d0a9fb75-8013-456f-80d8-97e041a412e4",
+      "name": "Poll Account Ready",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -672,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "account-ready-check",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "number",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 200
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "95e3d217-2f59-4c0e-afca-03a92f613ce1",
+      "name": "Account Ready?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "retries-exceeded-check",
+              "operator": {
+                "name": "filter.operator.gte",
+                "type": "number",
+                "operation": "gte"
+              },
+              "leftValue": "={{ $('Increment Retries').item.json.retries }}",
+              "rightValue": 12
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0ff8659b-4e30-4e5f-864b-ffcadb902657",
+      "name": "Retries Exceeded?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "Alert: New Hire Account Never Became Reachable in Graph API",
+        "html": "=<p>Hello,</p>\n<p>A new M365 account was created for <strong>{{ $('Compute Fields').item.json.displayName }}</strong> ({{ $('Compute Fields').item.json.userPrincipalName }}), but it never became reachable in the Graph API after 12 polling attempts (60 seconds).</p>\n<p>The account was created successfully in Entra ID but license assignment was skipped. Please check the account status in the Azure portal and assign the requested license(s) manually:</p>\n<ul>\n  <li>User Principal Name: {{ $('Compute Fields').item.json.userPrincipalName }}</li>\n  <li>Requested License(s): {{ $('Evaluate License (Create Path)').item.json.licenses.map(l => l.licenseName).join(', ') || 'None requested' }}</li>\n</ul>\n<p>This may be a temporary replication delay. Check the account in the Azure portal and retry license assignment if needed.</p>",
+        "options": {}
+      },
+      "id": "0ecd72ff-a3c8-4fbc-a27f-b7c26dbf5873",
+      "name": "Notify Admin - Account Never Ready",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        288
+      ],
+      "webhookId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { retries: $('Increment Retries').item.json.retries } }];"
+      },
+      "id": "2f023539-812d-4644-9215-76e23e4be965",
+      "name": "Prep Retry",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        480
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "36e6a6dc-2776-4432-bdf3-88c1b8429212",
+      "name": "Wait 5s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        560
+      ],
+      "webhookId": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "was-lic-avail-create",
+              "operator": {
+                "name": "filter.operator.true",
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $('Evaluate License (Create Path)').item.json.anyAvailable }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a390e1a9-5906-4fb1-bb7d-7ef0fe784365",
+      "name": "Was License Available? (Create Path)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -224,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dfc0a742-baa0-4f73-81bf-f7d0b65f71b2",
+      "name": "Re-check License (Create Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const SKU_FRIENDLY_NAMES = {\n  'SPE_E3': 'Microsoft 365 E3',\n  'SPE_E5': 'Microsoft 365 E5',\n  'SPE_F1': 'Microsoft 365 F3',\n  'SPB': 'Microsoft 365 Business Premium',\n  'O365_BUSINESS_PREMIUM': 'Microsoft 365 Business Standard',\n  'O365_BUSINESS_ESSENTIALS': 'Microsoft 365 Business Basic',\n  'ENTERPRISEPACK': 'Office 365 E3',\n  'ENTERPRISEPREMIUM': 'Office 365 E5',\n  'ENTERPRISEWITHSCAL': 'Office 365 E4',\n  'STANDARDPACK': 'Office 365 E1',\n  'DESKLESSPACK': 'Office 365 F3',\n  'EXCHANGEENTERPRISE': 'Exchange Online (Plan 2)',\n  'EXCHANGESTANDARD': 'Exchange Online (Plan 1)',\n  'EMS': 'Enterprise Mobility + Security E3',\n  'EMSPREMIUM': 'Enterprise Mobility + Security E5',\n  'AAD_PREMIUM': 'Microsoft Entra ID P1',\n  'AAD_PREMIUM_P2': 'Microsoft Entra ID P2',\n  'FLOW_FREE': 'Microsoft Power Automate Free',\n  'MCOMEETADV': 'Microsoft 365 Audio Conferencing',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'Microsoft_Teams_Premium': 'Microsoft Teams Premium',\n  'POWER_BI_STANDARD': 'Power BI (free)',\n  'Power_Pages_vTrial_for_Makers': 'Power Pages vTrial for Makers',\n  'PROJECTPROFESSIONAL': 'Planner and Project Plan 3',\n  'RIGHTSMANAGEMENT_ADHOC': 'Azure Information Protection (Ad Hoc)',\n  'Teams_Premium_(for_Departments)': 'Teams Premium (for Departments)',\n  'WACONEDRIVEENTERPRISE': 'OneDrive for Business (Plan 2)'\n};\n\nfunction genericTitleCase(skuPartNumber) {\n  return skuPartNumber.replace(/_/g, ' ').split(' ').map(word => {\n    if (!word) return word;\n    const isAcronym = word.length <= 4 && word === word.toUpperCase() && /^[A-Z0-9]+$/.test(word);\n    if (isAcronym) return word;\n    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();\n  }).join(' ');\n}\n\nfunction friendlyName(skuPartNumber) {\n  return SKU_FRIENDLY_NAMES[skuPartNumber] || genericTitleCase(skuPartNumber);\n}\n\nconst selectedRaw = $('New Hire Form').item.json['License Type'];\nconst selectedList = Array.isArray(selectedRaw) ? selectedRaw : (selectedRaw ? [selectedRaw] : []);\nconst targetFriendlyNames = selectedList.map(s => s.split(' (')[0].trim());\n\nconst first = $input.all()[0]?.json;\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\nconst licenses = targetFriendlyNames.map(targetFriendlyName => {\n  const sku = skus.find(s => friendlyName(s.skuPartNumber) === targetFriendlyName);\n  if (!sku) return { licenseName: targetFriendlyName, licenseAvailable: false, availableUnits: 0, skuId: null };\n  const total = sku.prepaidUnits?.enabled ?? 0;\n  const consumed = sku.consumedUnits ?? 0;\n  const available = total - consumed;\n  return { licenseName: friendlyName(sku.skuPartNumber), licenseAvailable: available > 0, availableUnits: available, skuId: sku.skuId };\n});\n\nconst availableLicenses = licenses.filter(l => l.licenseAvailable);\nconst unavailableLicenses = licenses.filter(l => !l.licenseAvailable);\n\nreturn [{ json: { licenses, availableLicenses, unavailableLicenses, anyAvailable: availableLicenses.length > 0, allAvailable: unavailableLicenses.length === 0 } }];"
+      },
+      "id": "d9222392-f730-4148-9893-0bdef6770a12",
+      "name": "Evaluate License (Create Path - Recheck)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/assignLicense",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"addLicenses\": {{ JSON.stringify($('Evaluate License (Create Path - Recheck)').item.json.availableLicenses.map(l => ({ skuId: l.skuId }))) }},\n  \"removeLicenses\": []\n}",
+        "options": {}
+      },
+      "id": "144b7f4e-0585-41b9-b85c-42b5cf8d671f",
+      "name": "Assign License (Create Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "was-lic-avail-reenable",
+              "operator": {
+                "name": "filter.operator.true",
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              },
+              "leftValue": "={{ $('Evaluate License (Reenable Path)').item.json.anyChange }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a148d289-ff76-4008-9002-5834782d47b8",
+      "name": "Was License Available? (Reenable Path)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "02bf7a44-deb5-46d1-b92f-00e771934e46",
+      "name": "Re-check License (Reenable Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -224,
+        800
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "options": {}
+      },
+      "id": "95797485-2e33-45fb-af06-40c92fee8a0c",
+      "name": "Re-check Current Account License (Reenable Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        0,
+        800
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const SKU_FRIENDLY_NAMES = {\n  'SPE_E3': 'Microsoft 365 E3',\n  'SPE_E5': 'Microsoft 365 E5',\n  'SPE_F1': 'Microsoft 365 F3',\n  'SPB': 'Microsoft 365 Business Premium',\n  'O365_BUSINESS_PREMIUM': 'Microsoft 365 Business Standard',\n  'O365_BUSINESS_ESSENTIALS': 'Microsoft 365 Business Basic',\n  'ENTERPRISEPACK': 'Office 365 E3',\n  'ENTERPRISEPREMIUM': 'Office 365 E5',\n  'ENTERPRISEWITHSCAL': 'Office 365 E4',\n  'STANDARDPACK': 'Office 365 E1',\n  'DESKLESSPACK': 'Office 365 F3',\n  'EXCHANGEENTERPRISE': 'Exchange Online (Plan 2)',\n  'EXCHANGESTANDARD': 'Exchange Online (Plan 1)',\n  'EMS': 'Enterprise Mobility + Security E3',\n  'EMSPREMIUM': 'Enterprise Mobility + Security E5',\n  'AAD_PREMIUM': 'Microsoft Entra ID P1',\n  'AAD_PREMIUM_P2': 'Microsoft Entra ID P2',\n  'FLOW_FREE': 'Microsoft Power Automate Free',\n  'MCOMEETADV': 'Microsoft 365 Audio Conferencing',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'Microsoft_Teams_Premium': 'Microsoft Teams Premium',\n  'POWER_BI_STANDARD': 'Power BI (free)',\n  'Power_Pages_vTrial_for_Makers': 'Power Pages vTrial for Matters',\n  'PROJECTPROFESSIONAL': 'Planner and Project Plan 3',\n  'RIGHTSMANAGEMENT_ADHOC': 'Azure Information Protection (Ad Hoc)',\n  'Teams_Premium_(for_Departments)': 'Teams Premium (for Departments)',\n  'WACONEDRIVEENTERPRISE': 'OneDrive for Business (Plan 2)'\n};\n\nfunction genericTitleCase(skuPartNumber) {\n  return skuPartNumber.replace(/_/g, ' ').split(' ').map(word => {\n    if (!word) return word;\n    const isAcronym = word.length <= 4 && word === word.toUpperCase() && /^[A-Z0-9]+$/.test(word);\n    if (isAcronym) return word;\n    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();\n  }).join(' ');\n}\n\nfunction friendlyName(skuPartNumber) {\n  return SKU_FRIENDLY_NAMES[skuPartNumber] || genericTitleCase(skuPartNumber);\n}\n\nconst selectedRaw = $('New Hire Form').item.json['License Type'];\nconst selectedList = Array.isArray(selectedRaw) ? selectedRaw : (selectedRaw ? [selectedRaw] : []);\nconst targetFriendlyNames = selectedList.map(s => s.split(' (')[0].trim());\n\nconst tenantSkus = $('Re-check License (Reenable Path)').item.json;\nconst skus = Array.isArray(tenantSkus?.value) ? tenantSkus.value : (Array.isArray(tenantSkus) ? tenantSkus : []);\n\nconst currentLicensesData = $input.all()[0]?.json;\nconst currentDetails = Array.isArray(currentLicensesData?.value) ? currentLicensesData.value : (Array.isArray(currentLicensesData) ? currentLicensesData : []);\n\nconst licenses = targetFriendlyNames.map(targetFriendlyName => {\n  const sku = skus.find(s => friendlyName(s.skuPartNumber) === targetFriendlyName);\n  if (!sku) return { licenseName: targetFriendlyName, licenseAvailable: false, availableUnits: 0, skuId: null, skuPartNumber: null, alreadyAssigned: false };\n  const total = sku.prepaidUnits?.enabled ?? 0;\n  const consumed = sku.consumedUnits ?? 0;\n  const available = total - consumed;\n  const alreadyAssigned = currentDetails.some(d => d.skuPartNumber === sku.skuPartNumber);\n  return { licenseName: friendlyName(sku.skuPartNumber), licenseAvailable: available > 0, availableUnits: available, skuId: sku.skuId, skuPartNumber: sku.skuPartNumber, alreadyAssigned };\n});\n\nconst availableLicenses = licenses.filter(l => l.licenseAvailable);\nconst unavailableLicenses = licenses.filter(l => !l.licenseAvailable);\nconst requestedSkuPartNumbers = licenses.map(l => l.skuPartNumber).filter(Boolean);\nconst licensesToAdd = availableLicenses.filter(l => !l.alreadyAssigned);\nconst licensesToRemove = currentDetails.filter(d => !requestedSkuPartNumbers.includes(d.skuPartNumber)).map(d => ({ skuId: d.skuId, licenseName: friendlyName(d.skuPartNumber) }));\n\nreturn [{ json: { licenses, availableLicenses, unavailableLicenses, licensesToAdd, licensesToRemove, anyAvailable: availableLicenses.length > 0, allAvailable: unavailableLicenses.length === 0, anyChange: licensesToAdd.length > 0 || licensesToRemove.length > 0 } }];"
+      },
+      "id": "926e9959-63a2-48af-bfe4-8871345ef412",
+      "name": "Evaluate License (Reenable Path - Recheck)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/assignLicense",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"addLicenses\": {{ JSON.stringify($('Evaluate License (Reenable Path - Recheck)').item.json.licensesToAdd.map(l => ({ skuId: l.skuId }))) }},\n  \"removeLicenses\": {{ JSON.stringify($('Evaluate License (Reenable Path - Recheck)').item.json.licensesToRemove.map(l => l.skuId)) }}\n}",
+        "options": {}
+      },
+      "id": "18224764-f5c6-480a-8fef-a9c8023de0f8",
+      "name": "Assign License (Reenable Path)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        800
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "sum-c-1",
+              "name": "accountStatus",
+              "type": "string",
+              "value": "Created"
+            },
+            {
+              "id": "sum-c-2",
+              "name": "licenseNames",
+              "type": "string",
+              "value": "={{ $('Evaluate License (Create Path)').item.json.licenses.map(l => l.licenseName).join(', ') || 'None requested' }}"
+            },
+            {
+              "id": "sum-c-3",
+              "name": "licensesAssigned",
+              "type": "string",
+              "value": "={{ $('Evaluate License (Create Path - Recheck)').item.json.availableLicenses.map(l => l.licenseName).join(', ') || 'None' }}"
+            },
+            {
+              "id": "sum-c-4",
+              "name": "anyLicenseUnavailable",
+              "type": "boolean",
+              "value": "={{ $('Evaluate License (Create Path - Recheck)').item.json.unavailableLicenses.length > 0 }}"
+            },
+            {
+              "id": "sum-c-5",
+              "name": "licensesRemoved",
+              "type": "string",
+              "value": "None"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e11a86d3-c45b-458c-820d-e0f13eb30403",
+      "name": "Build Summary (Created)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "sum-r-1",
+              "name": "accountStatus",
+              "type": "string",
+              "value": "Reenabled"
+            },
+            {
+              "id": "sum-r-2",
+              "name": "licenseNames",
+              "type": "string",
+              "value": "={{ $('Evaluate License (Reenable Path)').item.json.licenses.map(l => l.licenseName).join(', ') || 'None requested' }}"
+            },
+            {
+              "id": "sum-r-3",
+              "name": "licensesAssigned",
+              "type": "string",
+              "value": "={{ $('Evaluate License (Reenable Path - Recheck)').item.json.availableLicenses.map(l => l.licenseName).join(', ') || 'None' }}"
+            },
+            {
+              "id": "sum-r-4",
+              "name": "anyLicenseUnavailable",
+              "type": "boolean",
+              "value": "={{ $('Evaluate License (Reenable Path - Recheck)').item.json.unavailableLicenses.length > 0 }}"
+            },
+            {
+              "id": "sum-r-5",
+              "name": "licensesRemoved",
+              "type": "string",
+              "value": "={{ $('Evaluate License (Reenable Path - Recheck)').item.json.licensesToRemove.map(l => l.licenseName).join(', ') || 'None' }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d651e582-2282-41f2-9aeb-b715e548a329",
+      "name": "Build Summary (Reenabled)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        672,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "New Hire M365 Provisioning Complete",
+        "html": "=<p>Hello,</p>\n<p>M365 provisioning finished for <strong>{{ $('Compute Fields').item.json.displayName }}</strong> ({{ $('Compute Fields').item.json.userPrincipalName }}).</p>\n<ul>\n  <li>Result: {{ $json.accountStatus }}</li>\n  <li>Licensed: {{ $json.licensesAssigned !== 'None' ? 'Yes' : 'No' }}</li>\n  <li>License(s): {{ $json.licensesAssigned }}{{ $json.anyLicenseUnavailable ? ' (some requested licenses unavailable - see prior alert)' : '' }}</li>\n  <li>Requested: {{ $json.licenseNames }}</li>\n  {{ $json.licensesRemoved && $json.licensesRemoved !== 'None' ? '<li>Removed: ' + $json.licensesRemoved + '</li>' : '' }}\n</ul>",
+        "options": {}
+      },
+      "id": "5503484e-600a-4b2f-8431-a7057f25b1b0",
+      "name": "Notify Admin - Provisioning Complete",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        480
+      ],
+      "webhookId": "b15a0722-1170-41b0-845b-4ab96e6c0a63"
+    },
+    {
+      "parameters": {},
+      "id": "989703f5-1ea6-4d13-b942-e728e781cd93",
+      "name": "Workflow End - Provisioning Summary",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const SKU_FRIENDLY_NAMES = {\n  'SPE_E3': 'Microsoft 365 E3',\n  'SPE_E5': 'Microsoft 365 E5',\n  'SPE_F1': 'Microsoft 365 F3',\n  'SPB': 'Microsoft 365 Business Premium',\n  'O365_BUSINESS_PREMIUM': 'Microsoft 365 Business Standard',\n  'O365_BUSINESS_ESSENTIALS': 'Microsoft 365 Business Basic',\n  'ENTERPRISEPACK': 'Office 365 E3',\n  'ENTERPRISEPREMIUM': 'Office 365 E5',\n  'ENTERPRISEWITHSCAL': 'Office 365 E4',\n  'STANDARDPACK': 'Office 365 E1',\n  'DESKLESSPACK': 'Office 365 F3',\n  'EXCHANGEENTERPRISE': 'Exchange Online (Plan 2)',\n  'EXCHANGESTANDARD': 'Exchange Online (Plan 1)',\n  'EMS': 'Enterprise Mobility + Security E3',\n  'EMSPREMIUM': 'Enterprise Mobility + Security E5',\n  'AAD_PREMIUM': 'Microsoft Entra ID P1',\n  'AAD_PREMIUM_P2': 'Microsoft Entra ID P2',\n  'FLOW_FREE': 'Microsoft Power Automate Free',\n  'MCOMEETADV': 'Microsoft 365 Audio Conferencing',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'Microsoft_Teams_Premium': 'Microsoft Teams Premium',\n  'POWER_BI_STANDARD': 'Power BI (free)',\n  'Power_Pages_vTrial_for_Makers': 'Power Pages vTrial for Makers',\n  'PROJECTPROFESSIONAL': 'Planner and Project Plan 3',\n  'RIGHTSMANAGEMENT_ADHOC': 'Azure Information Protection (Ad Hoc)',\n  'Teams_Premium_(for_Departments)': 'Teams Premium (for Departments)',\n  'WACONEDRIVEENTERPRISE': 'OneDrive for Business (Plan 2)'\n};\n\nfunction genericTitleCase(skuPartNumber) {\n  return skuPartNumber\n    .replace(/_/g, ' ')\n    .split(' ')\n    .map(word => {\n      if (!word) return word;\n      const isAcronym = word.length <= 4 && word === word.toUpperCase() && /^[A-Z0-9]+$/.test(word);\n      if (isAcronym) return word;\n      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();\n    })\n    .join(' ');\n}\n\nfunction friendlyName(skuPartNumber) {\n  if (SKU_FRIENDLY_NAMES[skuPartNumber]) return SKU_FRIENDLY_NAMES[skuPartNumber];\n  return genericTitleCase(skuPartNumber);\n}\n\nconst items = $input.all();\nconst first = items[0]?.json;\nconst details = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\nconst existingLicenses = details.map(d => friendlyName(d.skuPartNumber));\n\nreturn [{ json: { existingLicenses } }];"
+      },
+      "id": "bc25907e-63ce-4092-9798-55abf72fd888",
+      "name": "Get Existing License Names",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2240,
+        1056
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-16T23:57:51.161Z",
+      "createdAt": "2026-07-16T23:57:51.161Z",
+      "role": "workflow:owner",
+      "workflowId": "vkQX8BZZfODovo74",
+      "projectId": "9efpp4J5DO3tFlq4"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-16T23:57:51.158Z",
+  "versionId": "f453d2c7-8216-42ee-a1aa-2bd5e24c275c"
+}
