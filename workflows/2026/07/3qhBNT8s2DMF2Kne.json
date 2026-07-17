@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-17T00:59:27.000Z",
-    "createdAt": "2026-07-17T00:58:35.969Z",
-    "versionId": "1e666e5a-27ed-4d15-bf65-ed6ec6aaa751",
+    "updatedAt": "2026-07-17T14:50:17.000Z",
+    "createdAt": "2026-07-17T14:50:03.212Z",
+    "versionId": "f984a85a-27ac-449c-8025-f3ca85a5b290",
     "workflowId": "3qhBNT8s2DMF2Kne",
     "nodes": [
       {
@@ -12,8 +12,8 @@
         "name": "On clicking 'execute'",
         "type": "n8n-nodes-base.manualTrigger",
         "position": [
-          176,
-          592
+          192,
+          544
         ],
         "typeVersion": 1
       },
@@ -333,8 +333,8 @@
         "name": "Schedule Trigger",
         "type": "n8n-nodes-base.scheduleTrigger",
         "position": [
-          176,
-          800
+          192,
+          704
         ],
         "typeVersion": 1.3
       },
@@ -381,7 +381,7 @@
       {
         "parameters": {
           "content": "## Main workflow loop",
-          "height": 448,
+          "height": 496,
           "width": 2201,
           "color": 7
         },
@@ -568,7 +568,7 @@
       },
       {
         "parameters": {
-          "fromEmail": "itadmin@michaelgraves.com",
+          "fromEmail": "cfrazier@michaelgraves.com",
           "toEmail": "itadmin@michaelgraves.com",
           "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
           "html": "={{ $json.htmlBody }}",
@@ -579,8 +579,8 @@
         "type": "n8n-nodes-base.emailSend",
         "typeVersion": 2.1,
         "position": [
-          1280,
-          576
+          1456,
+          304
         ],
         "webhookId": "aeaddb8c-d63c-4223-9a55-32dc16a01536",
         "credentials": {
@@ -588,7 +588,54 @@
             "id": "Ya5Hdbwc6vugCG4l",
             "name": "SMTP account"
           }
+        },
+        "disabled": true
+      },
+      {
+        "parameters": {
+          "authentication": "microsoftEntraServicePrincipalApi",
+          "mailbox": {
+            "__rl": true,
+            "value": "itadmin@michaelgraves.com",
+            "mode": "id"
+          },
+          "toRecipients": "itadmin@michaelgraves.com",
+          "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
+          "bodyContent": "={{ $json.htmlBody }}",
+          "additionalFields": {
+            "bodyContentType": "html"
+          }
+        },
+        "type": "n8n-nodes-base.microsoftOutlook",
+        "typeVersion": 2,
+        "position": [
+          1296,
+          576
+        ],
+        "id": "d18205bb-1e86-4243-8ed8-646fc525d6bb",
+        "name": "Send a message",
+        "webhookId": "214283bf-a68c-4ec9-a10e-3941ed090268",
+        "credentials": {
+          "microsoftEntraServicePrincipalApi": {
+            "id": "daNTcFeBfRqDEFPb",
+            "name": "Microsoft Entra Service Principal account"
+          }
         }
+      },
+      {
+        "parameters": {
+          "events": [
+            "init"
+          ]
+        },
+        "id": "f81767c8-3665-49d3-ae2f-76483cfced9e",
+        "name": "n8n Trigger",
+        "type": "n8n-nodes-base.n8nTrigger",
+        "typeVersion": 1,
+        "position": [
+          192,
+          864
+        ]
       }
     ],
     "connections": {
@@ -862,7 +909,23 @@
         "main": [
           [
             {
-              "node": "Send an Email",
+              "node": "Send a message",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Send an Email": {
+        "main": [
+          []
+        ]
+      },
+      "n8n Trigger": {
+        "main": [
+          [
+            {
+              "node": "n8n",
               "type": "main",
               "index": 0
             }
@@ -872,11 +935,11 @@
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": "Version 1e666e5a",
+    "name": "Version f984a85a",
     "description": "",
     "autosaved": true
   },
-  "activeVersionId": "1e666e5a-27ed-4d15-bf65-ed6ec6aaa751",
+  "activeVersionId": "f984a85a-27ac-449c-8025-f3ca85a5b290",
   "connections": {
     "n8n": {
       "main": [
@@ -1159,6 +1222,17 @@
       "main": [
         []
       ]
+    },
+    "n8n Trigger": {
+      "main": [
+        [
+          {
+            "node": "n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-07-16T23:59:45.035Z",
@@ -1176,8 +1250,8 @@
       "name": "On clicking 'execute'",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        176,
-        592
+        192,
+        544
       ],
       "typeVersion": 1
     },
@@ -1497,8 +1571,8 @@
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "position": [
-        176,
-        800
+        192,
+        704
       ],
       "typeVersion": 1.3
     },
@@ -1545,7 +1619,7 @@
     {
       "parameters": {
         "content": "## Main workflow loop",
-        "height": 448,
+        "height": 496,
         "width": 2201,
         "color": 7
       },
@@ -1766,7 +1840,9 @@
         "toRecipients": "itadmin@michaelgraves.com",
         "subject": "=n8n Workflow Backup — {{ $json.dateStr }}",
         "bodyContent": "={{ $json.htmlBody }}",
-        "additionalFields": {}
+        "additionalFields": {
+          "bodyContentType": "html"
+        }
       },
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
@@ -1783,13 +1859,30 @@
           "name": "Microsoft Entra Service Principal account"
         }
       }
+    },
+    {
+      "parameters": {
+        "events": [
+          "init"
+        ]
+      },
+      "id": "f81767c8-3665-49d3-ae2f-76483cfced9e",
+      "name": "n8n Trigger",
+      "type": "n8n-nodes-base.n8nTrigger",
+      "typeVersion": 1,
+      "position": [
+        192,
+        864
+      ]
     }
   ],
   "pinData": {},
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
-    "availableInMCP": false
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
   },
   "shared": [
     {
@@ -1811,7 +1904,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2026-07-17T02:38:55.095Z",
-  "versionId": "2e25e9ff-a137-49d8-9484-611c15abea60"
+  "triggerCount": 2,
+  "updatedAt": "2026-07-17T14:50:03.211Z",
+  "versionId": "f984a85a-27ac-449c-8025-f3ca85a5b290"
 }
