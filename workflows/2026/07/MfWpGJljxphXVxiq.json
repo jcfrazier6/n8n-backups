@@ -7,29 +7,25 @@
       "main": [
         [
           {
-            "node": "Diag: Search jfrazier",
+            "node": "Send a message",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Diag Webhook": {
+    "Send an Email": {
       "main": [
-        [
-          {
-            "node": "Diag: Search jfrazier",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
   "createdAt": "2026-07-16T23:59:36.149Z",
   "id": "MfWpGJljxphXVxiq",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "Testing",
   "nodeGroups": [],
   "nodes": [
@@ -68,25 +64,63 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        240,
-        0
-      ]
+        224,
+        -384
+      ],
+      "disabled": true
     },
     {
       "parameters": {
-        "path": "diag-jfrazier-check",
-        "responseMode": "lastNode",
+        "fromEmail": "cfrazier@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "Test",
+        "html": "test",
         "options": {}
       },
-      "id": "3ae228ba-e754-47c2-877f-bfe5b477f082",
-      "name": "Diag Webhook",
-      "type": "n8n-nodes-base.webhook",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -48,
+        -368
+      ],
+      "id": "6d1db838-cb3e-48ed-ae89-b1d840d84bcd",
+      "name": "Send an Email",
+      "webhookId": "98e52a85-9e7d-4165-b504-6d8bfead8908",
+      "credentials": {
+        "smtp": {
+          "id": "Ya5Hdbwc6vugCG4l",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "microsoftEntraServicePrincipalApi",
+        "mailbox": {
+          "__rl": true,
+          "value": "itadmin@michaelgraves.com",
+          "mode": "id"
+        },
+        "toRecipients": "itadmin@michaelgraves.com",
+        "subject": "test",
+        "bodyContent": "test",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        0,
-        0
+        288,
+        32
       ],
-      "webhookId": "9d220067-36ad-4460-aa8e-11b995edfdc9"
+      "id": "ebdb8ab1-0f1b-4403-a67e-360a30a38bbc",
+      "name": "Send a message",
+      "webhookId": "5dcb195d-fe3e-432a-818f-c7686840f389",
+      "credentials": {
+        "microsoftEntraServicePrincipalApi": {
+          "id": "daNTcFeBfRqDEFPb",
+          "name": "Microsoft Entra Service Principal account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -107,6 +141,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-16T23:59:36.149Z",
-  "versionId": "b4492a88-5de2-4c45-b925-6b86d3876e18"
+  "updatedAt": "2026-07-17T02:37:46.088Z",
+  "versionId": "12a0b016-1fd1-4c18-ab54-fce92d56fbb7"
 }
