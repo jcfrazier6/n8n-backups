@@ -1,0 +1,1705 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-07-17T23:09:33.617Z",
+    "createdAt": "2026-07-17T23:09:33.617Z",
+    "versionId": "3e4039b9-c2db-4f61-8c6e-807f6e903a92",
+    "workflowId": "nS1MT9j3xDpQZMKj",
+    "nodes": [
+      {
+        "id": "trigger",
+        "name": "When Executed by Another Workflow",
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.1,
+        "position": [
+          0,
+          0
+        ],
+        "parameters": {
+          "workflowInputs": {
+            "values": [
+              {
+                "name": "sAMAccountName",
+                "type": "string"
+              },
+              {
+                "name": "dn",
+                "type": "string"
+              },
+              {
+                "name": "isEnabled",
+                "type": "boolean"
+              },
+              {
+                "name": "existing",
+                "type": "object"
+              },
+              {
+                "name": "jobTitle",
+                "type": "string"
+              },
+              {
+                "name": "studioRaw",
+                "type": "string"
+              },
+              {
+                "name": "groups",
+                "type": "array"
+              },
+              {
+                "name": "empId",
+                "type": "string"
+              },
+              {
+                "name": "phoneExt",
+                "type": "string"
+              },
+              {
+                "name": "credentials",
+                "type": "string"
+              },
+              {
+                "name": "homeFolder",
+                "type": "boolean"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "resolve",
+        "name": "Resolve update fields",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          224,
+          0
+        ],
+        "parameters": {
+          "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst dn = String(item.dn || '').trim();\nconst isEnabled = !!item.isEnabled;\nconst existing = item.existing || {};\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to update a user.');\nif (!dn) throw new Error('dn is required to update a user.');\n\nlet company = '', city = '', state = '', zip = '', street = '', phone = '';\nlet newDn = dn;\nconst studioProvided = studioRaw !== '';\nif (studioProvided) {\n  const delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\n  const parts = studioRaw.split(delimiter).map(s => s.trim());\n  const labelPart = parts[0] || '';\n  street = parts[1] || '';\n  state = parts[3] || '';\n  zip = parts[4] || '';\n  phone = parts[5] || '';\n  const dashIdx = labelPart.indexOf(' — ');\n  company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\n  city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n  if (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\n  if (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n  const ouCity = city.replace(/[-\\s]/g, '');\n  const targetOU = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\n  const existingCn = existing.cn || (dn.match(/^CN=([^,]+)/) || [])[1] || '';\n  if (!existingCn) throw new Error('Could not determine existing CN to compute new DN for OU move.');\n  newDn = `CN=${existingCn},${targetOU}`;\n}\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle = valueOrExisting(jobTitle, existing.title);\nconst finalCompany = valueOrExisting(company, existing.company);\nconst finalStreetAddress = valueOrExisting(street, existing.streetAddress);\nconst finalL = valueOrExisting(city, existing.l);\nconst finalSt = valueOrExisting(state, existing.st);\nconst finalPostalCode = valueOrExisting(zip, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(phone, existing.telephoneNumber);\n\nconst optionalReplace = [];\nif (empId) optionalReplace.push({ id: 'pager', value: empId });\nif (phoneExt) optionalReplace.push({ id: 'ipPhone', value: phoneExt });\nif (credentials) optionalReplace.push({ id: 'info', value: credentials });\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalReplace.push({ id: 'homeDrive', value: 'Z:' });\n  optionalReplace.push({ id: 'homeDirectory', value: bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName });\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nreturn [{ json: {\n  sAMAccountName, dn, newDn, isEnabled, studioProvided,\n  finalTitle, finalCompany, finalStreetAddress, finalL, finalSt, finalPostalCode, finalTelephoneNumber,\n  optionalReplace, groupDns\n} }];"
+        }
+      },
+      {
+        "id": "ifStudio",
+        "name": "IF: Studio provided?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          448,
+          0
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $('Resolve update fields').first().json.studioProvided }}",
+                "rightValue": true,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "true",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "moveOU",
+        "name": "LDAP: Move to correct OU",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          672,
+          -80
+        ],
+        "parameters": {
+          "operation": "rename",
+          "dn": "={{ $('Resolve update fields').first().json.dn }}",
+          "targetDn": "={{ $('Resolve update fields').first().json.newDn }}"
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "updateAttrs",
+        "name": "LDAP: Update attributes",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          896,
+          0
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $('Resolve update fields').first().json.newDn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "title",
+                "value": "={{ $('Resolve update fields').first().json.finalTitle }}"
+              },
+              {
+                "id": "company",
+                "value": "={{ $('Resolve update fields').first().json.finalCompany }}"
+              },
+              {
+                "id": "streetAddress",
+                "value": "={{ $('Resolve update fields').first().json.finalStreetAddress }}"
+              },
+              {
+                "id": "l",
+                "value": "={{ $('Resolve update fields').first().json.finalL }}"
+              },
+              {
+                "id": "st",
+                "value": "={{ $('Resolve update fields').first().json.finalSt }}"
+              },
+              {
+                "id": "postalCode",
+                "value": "={{ $('Resolve update fields').first().json.finalPostalCode }}"
+              },
+              {
+                "id": "telephoneNumber",
+                "value": "={{ $('Resolve update fields').first().json.finalTelephoneNumber }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "ifOptional",
+        "name": "IF: Has optional fields?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1120,
+          0
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $('Resolve update fields').first().json.optionalReplace.length }}",
+                "rightValue": 0,
+                "operator": {
+                  "type": "number",
+                  "operation": "gt"
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "setOptional",
+        "name": "LDAP: Set optional attributes",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          1344,
+          -80
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $('Resolve update fields').first().json.newDn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "pager",
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'pager')?.value }}"
+              },
+              {
+                "id": "ipPhone",
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value }}"
+              },
+              {
+                "id": "info",
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'info')?.value }}"
+              },
+              {
+                "id": "homeDrive",
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value }}"
+              },
+              {
+                "id": "homeDirectory",
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "ifDisabled",
+        "name": "IF: Account disabled?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          1568,
+          0
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $('Resolve update fields').first().json.isEnabled }}",
+                "rightValue": false,
+                "operator": {
+                  "type": "boolean",
+                  "operation": "false",
+                  "singleValue": true
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "enableAccount",
+        "name": "LDAP: Enable account",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          1792,
+          -80
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $('Resolve update fields').first().json.newDn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "userAccountControl",
+                "value": "512"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "genPasswordReenable",
+        "name": "Generate password (reenable)",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2016,
+          -80
+        ],
+        "parameters": {
+          "jsCode": "const r = $('Resolve update fields').first().json;\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(quoted.charCodeAt(i) & 0xFF, (quoted.charCodeAt(i) >>> 8) & 0xFF);\n  }\n  return encoded;\n}\nreturn [{ json: { newDn: r.newDn, unicodePwd: encodePassword(plainPassword) } }];"
+        }
+      },
+      {
+        "id": "setPasswordExisting",
+        "name": "LDAP: Set password (existing)",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          2240,
+          -80
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.newDn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "unicodePwd",
+                "value": "={{ $json.unicodePwd }}"
+              },
+              {
+                "id": "userAccountControl",
+                "value": "512"
+              },
+              {
+                "id": "pwdLastSet",
+                "value": "0"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "searchGroups",
+        "name": "LDAP: Search current group memberships",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          2464,
+          0
+        ],
+        "parameters": {
+          "baseDN": "OU=Security Groups,DC=MGA,DC=com",
+          "searchFor": "custom",
+          "customFilter": "={{ \"(&(objectClass=group)(member=\" + $('Resolve update fields').first().json.newDn + \"))\" }}",
+          "returnAll": true,
+          "options": {
+            "attributes": [
+              "cn"
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "alwaysOutputData": true
+      },
+      {
+        "id": "groupDiff",
+        "name": "Code: Build group membership diff",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          2688,
+          0
+        ],
+        "parameters": {
+          "jsCode": "const a = $('Resolve update fields').first().json;\nconst userDn = a.newDn;\nconst desired = new Set(a.groupDns || []);\nconst current = new Set($input.all().filter(item => item.json && item.json.cn).map(item => `CN=${item.json.cn},OU=Security Groups,DC=MGA,DC=com`));\n\nconst actions = [];\nfor (const dn of desired) if (!current.has(dn)) actions.push({ groupDn: dn, action: 'add', userDn });\nfor (const dn of current) if (!desired.has(dn)) actions.push({ groupDn: dn, action: 'remove', userDn });\n\nif (actions.length === 0) return [{ json: { action: 'noop', userDn } }];\nreturn actions.map(item => ({ json: item }));"
+        }
+      },
+      {
+        "id": "ifAdd",
+        "name": "IF: Group action = add?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          2912,
+          0
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $json.action }}",
+                "rightValue": "add",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "addGroupMember",
+        "name": "LDAP: Add group member",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          3136,
+          -80
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.groupDn }}",
+          "attributes": {
+            "add": [
+              {
+                "id": "member",
+                "value": "={{ $json.userDn }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "ifRemove",
+        "name": "IF: Group action = remove?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          3136,
+          160
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "caseSensitive": true,
+              "leftValue": "",
+              "typeValidation": "strict",
+              "version": 2
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $json.action }}",
+                "rightValue": "remove",
+                "operator": {
+                  "type": "string",
+                  "operation": "equals"
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "removeGroupMember",
+        "name": "LDAP: Remove group member",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          3360,
+          80
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $json.groupDn }}",
+          "attributes": {
+            "delete": [
+              {
+                "id": "member",
+                "value": "={{ $json.userDn }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "BOucnJbOwrOnGW1R",
+            "name": "LDAP account"
+          }
+        },
+        "onError": "continueRegularOutput"
+      },
+      {
+        "id": "aggregate",
+        "name": "Aggregate final result",
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          3584,
+          0
+        ],
+        "parameters": {
+          "jsCode": "const r = $('Resolve update fields').first().json;\nconst errors = [];\n\nfunction checkNode(name, label) {\n  try {\n    const j = $(name).first().json;\n    if (j && j.error) errors.push(`${label}: ${j.error.message || j.error}`);\n  } catch (e) {}\n}\n\ncheckNode('LDAP: Move to correct OU', 'OU move');\ncheckNode('LDAP: Update attributes', 'Attribute update');\ncheckNode('LDAP: Set optional attributes', 'Optional attributes');\ncheckNode('LDAP: Enable account', 'Re-enable account');\ncheckNode('LDAP: Set password (existing)', 'Password reset');\n\nfor (const item of $input.all()) {\n  if (item.json && item.json.error) {\n    errors.push(`Group membership change (${item.json.groupDn || 'unknown group'}): ${item.json.error.message || item.json.error}`);\n  }\n}\n\nreturn [{ json: { success: errors.length === 0, sAMAccountName: r.sAMAccountName, dn: r.newDn, reenabled: r.isEnabled === false, errors } }];"
+        }
+      },
+      {
+        "id": "returnNode",
+        "name": "Return",
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          3808,
+          0
+        ],
+        "parameters": {
+          "mode": "manual",
+          "assignments": {
+            "assignments": [
+              {
+                "id": "a1",
+                "name": "success",
+                "type": "boolean",
+                "value": "={{ $json.success }}"
+              },
+              {
+                "id": "a2",
+                "name": "sAMAccountName",
+                "type": "string",
+                "value": "={{ $json.sAMAccountName }}"
+              },
+              {
+                "id": "a3",
+                "name": "dn",
+                "type": "string",
+                "value": "={{ $json.dn }}"
+              },
+              {
+                "id": "a4",
+                "name": "reenabled",
+                "type": "boolean",
+                "value": "={{ $json.reenabled }}"
+              },
+              {
+                "id": "a5",
+                "name": "errors",
+                "type": "array",
+                "value": "={{ $json.errors || [] }}"
+              }
+            ]
+          },
+          "options": {}
+        }
+      }
+    ],
+    "connections": {
+      "When Executed by Another Workflow": {
+        "main": [
+          [
+            {
+              "node": "Resolve update fields",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Resolve update fields": {
+        "main": [
+          [
+            {
+              "node": "IF: Studio provided?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Studio provided?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Move to correct OU",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "LDAP: Update attributes",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Move to correct OU": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Update attributes",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Update attributes": {
+        "main": [
+          [
+            {
+              "node": "IF: Has optional fields?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Has optional fields?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Set optional attributes",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "IF: Account disabled?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Set optional attributes": {
+        "main": [
+          [
+            {
+              "node": "IF: Account disabled?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Account disabled?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Enable account",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "LDAP: Search current group memberships",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Enable account": {
+        "main": [
+          [
+            {
+              "node": "Generate password (reenable)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Generate password (reenable)": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Set password (existing)",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Set password (existing)": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Search current group memberships",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Search current group memberships": {
+        "main": [
+          [
+            {
+              "node": "Code: Build group membership diff",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code: Build group membership diff": {
+        "main": [
+          [
+            {
+              "node": "IF: Group action = add?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Group action = add?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Add group member",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "IF: Group action = remove?",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Add group member": {
+        "main": [
+          [
+            {
+              "node": "Aggregate final result",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "IF: Group action = remove?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Remove group member",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Aggregate final result",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Remove group member": {
+        "main": [
+          [
+            {
+              "node": "Aggregate final result",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Aggregate final result": {
+        "main": [
+          [
+            {
+              "node": "Return",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "nodeGroups": [],
+    "authors": "IT Admin",
+    "name": null,
+    "description": null,
+    "autosaved": false
+  },
+  "activeVersionId": "3e4039b9-c2db-4f61-8c6e-807f6e903a92",
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Resolve update fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve update fields": {
+      "main": [
+        [
+          {
+            "node": "IF: Studio provided?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Studio provided?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Move to correct OU",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP: Update attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Move to correct OU": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Update attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Update attributes": {
+      "main": [
+        [
+          {
+            "node": "IF: Has optional fields?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Has optional fields?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set optional attributes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF: Account disabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set optional attributes": {
+      "main": [
+        [
+          {
+            "node": "IF: Account disabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Account disabled?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Enable account",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP: Search current group memberships",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Enable account": {
+      "main": [
+        [
+          {
+            "node": "Generate password (reenable)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate password (reenable)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set password (existing)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set password (existing)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Search current group memberships",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Search current group memberships": {
+      "main": [
+        [
+          {
+            "node": "Code: Build group membership diff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build group membership diff": {
+      "main": [
+        [
+          {
+            "node": "IF: Group action = add?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Group action = add?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Add group member",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF: Group action = remove?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Add group member": {
+      "main": [
+        [
+          {
+            "node": "Aggregate final result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Group action = remove?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Remove group member",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Aggregate final result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Remove group member": {
+      "main": [
+        [
+          {
+            "node": "Aggregate final result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate final result": {
+      "main": [
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-17T22:59:13.268Z",
+  "id": "nS1MT9j3xDpQZMKj",
+  "isArchived": false,
+  "meta": null,
+  "name": "AD - Update User",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "When Executed by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "sAMAccountName",
+              "type": "string"
+            },
+            {
+              "name": "dn",
+              "type": "string"
+            },
+            {
+              "name": "isEnabled",
+              "type": "boolean"
+            },
+            {
+              "name": "existing",
+              "type": "object"
+            },
+            {
+              "name": "jobTitle",
+              "type": "string"
+            },
+            {
+              "name": "studioRaw",
+              "type": "string"
+            },
+            {
+              "name": "groups",
+              "type": "array"
+            },
+            {
+              "name": "empId",
+              "type": "string"
+            },
+            {
+              "name": "phoneExt",
+              "type": "string"
+            },
+            {
+              "name": "credentials",
+              "type": "string"
+            },
+            {
+              "name": "homeFolder",
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "resolve",
+      "name": "Resolve update fields",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst dn = String(item.dn || '').trim();\nconst isEnabled = !!item.isEnabled;\nconst existing = item.existing || {};\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to update a user.');\nif (!dn) throw new Error('dn is required to update a user.');\n\nlet company = '', city = '', state = '', zip = '', street = '', phone = '';\nlet newDn = dn;\nconst studioProvided = studioRaw !== '';\nif (studioProvided) {\n  const delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\n  const parts = studioRaw.split(delimiter).map(s => s.trim());\n  const labelPart = parts[0] || '';\n  street = parts[1] || '';\n  state = parts[3] || '';\n  zip = parts[4] || '';\n  phone = parts[5] || '';\n  const dashIdx = labelPart.indexOf(' — ');\n  company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\n  city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n  if (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\n  if (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n  const ouCity = city.replace(/[-\\s]/g, '');\n  const targetOU = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\n  const existingCn = existing.cn || (dn.match(/^CN=([^,]+)/) || [])[1] || '';\n  if (!existingCn) throw new Error('Could not determine existing CN to compute new DN for OU move.');\n  newDn = `CN=${existingCn},${targetOU}`;\n}\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle = valueOrExisting(jobTitle, existing.title);\nconst finalCompany = valueOrExisting(company, existing.company);\nconst finalStreetAddress = valueOrExisting(street, existing.streetAddress);\nconst finalL = valueOrExisting(city, existing.l);\nconst finalSt = valueOrExisting(state, existing.st);\nconst finalPostalCode = valueOrExisting(zip, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(phone, existing.telephoneNumber);\n\nconst optionalReplace = [];\nif (empId) optionalReplace.push({ id: 'pager', value: empId });\nif (phoneExt) optionalReplace.push({ id: 'ipPhone', value: phoneExt });\nif (credentials) optionalReplace.push({ id: 'info', value: credentials });\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalReplace.push({ id: 'homeDrive', value: 'Z:' });\n  optionalReplace.push({ id: 'homeDirectory', value: bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName });\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nreturn [{ json: {\n  sAMAccountName, dn, newDn, isEnabled, studioProvided,\n  finalTitle, finalCompany, finalStreetAddress, finalL, finalSt, finalPostalCode, finalTelephoneNumber,\n  optionalReplace, groupDns\n} }];"
+      }
+    },
+    {
+      "id": "ifStudio",
+      "name": "IF: Studio provided?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $('Resolve update fields').first().json.studioProvided }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "moveOU",
+      "name": "LDAP: Move to correct OU",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -80
+      ],
+      "parameters": {
+        "operation": "rename",
+        "dn": "={{ $('Resolve update fields').first().json.dn }}",
+        "targetDn": "={{ $('Resolve update fields').first().json.newDn }}"
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "updateAttrs",
+      "name": "LDAP: Update attributes",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        896,
+        0
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Resolve update fields').first().json.newDn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "title",
+              "value": "={{ $('Resolve update fields').first().json.finalTitle }}"
+            },
+            {
+              "id": "company",
+              "value": "={{ $('Resolve update fields').first().json.finalCompany }}"
+            },
+            {
+              "id": "streetAddress",
+              "value": "={{ $('Resolve update fields').first().json.finalStreetAddress }}"
+            },
+            {
+              "id": "l",
+              "value": "={{ $('Resolve update fields').first().json.finalL }}"
+            },
+            {
+              "id": "st",
+              "value": "={{ $('Resolve update fields').first().json.finalSt }}"
+            },
+            {
+              "id": "postalCode",
+              "value": "={{ $('Resolve update fields').first().json.finalPostalCode }}"
+            },
+            {
+              "id": "telephoneNumber",
+              "value": "={{ $('Resolve update fields').first().json.finalTelephoneNumber }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "ifOptional",
+      "name": "IF: Has optional fields?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1120,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $('Resolve update fields').first().json.optionalReplace.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "setOptional",
+      "name": "LDAP: Set optional attributes",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        -80
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Resolve update fields').first().json.newDn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "pager",
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'pager')?.value }}"
+            },
+            {
+              "id": "ipPhone",
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value }}"
+            },
+            {
+              "id": "info",
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'info')?.value }}"
+            },
+            {
+              "id": "homeDrive",
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value }}"
+            },
+            {
+              "id": "homeDirectory",
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "ifDisabled",
+      "name": "IF: Account disabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1568,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $('Resolve update fields').first().json.isEnabled }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "enableAccount",
+      "name": "LDAP: Enable account",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1792,
+        -80
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Resolve update fields').first().json.newDn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "genPasswordReenable",
+      "name": "Generate password (reenable)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        -80
+      ],
+      "parameters": {
+        "jsCode": "const r = $('Resolve update fields').first().json;\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(quoted.charCodeAt(i) & 0xFF, (quoted.charCodeAt(i) >>> 8) & 0xFF);\n  }\n  return encoded;\n}\nreturn [{ json: { newDn: r.newDn, unicodePwd: encodePassword(plainPassword) } }];"
+      }
+    },
+    {
+      "id": "setPasswordExisting",
+      "name": "LDAP: Set password (existing)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        -80
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.newDn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "unicodePwd",
+              "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "searchGroups",
+      "name": "LDAP: Search current group memberships",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        2464,
+        0
+      ],
+      "parameters": {
+        "baseDN": "OU=Security Groups,DC=MGA,DC=com",
+        "searchFor": "custom",
+        "customFilter": "={{ \"(&(objectClass=group)(member=\" + $('Resolve update fields').first().json.newDn + \"))\" }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "cn"
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "id": "groupDiff",
+      "name": "Code: Build group membership diff",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2688,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const a = $('Resolve update fields').first().json;\nconst userDn = a.newDn;\nconst desired = new Set(a.groupDns || []);\nconst current = new Set($input.all().filter(item => item.json && item.json.cn).map(item => `CN=${item.json.cn},OU=Security Groups,DC=MGA,DC=com`));\n\nconst actions = [];\nfor (const dn of desired) if (!current.has(dn)) actions.push({ groupDn: dn, action: 'add', userDn });\nfor (const dn of current) if (!desired.has(dn)) actions.push({ groupDn: dn, action: 'remove', userDn });\n\nif (actions.length === 0) return [{ json: { action: 'noop', userDn } }];\nreturn actions.map(item => ({ json: item }));"
+      }
+    },
+    {
+      "id": "ifAdd",
+      "name": "IF: Group action = add?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2912,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.action }}",
+              "rightValue": "add",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "addGroupMember",
+      "name": "LDAP: Add group member",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        3136,
+        -80
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.groupDn }}",
+        "attributes": {
+          "add": [
+            {
+              "id": "member",
+              "value": "={{ $json.userDn }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "ifRemove",
+      "name": "IF: Group action = remove?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3136,
+        160
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $json.action }}",
+              "rightValue": "remove",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "removeGroupMember",
+      "name": "LDAP: Remove group member",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        3360,
+        80
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.groupDn }}",
+        "attributes": {
+          "delete": [
+            {
+              "id": "member",
+              "value": "={{ $json.userDn }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "aggregate",
+      "name": "Aggregate final result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3584,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const r = $('Resolve update fields').first().json;\nconst errors = [];\n\nfunction checkNode(name, label) {\n  try {\n    const j = $(name).first().json;\n    if (j && j.error) errors.push(`${label}: ${j.error.message || j.error}`);\n  } catch (e) {}\n}\n\ncheckNode('LDAP: Move to correct OU', 'OU move');\ncheckNode('LDAP: Update attributes', 'Attribute update');\ncheckNode('LDAP: Set optional attributes', 'Optional attributes');\ncheckNode('LDAP: Enable account', 'Re-enable account');\ncheckNode('LDAP: Set password (existing)', 'Password reset');\n\nfor (const item of $input.all()) {\n  if (item.json && item.json.error) {\n    errors.push(`Group membership change (${item.json.groupDn || 'unknown group'}): ${item.json.error.message || item.json.error}`);\n  }\n}\n\nreturn [{ json: { success: errors.length === 0, sAMAccountName: r.sAMAccountName, dn: r.newDn, reenabled: r.isEnabled === false, errors } }];"
+      }
+    },
+    {
+      "id": "returnNode",
+      "name": "Return",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3808,
+        0
+      ],
+      "parameters": {
+        "mode": "manual",
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "success",
+              "type": "boolean",
+              "value": "={{ $json.success }}"
+            },
+            {
+              "id": "a2",
+              "name": "sAMAccountName",
+              "type": "string",
+              "value": "={{ $json.sAMAccountName }}"
+            },
+            {
+              "id": "a3",
+              "name": "dn",
+              "type": "string",
+              "value": "={{ $json.dn }}"
+            },
+            {
+              "id": "a4",
+              "name": "reenabled",
+              "type": "boolean",
+              "value": "={{ $json.reenabled }}"
+            },
+            {
+              "id": "a5",
+              "name": "errors",
+              "type": "array",
+              "value": "={{ $json.errors || [] }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ],
+  "pinData": null,
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true,
+    "saveExecutionProgress": true
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-17T22:59:13.270Z",
+      "createdAt": "2026-07-17T22:59:13.270Z",
+      "role": "workflow:owner",
+      "workflowId": "nS1MT9j3xDpQZMKj",
+      "projectId": "9efpp4J5DO3tFlq4"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-17T23:11:05.416Z",
+  "versionId": "3e4039b9-c2db-4f61-8c6e-807f6e903a92"
+}
