@@ -7,7 +7,7 @@
       "main": [
         [
           {
-            "node": "Send a message",
+            "node": "Generate Password1",
             "type": "main",
             "index": 0
           }
@@ -17,6 +17,39 @@
     "Send an Email": {
       "main": [
         []
+      ]
+    },
+    "Generate Password1": {
+      "main": [
+        [
+          {
+            "node": "Encode Password1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Encode Password1": {
+      "main": [
+        [
+          {
+            "node": "LDAP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP": {
+      "main": [
+        [
+          {
+            "node": "Diag: Search jfrazier",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -34,8 +67,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        -320,
+        -16
       ],
       "id": "e63be95f-d122-4c66-889b-9650e1c1512e",
       "name": "When clicking ‘Execute workflow’"
@@ -55,7 +88,8 @@
             "pager",
             "ipPhone",
             "info",
-            "whenCreated"
+            "whenCreated",
+            "pwdLastSet"
           ]
         }
       },
@@ -64,10 +98,15 @@
       "type": "n8n-nodes-base.ldap",
       "typeVersion": 1,
       "position": [
-        224,
-        -384
+        512,
+        -16
       ],
-      "disabled": true
+      "credentials": {
+        "ldap": {
+          "id": "BOucnJbOwrOnGW1R",
+          "name": "LDAP account"
+        }
+      }
     },
     {
       "parameters": {
@@ -80,8 +119,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        -48,
-        -368
+        -64,
+        -640
       ],
       "id": "6d1db838-cb3e-48ed-ae89-b1d840d84bcd",
       "name": "Send an Email",
@@ -91,7 +130,8 @@
           "id": "Ya5Hdbwc6vugCG4l",
           "name": "SMTP account"
         }
-      }
+      },
+      "disabled": true
     },
     {
       "parameters": {
@@ -109,8 +149,8 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        288,
-        32
+        480,
+        -640
       ],
       "id": "ebdb8ab1-0f1b-4403-a67e-360a30a38bbc",
       "name": "Send a message",
@@ -120,7 +160,62 @@
           "id": "daNTcFeBfRqDEFPb",
           "name": "Microsoft Entra Service Principal account"
         }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "CN=James Frazier,OU=WinstonSalem,OU=WRA,OU=MGA USERS,DC=MGA,DC=com",
+        "attributes": {
+          "replace": [
+            {
+              "id": "unicodePwd",
+              "value": "={{ $json.password }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        304,
+        -16
+      ],
+      "id": "ac02e676-f96f-481d-b1fa-5a6d23c31fda",
+      "name": "LDAP",
+      "credentials": {
+        "ldap": {
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
+        }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "function generateRandomPassword(minLength, maxLength) {\n    // Define characters to use in the password\n    const lowercase = 'abcdefghijklmnopqrstuvwxyz';\n    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';\n    const numbers = '0123456789';\n    const specialCharacters = '!@#$%^&*_+';\n\n    // Combine all character sets\n    const allCharacters = lowercase + uppercase + numbers + specialCharacters;\n\n    // Calculate the password length within the given range\n    const passwordLength = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;\n\n    // Initialize the password\n    let password = '';\n\n    // Ensure the password includes at least one character from each character set\n    password += lowercase.charAt(Math.floor(Math.random() * lowercase.length));\n    password += uppercase.charAt(Math.floor(Math.random() * uppercase.length));\n    password += numbers.charAt(Math.floor(Math.random() * numbers.length));\n    password += specialCharacters.charAt(Math.floor(Math.random() * specialCharacters.length));\n\n    // Fill the rest of the password with random characters from all character sets\n    for (let i = password.length; i < passwordLength; i++) {\n        password += allCharacters.charAt(Math.floor(Math.random() * allCharacters.length));\n    }\n\n    // Shuffle the password to ensure randomness\n    password = password.split('').sort(() => Math.random() - 0.5).join('');\n\n    return password;\n}\n\n// Example usage:\nconst minLength = 8;\nconst maxLength = 8;\nconst password = generateRandomPassword(minLength, maxLength);\nreturn ([{\"password\": password}]);"
+      },
+      "id": "ee8aff41-e8a6-4de6-b79a-32d27fbbb1a1",
+      "name": "Generate Password1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "function encodePassword(password) {\n    var newPassword = '';\n    password = \"\\\"\" + password + \"\\\"\";\n    for(var i = 0; i < password.length; i++){\n        newPassword += String.fromCharCode( password.charCodeAt(i) & 0xFF,(password.charCodeAt(i) >>> 8) & 0xFF);\n    }\n    return newPassword;\n}\n\nconst newPassword = $input.all()[0].json.password;\n\nsetPassword = encodePassword(newPassword);\n\nreturn ([{\"password\": setPassword}]);"
+      },
+      "id": "d24b1add-518e-4740-a2c1-76b6e2af635d",
+      "name": "Encode Password1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        -16
+      ]
     }
   ],
   "pinData": {},
@@ -141,6 +236,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-17T13:49:30.325Z",
-  "versionId": "12a0b016-1fd1-4c18-ab54-fce92d56fbb7"
+  "updatedAt": "2026-07-17T22:13:56.501Z",
+  "versionId": "1a993bef-8d67-42d6-b2c0-e5167c1ce996"
 }
