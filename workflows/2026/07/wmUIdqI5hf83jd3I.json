@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-17T22:54:38.440Z",
-    "createdAt": "2026-07-17T22:54:38.440Z",
-    "versionId": "7af00e2c-f05e-494f-8add-8875cd578da7",
+    "updatedAt": "2026-07-18T00:44:43.579Z",
+    "createdAt": "2026-07-18T00:44:43.579Z",
+    "versionId": "5bc115e5-5e7a-486b-8f67-52ac8cae9f9c",
     "workflowId": "wmUIdqI5hf83jd3I",
     "nodes": [
       {
@@ -72,7 +72,7 @@
           0
         ],
         "parameters": {
-          "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst firstName = String(item.firstName || '').trim();\nconst lastName = String(item.lastName || '').trim();\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to create a user.');\nif (!firstName) throw new Error('First Name is required to create a user.');\nif (!lastName) throw new Error('Last Name is required to create a user.');\nif (!studioRaw) throw new Error('Studio is required to create a new account (needed to place it in the correct OU).');\n\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] || '';\nconst street = parts[1] || '';\nconst state = parts[3] || '';\nconst zip = parts[4] || '';\nconst phone = parts[5] || '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\nconst displayName = `${firstName} ${lastName}`;\nconst cn = displayName;\nconst dn = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName = `${sAMAccountName}@michaelgraves.com`;\nconst mail = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId) optionalFields.pager = empId;\nif (phoneExt) optionalFields.ipPhone = phoneExt;\nif (credentials) optionalFields.info = credentials;\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalFields.homeDrive = 'Z:';\n  optionalFields.homeDirectory = bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName;\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nreturn [{ json: {\n  sAMAccountName, dn, displayName, givenName: firstName, sn: lastName, cn,\n  title: jobTitle, company, streetAddress: street, l: city, st: state,\n  postalCode: zip, telephoneNumber: phone, userPrincipalName, mail,\n  groupDns, ...optionalFields\n} }];"
+          "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst firstName = String(item.firstName || '').trim();\nconst lastName = String(item.lastName || '').trim();\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to create a user.');\nif (!firstName) throw new Error('First Name is required to create a user.');\nif (!lastName) throw new Error('Last Name is required to create a user.');\nif (!studioRaw) throw new Error('Studio is required to create a new account (needed to place it in the correct OU).');\n\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] || '';\nconst street = parts[1] || '';\nconst state = parts[3] || '';\nconst zip = parts[4] || '';\nconst phone = parts[5] || '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\nconst displayName = `${firstName} ${lastName}`;\nconst cn = displayName;\nconst dn = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName = `${sAMAccountName}@michaelgraves.com`;\nconst mail = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId) optionalFields.pager = empId;\nif (phoneExt) optionalFields.ipPhone = phoneExt;\nif (credentials) optionalFields.info = credentials;\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalFields.homeDrive = 'Z:';\n  optionalFields.homeDirectory = bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName;\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nconst optionalReplace = [];\nif (jobTitle) optionalReplace.push({ id: 'title', value: jobTitle });\nif (optionalFields.pager) optionalReplace.push({ id: 'pager', value: optionalFields.pager });\nif (optionalFields.ipPhone) optionalReplace.push({ id: 'ipPhone', value: optionalFields.ipPhone });\nif (optionalFields.info) optionalReplace.push({ id: 'info', value: optionalFields.info });\nif (optionalFields.homeDrive) optionalReplace.push({ id: 'homeDrive', value: optionalFields.homeDrive });\nif (optionalFields.homeDirectory) optionalReplace.push({ id: 'homeDirectory', value: optionalFields.homeDirectory });\n\nreturn [{ json: {\n  sAMAccountName, dn, displayName, givenName: firstName, sn: lastName, cn,\n  title: jobTitle, company, streetAddress: street, l: city, st: state,\n  postalCode: zip, telephoneNumber: phone, userPrincipalName, mail,\n  groupDns, optionalReplace, ...optionalFields\n} }];"
         }
       },
       {
@@ -118,10 +118,6 @@
                 "value": "={{ $json.sn }}"
               },
               {
-                "id": "title",
-                "value": "={{ $json.title }}"
-              },
-              {
                 "id": "company",
                 "value": "={{ $json.company }}"
               },
@@ -152,34 +148,14 @@
               {
                 "id": "mail",
                 "value": "={{ $json.mail }}"
-              },
-              {
-                "id": "pager",
-                "value": "={{ $json.pager }}"
-              },
-              {
-                "id": "ipPhone",
-                "value": "={{ $json.ipPhone }}"
-              },
-              {
-                "id": "info",
-                "value": "={{ $json.info }}"
-              },
-              {
-                "id": "homeDrive",
-                "value": "={{ $json.homeDrive }}"
-              },
-              {
-                "id": "homeDirectory",
-                "value": "={{ $json.homeDirectory }}"
               }
             ]
           }
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueErrorOutput"
@@ -241,8 +217,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueErrorOutput"
@@ -328,8 +304,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueErrorOutput"
@@ -401,6 +377,87 @@
           },
           "options": {}
         }
+      },
+      {
+        "id": "7230fe11-18b0-44fa-92f7-34f8d527c7cb",
+        "name": "IF: Has optional fields?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          672,
+          -240
+        ],
+        "parameters": {
+          "conditions": {
+            "options": {
+              "version": 2,
+              "leftValue": "",
+              "caseSensitive": true,
+              "typeValidation": "strict"
+            },
+            "conditions": [
+              {
+                "id": "c1",
+                "leftValue": "={{ $('Build create attributes').first().json.optionalReplace.length }}",
+                "rightValue": 0,
+                "operator": {
+                  "type": "number",
+                  "operation": "gt"
+                }
+              }
+            ],
+            "combinator": "and"
+          }
+        }
+      },
+      {
+        "id": "b2f2d60f-b9fb-4d41-a63b-01167b31e8a2",
+        "name": "LDAP: Set optional attributes (create)",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          896,
+          -320
+        ],
+        "parameters": {
+          "operation": "update",
+          "dn": "={{ $('Build create attributes').first().json.dn }}",
+          "attributes": {
+            "replace": [
+              {
+                "id": "title",
+                "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'title')?.value ?? '' }}"
+              },
+              {
+                "id": "pager",
+                "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'pager')?.value ?? '' }}"
+              },
+              {
+                "id": "ipPhone",
+                "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value ?? '' }}"
+              },
+              {
+                "id": "info",
+                "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'info')?.value ?? '' }}"
+              },
+              {
+                "id": "homeDrive",
+                "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value ?? '' }}"
+              },
+              {
+                "id": "homeDirectory",
+                "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value ?? '' }}"
+              }
+            ]
+          }
+        },
+        "credentials": {
+          "ldap": {
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
+          }
+        },
+        "onError": "continueRegularOutput"
       }
     ],
     "connections": {
@@ -430,7 +487,7 @@
         "main": [
           [
             {
-              "node": "Generate password",
+              "node": "IF: Has optional fields?",
               "type": "main",
               "index": 0
             }
@@ -563,6 +620,35 @@
             }
           ]
         ]
+      },
+      "IF: Has optional fields?": {
+        "main": [
+          [
+            {
+              "node": "LDAP: Set optional attributes (create)",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "Generate password",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "LDAP: Set optional attributes (create)": {
+        "main": [
+          [
+            {
+              "node": "Generate password",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
       }
     },
     "nodeGroups": [],
@@ -571,7 +657,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "7af00e2c-f05e-494f-8add-8875cd578da7",
+  "activeVersionId": "5bc115e5-5e7a-486b-8f67-52ac8cae9f9c",
   "connections": {
     "When Executed by Another Workflow": {
       "main": [
@@ -599,7 +685,7 @@
       "main": [
         [
           {
-            "node": "Generate password",
+            "node": "IF: Has optional fields?",
             "type": "main",
             "index": 0
           }
@@ -732,6 +818,35 @@
           }
         ]
       ]
+    },
+    "IF: Has optional fields?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set optional attributes (create)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Generate password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set optional attributes (create)": {
+      "main": [
+        [
+          {
+            "node": "Generate password",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2026-07-17T22:54:27.350Z",
@@ -807,7 +922,7 @@
         0
       ],
       "parameters": {
-        "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst firstName = String(item.firstName || '').trim();\nconst lastName = String(item.lastName || '').trim();\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to create a user.');\nif (!firstName) throw new Error('First Name is required to create a user.');\nif (!lastName) throw new Error('Last Name is required to create a user.');\nif (!studioRaw) throw new Error('Studio is required to create a new account (needed to place it in the correct OU).');\n\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] || '';\nconst street = parts[1] || '';\nconst state = parts[3] || '';\nconst zip = parts[4] || '';\nconst phone = parts[5] || '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\nconst displayName = `${firstName} ${lastName}`;\nconst cn = displayName;\nconst dn = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName = `${sAMAccountName}@michaelgraves.com`;\nconst mail = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId) optionalFields.pager = empId;\nif (phoneExt) optionalFields.ipPhone = phoneExt;\nif (credentials) optionalFields.info = credentials;\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalFields.homeDrive = 'Z:';\n  optionalFields.homeDirectory = bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName;\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nreturn [{ json: {\n  sAMAccountName, dn, displayName, givenName: firstName, sn: lastName, cn,\n  title: jobTitle, company, streetAddress: street, l: city, st: state,\n  postalCode: zip, telephoneNumber: phone, userPrincipalName, mail,\n  groupDns, ...optionalFields\n} }];"
+        "jsCode": "const item = $input.first().json;\nconst sAMAccountName = String(item.sAMAccountName || '').trim();\nconst firstName = String(item.firstName || '').trim();\nconst lastName = String(item.lastName || '').trim();\nconst jobTitle = String(item.jobTitle || '').trim();\nconst studioRaw = String(item.studioRaw || '').trim();\nconst groups = Array.isArray(item.groups) ? item.groups : (item.groups ? [item.groups] : []);\nconst empId = String(item.empId || '').trim();\nconst phoneExt = String(item.phoneExt || '').trim();\nconst credentials = String(item.credentials || '').trim();\nconst homeFolder = !!item.homeFolder;\n\nif (!sAMAccountName) throw new Error('sAMAccountName is required to create a user.');\nif (!firstName) throw new Error('First Name is required to create a user.');\nif (!lastName) throw new Error('Last Name is required to create a user.');\nif (!studioRaw) throw new Error('Studio is required to create a new account (needed to place it in the correct OU).');\n\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] || '';\nconst street = parts[1] || '';\nconst state = parts[3] || '';\nconst zip = parts[4] || '';\nconst phone = parts[5] || '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city) throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\nconst displayName = `${firstName} ${lastName}`;\nconst cn = displayName;\nconst dn = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName = `${sAMAccountName}@michaelgraves.com`;\nconst mail = `${sAMAccountName}@michaelgraves.com`;\n\nconst optionalFields = {};\nif (empId) optionalFields.pager = empId;\nif (phoneExt) optionalFields.ipPhone = phoneExt;\nif (credentials) optionalFields.info = credentials;\nif (homeFolder) {\n  const bs = String.fromCharCode(92);\n  optionalFields.homeDrive = 'Z:';\n  optionalFields.homeDirectory = bs + bs + 'mga.com' + bs + 'mga_files' + bs + 'scans' + bs + sAMAccountName;\n}\n\nconst groupDns = groups.map(g => `CN=${g},OU=Security Groups,DC=MGA,DC=com`);\n\nconst optionalReplace = [];\nif (jobTitle) optionalReplace.push({ id: 'title', value: jobTitle });\nif (optionalFields.pager) optionalReplace.push({ id: 'pager', value: optionalFields.pager });\nif (optionalFields.ipPhone) optionalReplace.push({ id: 'ipPhone', value: optionalFields.ipPhone });\nif (optionalFields.info) optionalReplace.push({ id: 'info', value: optionalFields.info });\nif (optionalFields.homeDrive) optionalReplace.push({ id: 'homeDrive', value: optionalFields.homeDrive });\nif (optionalFields.homeDirectory) optionalReplace.push({ id: 'homeDirectory', value: optionalFields.homeDirectory });\n\nreturn [{ json: {\n  sAMAccountName, dn, displayName, givenName: firstName, sn: lastName, cn,\n  title: jobTitle, company, streetAddress: street, l: city, st: state,\n  postalCode: zip, telephoneNumber: phone, userPrincipalName, mail,\n  groupDns, optionalReplace, ...optionalFields\n} }];"
       }
     },
     {
@@ -853,10 +968,6 @@
               "value": "={{ $json.sn }}"
             },
             {
-              "id": "title",
-              "value": "={{ $json.title }}"
-            },
-            {
               "id": "company",
               "value": "={{ $json.company }}"
             },
@@ -887,34 +998,14 @@
             {
               "id": "mail",
               "value": "={{ $json.mail }}"
-            },
-            {
-              "id": "pager",
-              "value": "={{ $json.pager }}"
-            },
-            {
-              "id": "ipPhone",
-              "value": "={{ $json.ipPhone }}"
-            },
-            {
-              "id": "info",
-              "value": "={{ $json.info }}"
-            },
-            {
-              "id": "homeDrive",
-              "value": "={{ $json.homeDrive }}"
-            },
-            {
-              "id": "homeDirectory",
-              "value": "={{ $json.homeDirectory }}"
             }
           ]
         }
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueErrorOutput"
@@ -976,8 +1067,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueErrorOutput"
@@ -1063,8 +1154,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueErrorOutput"
@@ -1136,6 +1227,87 @@
         },
         "options": {}
       }
+    },
+    {
+      "id": "7230fe11-18b0-44fa-92f7-34f8d527c7cb",
+      "name": "IF: Has optional fields?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        -240
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "c1",
+              "leftValue": "={{ $('Build create attributes').first().json.optionalReplace.length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "b2f2d60f-b9fb-4d41-a63b-01167b31e8a2",
+      "name": "LDAP: Set optional attributes (create)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        896,
+        -320
+      ],
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Build create attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "title",
+              "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'title')?.value ?? '' }}"
+            },
+            {
+              "id": "pager",
+              "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'pager')?.value ?? '' }}"
+            },
+            {
+              "id": "ipPhone",
+              "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value ?? '' }}"
+            },
+            {
+              "id": "info",
+              "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'info')?.value ?? '' }}"
+            },
+            {
+              "id": "homeDrive",
+              "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value ?? '' }}"
+            },
+            {
+              "id": "homeDirectory",
+              "value": "={{ $('Build create attributes').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value ?? '' }}"
+            }
+          ]
+        }
+      },
+      "credentials": {
+        "ldap": {
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": null,
@@ -1158,6 +1330,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-17T23:11:03.982Z",
-  "versionId": "7af00e2c-f05e-494f-8add-8875cd578da7"
+  "updatedAt": "2026-07-18T00:44:43.579Z",
+  "versionId": "5bc115e5-5e7a-486b-8f67-52ac8cae9f9c"
 }
