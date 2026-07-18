@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-17T22:31:48.837Z",
-    "createdAt": "2026-07-17T22:31:48.837Z",
-    "versionId": "18d020d9-311f-4ed1-bd99-c21e32e75750",
+    "updatedAt": "2026-07-18T01:23:52.436Z",
+    "createdAt": "2026-07-18T01:23:52.436Z",
+    "versionId": "33719fc7-6024-4a8e-9bd9-35b97f49f8bf",
     "workflowId": "gDwdGjnrBB9Owl2z",
     "nodes": [
       {
@@ -38,7 +38,7 @@
         "parameters": {
           "baseDN": "DC=MGA,DC=com",
           "searchFor": "custom",
-          "customFilter": "(objectClass=user)",
+          "customFilter": "(&(objectClass=user)(objectCategory=person))",
           "returnAll": true,
           "options": {
             "attributes": [
@@ -48,7 +48,9 @@
               "st",
               "postalCode",
               "telephoneNumber",
-              "title"
+              "title",
+              "sAMAccountName",
+              "cn"
             ]
           }
         },
@@ -72,9 +74,9 @@
           "operation": "get",
           "workflowId": {
             "__rl": true,
-            "value": "kDaeoL85e1qx29Wc",
+            "value": "EAlcDKeH3e1zxJZJ",
             "mode": "id",
-            "cachedResultName": "AD - User Provisioning"
+            "cachedResultName": "AD - Provisioning Router"
           },
           "requestOptions": {}
         },
@@ -95,7 +97,7 @@
       },
       {
         "parameters": {
-          "jsCode": "const seen = new Set();\nconst officeOptions = [];\nconst jobTitles = [];\n\nfor (const item of $input.all()) {\n  const company  = String(item.json.company          ?? '').trim();\n  const street   = String(item.json.streetAddress    ?? '').trim();\n  const city     = String(item.json.l                ?? '').trim();\n  const state    = String(item.json.st               ?? '').trim();\n  const zip      = String(item.json.postalCode       ?? '').trim();\n  const phone    = String(item.json.telephoneNumber  ?? '').trim();\n  const title    = String(item.json.title            ?? '').trim();\n\n  if (company && city && phone) {\n    const key = `${company}~~${city}~~${phone}`;\n    if (!seen.has(key)) {\n      seen.add(key);\n      const option = `${company} — ${city} ~~ ${street} ~~ ${city} ~~ ${state} ~~ ${zip} ~~ ${phone}`;\n      officeOptions.push({ company, city, option });\n    }\n  }\n\n  if (title) jobTitles.push(title);\n}\n\nofficeOptions.sort((a, b) => {\n  const cmp = a.company.localeCompare(b.company);\n  return cmp !== 0 ? cmp : a.city.localeCompare(b.city);\n});\n\nconst uniqueJobTitles = [...new Set(jobTitles)]\n  .sort((a, b) => a.localeCompare(b))\n  .map(t => ({ option: t }));\n\nif (officeOptions.length === 0) throw new Error('No office location options built.');\nif (uniqueJobTitles.length === 0) throw new Error('No job title options built.');\n\nreturn [{\n  json: {\n    dropdownOptions: {\n      officeLocation: officeOptions.map(o => ({ option: o.option })),\n      jobTitle: uniqueJobTitles\n    }\n  }\n}];"
+          "jsCode": "const seen = new Set();\nconst officeOptions = [];\nconst jobTitles = [];\nconst employeeSeen = new Set();\nconst employeeOptions = [];\n\nfor (const item of $input.all()) {\n  const company  = String(item.json.company          ?? '').trim();\n  const street   = String(item.json.streetAddress    ?? '').trim();\n  const city     = String(item.json.l                ?? '').trim();\n  const state    = String(item.json.st               ?? '').trim();\n  const zip      = String(item.json.postalCode       ?? '').trim();\n  const phone    = String(item.json.telephoneNumber  ?? '').trim();\n  const title    = String(item.json.title            ?? '').trim();\n\n  if (company && city && phone) {\n    const key = `${company}~~${city}~~${phone}`;\n    if (!seen.has(key)) {\n      seen.add(key);\n      const option = `${company} — ${city} ~~ ${street} ~~ ${city} ~~ ${state} ~~ ${zip} ~~ ${phone}`;\n      officeOptions.push({ company, city, option });\n    }\n  }\n\n  if (title) jobTitles.push(title);\n\n  const cn = String(item.json.cn ?? '').trim();\n  const sam = String(item.json.sAMAccountName ?? '').trim();\n  if (cn && sam && !employeeSeen.has(sam)) {\n    employeeSeen.add(sam);\n    employeeOptions.push({ cn, sam, option: `${cn} (${sam})` });\n  }\n}\n\nemployeeOptions.sort((a, b) => a.cn.localeCompare(b.cn));\n\nofficeOptions.sort((a, b) => {\n  const cmp = a.company.localeCompare(b.company);\n  return cmp !== 0 ? cmp : a.city.localeCompare(b.city);\n});\n\nconst uniqueJobTitles = [...new Set(jobTitles)]\n  .sort((a, b) => a.localeCompare(b))\n  .map(t => ({ option: t }));\n\nif (officeOptions.length === 0) throw new Error('No office location options built.');\nif (uniqueJobTitles.length === 0) throw new Error('No job title options built.');\n\nreturn [{\n  json: {\n    dropdownOptions: {\n      officeLocation: officeOptions.map(o => ({ option: o.option })),\n      jobTitle: uniqueJobTitles,\n      existingEmployee: employeeOptions.map(o => ({ option: o.option }))\n    }\n  }\n}];"
         },
         "id": "0b6685bd-91a5-4808-8c52-0ecc51a993e6",
         "name": "Code: Build all dropdown option lists",
@@ -121,7 +123,7 @@
       },
       {
         "parameters": {
-          "jsCode": "const items = $input.all();\n\nconst optionsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.jobTitle);\nconst groupsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.groups);\nconst workflowItem = items.find(item => Array.isArray(item.json.nodes));\n\nif (!optionsItem) throw new Error('Could not find dropdownOptions input.');\nif (!groupsItem) throw new Error('Could not find groups dropdownOptions input.');\nif (!workflowItem) throw new Error('Could not find workflow JSON input.');\n\nconst dropdownOptions = optionsItem.json.dropdownOptions;\nconst groupOptions = groupsItem.json.dropdownOptions.groups;\nconst workflow = workflowItem.json;\n\nconst TARGET_FORM_TRIGGER_NAME = 'On form submission';\nconst formTriggerNode = workflow.nodes.find(node => node.name === TARGET_FORM_TRIGGER_NAME);\n\nif (!formTriggerNode) throw new Error(`Could not find form trigger node named \"${TARGET_FORM_TRIGGER_NAME}\" in target workflow.`);\n\nformTriggerNode.parameters.formFields = {\n  values: [\n    { fieldLabel: 'First Name', requiredField: true },\n    { fieldLabel: 'Last Name', requiredField: true },\n    {\n      fieldLabel: 'Job Title',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.jobTitle }\n    },\n    {\n      fieldLabel: 'Studio',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.officeLocation }\n    },\n    { fieldLabel: 'EMP ID' },\n    { fieldLabel: 'Phone Extension' },\n    { fieldLabel: 'Credentials' },\n    { fieldLabel: 'Home Folder (Z: Drive)', fieldType: 'checkbox', fieldOptions: { values: [{ option: 'Set up home folder (Z: drive)' }] } },\n    {\n      fieldLabel: 'Groups',\n      fieldType: 'checkbox',\n      fieldOptions: { values: groupOptions }\n    }\n  ]\n};\n\nconst workflowObject = {\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections || {},\n  settings: {}\n};\n\nreturn [{\n  json: {\n    workflowId: workflow.id,\n    workflowObjectJson: JSON.stringify(workflowObject)\n  }\n}];"
+          "jsCode": "const items = $input.all();\n\nconst optionsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.jobTitle);\nconst groupsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.groups);\nconst workflowItem = items.find(item => Array.isArray(item.json.nodes));\n\nif (!optionsItem) throw new Error('Could not find dropdownOptions input.');\nif (!groupsItem) throw new Error('Could not find groups dropdownOptions input.');\nif (!workflowItem) throw new Error('Could not find workflow JSON input.');\n\nconst dropdownOptions = optionsItem.json.dropdownOptions;\nconst groupOptions = groupsItem.json.dropdownOptions.groups;\nconst workflow = workflowItem.json;\n\nconst TARGET_FORM_TRIGGER_NAME = 'On form submission';\nconst formTriggerNode = workflow.nodes.find(node => node.name === TARGET_FORM_TRIGGER_NAME);\n\nif (!formTriggerNode) throw new Error(`Could not find form trigger node named \"${TARGET_FORM_TRIGGER_NAME}\" in target workflow.`);\n\nformTriggerNode.parameters.formFields = {\n  values: [\n    {\n      fieldLabel: 'Existing Employee',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.existingEmployee }\n    },\n    { fieldLabel: 'First Name' },\n    { fieldLabel: 'Last Name' },\n    {\n      fieldLabel: 'Job Title',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.jobTitle }\n    },\n    {\n      fieldLabel: 'Studio',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.officeLocation }\n    },\n    { fieldLabel: 'EMP ID' },\n    { fieldLabel: 'Phone Extension' },\n    { fieldLabel: 'Credentials' },\n    { fieldLabel: 'Home Folder (Z: Drive)', fieldType: 'checkbox', fieldOptions: { values: [{ option: 'Set up home folder (Z: drive)' }] } },\n    {\n      fieldLabel: 'Groups',\n      fieldType: 'checkbox',\n      fieldOptions: { values: groupOptions }\n    }\n  ]\n};\n\nconst workflowObject = {\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections || {},\n  settings: {}\n};\n\nreturn [{\n  json: {\n    workflowId: workflow.id,\n    workflowObjectJson: JSON.stringify(workflowObject)\n  }\n}];"
         },
         "id": "c196ab99-feb3-4bc7-8ac6-62bf35743a37",
         "name": "Code: Update all form dropdowns",
@@ -327,7 +329,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "18d020d9-311f-4ed1-bd99-c21e32e75750",
+  "activeVersionId": "33719fc7-6024-4a8e-9bd9-35b97f49f8bf",
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -490,7 +492,7 @@
       "parameters": {
         "baseDN": "DC=MGA,DC=com",
         "searchFor": "custom",
-        "customFilter": "(objectClass=user)",
+        "customFilter": "(&(objectClass=user)(objectCategory=person))",
         "returnAll": true,
         "options": {
           "attributes": [
@@ -500,7 +502,9 @@
             "st",
             "postalCode",
             "telephoneNumber",
-            "title"
+            "title",
+            "sAMAccountName",
+            "cn"
           ]
         }
       },
@@ -524,9 +528,9 @@
         "operation": "get",
         "workflowId": {
           "__rl": true,
-          "value": "kDaeoL85e1qx29Wc",
+          "value": "EAlcDKeH3e1zxJZJ",
           "mode": "id",
-          "cachedResultName": "AD - User Provisioning"
+          "cachedResultName": "AD - Provisioning Router"
         },
         "requestOptions": {}
       },
@@ -547,7 +551,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const seen = new Set();\nconst officeOptions = [];\nconst jobTitles = [];\n\nfor (const item of $input.all()) {\n  const company  = String(item.json.company          ?? '').trim();\n  const street   = String(item.json.streetAddress    ?? '').trim();\n  const city     = String(item.json.l                ?? '').trim();\n  const state    = String(item.json.st               ?? '').trim();\n  const zip      = String(item.json.postalCode       ?? '').trim();\n  const phone    = String(item.json.telephoneNumber  ?? '').trim();\n  const title    = String(item.json.title            ?? '').trim();\n\n  if (company && city && phone) {\n    const key = `${company}~~${city}~~${phone}`;\n    if (!seen.has(key)) {\n      seen.add(key);\n      const option = `${company} — ${city} ~~ ${street} ~~ ${city} ~~ ${state} ~~ ${zip} ~~ ${phone}`;\n      officeOptions.push({ company, city, option });\n    }\n  }\n\n  if (title) jobTitles.push(title);\n}\n\nofficeOptions.sort((a, b) => {\n  const cmp = a.company.localeCompare(b.company);\n  return cmp !== 0 ? cmp : a.city.localeCompare(b.city);\n});\n\nconst uniqueJobTitles = [...new Set(jobTitles)]\n  .sort((a, b) => a.localeCompare(b))\n  .map(t => ({ option: t }));\n\nif (officeOptions.length === 0) throw new Error('No office location options built.');\nif (uniqueJobTitles.length === 0) throw new Error('No job title options built.');\n\nreturn [{\n  json: {\n    dropdownOptions: {\n      officeLocation: officeOptions.map(o => ({ option: o.option })),\n      jobTitle: uniqueJobTitles\n    }\n  }\n}];"
+        "jsCode": "const seen = new Set();\nconst officeOptions = [];\nconst jobTitles = [];\nconst employeeSeen = new Set();\nconst employeeOptions = [];\n\nfor (const item of $input.all()) {\n  const company  = String(item.json.company          ?? '').trim();\n  const street   = String(item.json.streetAddress    ?? '').trim();\n  const city     = String(item.json.l                ?? '').trim();\n  const state    = String(item.json.st               ?? '').trim();\n  const zip      = String(item.json.postalCode       ?? '').trim();\n  const phone    = String(item.json.telephoneNumber  ?? '').trim();\n  const title    = String(item.json.title            ?? '').trim();\n\n  if (company && city && phone) {\n    const key = `${company}~~${city}~~${phone}`;\n    if (!seen.has(key)) {\n      seen.add(key);\n      const option = `${company} — ${city} ~~ ${street} ~~ ${city} ~~ ${state} ~~ ${zip} ~~ ${phone}`;\n      officeOptions.push({ company, city, option });\n    }\n  }\n\n  if (title) jobTitles.push(title);\n\n  const cn = String(item.json.cn ?? '').trim();\n  const sam = String(item.json.sAMAccountName ?? '').trim();\n  if (cn && sam && !employeeSeen.has(sam)) {\n    employeeSeen.add(sam);\n    employeeOptions.push({ cn, sam, option: `${cn} (${sam})` });\n  }\n}\n\nemployeeOptions.sort((a, b) => a.cn.localeCompare(b.cn));\n\nofficeOptions.sort((a, b) => {\n  const cmp = a.company.localeCompare(b.company);\n  return cmp !== 0 ? cmp : a.city.localeCompare(b.city);\n});\n\nconst uniqueJobTitles = [...new Set(jobTitles)]\n  .sort((a, b) => a.localeCompare(b))\n  .map(t => ({ option: t }));\n\nif (officeOptions.length === 0) throw new Error('No office location options built.');\nif (uniqueJobTitles.length === 0) throw new Error('No job title options built.');\n\nreturn [{\n  json: {\n    dropdownOptions: {\n      officeLocation: officeOptions.map(o => ({ option: o.option })),\n      jobTitle: uniqueJobTitles,\n      existingEmployee: employeeOptions.map(o => ({ option: o.option }))\n    }\n  }\n}];"
       },
       "id": "0b6685bd-91a5-4808-8c52-0ecc51a993e6",
       "name": "Code: Build all dropdown option lists",
@@ -573,7 +577,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\n\nconst optionsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.jobTitle);\nconst groupsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.groups);\nconst workflowItem = items.find(item => Array.isArray(item.json.nodes));\n\nif (!optionsItem) throw new Error('Could not find dropdownOptions input.');\nif (!groupsItem) throw new Error('Could not find groups dropdownOptions input.');\nif (!workflowItem) throw new Error('Could not find workflow JSON input.');\n\nconst dropdownOptions = optionsItem.json.dropdownOptions;\nconst groupOptions = groupsItem.json.dropdownOptions.groups;\nconst workflow = workflowItem.json;\n\nconst TARGET_FORM_TRIGGER_NAME = 'On form submission';\nconst formTriggerNode = workflow.nodes.find(node => node.name === TARGET_FORM_TRIGGER_NAME);\n\nif (!formTriggerNode) throw new Error(`Could not find form trigger node named \"${TARGET_FORM_TRIGGER_NAME}\" in target workflow.`);\n\nformTriggerNode.parameters.formFields = {\n  values: [\n    { fieldLabel: 'First Name', requiredField: true },\n    { fieldLabel: 'Last Name', requiredField: true },\n    {\n      fieldLabel: 'Job Title',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.jobTitle }\n    },\n    {\n      fieldLabel: 'Studio',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.officeLocation }\n    },\n    { fieldLabel: 'EMP ID' },\n    { fieldLabel: 'Phone Extension' },\n    { fieldLabel: 'Credentials' },\n    { fieldLabel: 'Home Folder (Z: Drive)', fieldType: 'checkbox', fieldOptions: { values: [{ option: 'Set up home folder (Z: drive)' }] } },\n    {\n      fieldLabel: 'Groups',\n      fieldType: 'checkbox',\n      fieldOptions: { values: groupOptions }\n    }\n  ]\n};\n\nconst workflowObject = {\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections || {},\n  settings: {}\n};\n\nreturn [{\n  json: {\n    workflowId: workflow.id,\n    workflowObjectJson: JSON.stringify(workflowObject)\n  }\n}];"
+        "jsCode": "const items = $input.all();\n\nconst optionsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.jobTitle);\nconst groupsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.groups);\nconst workflowItem = items.find(item => Array.isArray(item.json.nodes));\n\nif (!optionsItem) throw new Error('Could not find dropdownOptions input.');\nif (!groupsItem) throw new Error('Could not find groups dropdownOptions input.');\nif (!workflowItem) throw new Error('Could not find workflow JSON input.');\n\nconst dropdownOptions = optionsItem.json.dropdownOptions;\nconst groupOptions = groupsItem.json.dropdownOptions.groups;\nconst workflow = workflowItem.json;\n\nconst TARGET_FORM_TRIGGER_NAME = 'On form submission';\nconst formTriggerNode = workflow.nodes.find(node => node.name === TARGET_FORM_TRIGGER_NAME);\n\nif (!formTriggerNode) throw new Error(`Could not find form trigger node named \"${TARGET_FORM_TRIGGER_NAME}\" in target workflow.`);\n\nformTriggerNode.parameters.formFields = {\n  values: [\n    {\n      fieldLabel: 'Existing Employee',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.existingEmployee }\n    },\n    { fieldLabel: 'First Name' },\n    { fieldLabel: 'Last Name' },\n    {\n      fieldLabel: 'Job Title',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.jobTitle }\n    },\n    {\n      fieldLabel: 'Studio',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.officeLocation }\n    },\n    { fieldLabel: 'EMP ID' },\n    { fieldLabel: 'Phone Extension' },\n    { fieldLabel: 'Credentials' },\n    { fieldLabel: 'Home Folder (Z: Drive)', fieldType: 'checkbox', fieldOptions: { values: [{ option: 'Set up home folder (Z: drive)' }] } },\n    {\n      fieldLabel: 'Groups',\n      fieldType: 'checkbox',\n      fieldOptions: { values: groupOptions }\n    }\n  ]\n};\n\nconst workflowObject = {\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections || {},\n  settings: {}\n};\n\nreturn [{\n  json: {\n    workflowId: workflow.id,\n    workflowObjectJson: JSON.stringify(workflowObject)\n  }\n}];"
       },
       "id": "c196ab99-feb3-4bc7-8ac6-62bf35743a37",
       "name": "Code: Update all form dropdowns",
@@ -679,6 +683,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-17T22:31:48.836Z",
-  "versionId": "18d020d9-311f-4ed1-bd99-c21e32e75750"
+  "updatedAt": "2026-07-18T01:23:52.435Z",
+  "versionId": "33719fc7-6024-4a8e-9bd9-35b97f49f8bf"
 }
