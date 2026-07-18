@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-17T23:09:33.617Z",
-    "createdAt": "2026-07-17T23:09:33.617Z",
-    "versionId": "3e4039b9-c2db-4f61-8c6e-807f6e903a92",
+    "updatedAt": "2026-07-18T00:37:11.460Z",
+    "createdAt": "2026-07-18T00:37:11.460Z",
+    "versionId": "7840990b-653d-4287-af0f-15bda5ce7a35",
     "workflowId": "nS1MT9j3xDpQZMKj",
     "nodes": [
       {
@@ -128,8 +128,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -181,8 +181,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -235,31 +235,31 @@
             "replace": [
               {
                 "id": "pager",
-                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'pager')?.value }}"
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'pager')?.value ?? '' }}"
               },
               {
                 "id": "ipPhone",
-                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value }}"
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value ?? '' }}"
               },
               {
                 "id": "info",
-                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'info')?.value }}"
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'info')?.value ?? '' }}"
               },
               {
                 "id": "homeDrive",
-                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value }}"
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value ?? '' }}"
               },
               {
                 "id": "homeDirectory",
-                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value }}"
+                "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value ?? '' }}"
               }
             ]
           }
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -320,8 +320,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -370,8 +370,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -398,8 +398,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "alwaysOutputData": true
@@ -472,8 +472,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -533,8 +533,8 @@
         },
         "credentials": {
           "ldap": {
-            "id": "BOucnJbOwrOnGW1R",
-            "name": "LDAP account"
+            "id": "AlHWAxdYna4AGaqy",
+            "name": "LDAP account 2"
           }
         },
         "onError": "continueRegularOutput"
@@ -842,7 +842,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "3e4039b9-c2db-4f61-8c6e-807f6e903a92",
+  "activeVersionId": "7840990b-653d-4287-af0f-15bda5ce7a35",
   "connections": {
     "When Executed by Another Workflow": {
       "main": [
@@ -1207,8 +1207,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1260,8 +1260,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1314,31 +1314,31 @@
           "replace": [
             {
               "id": "pager",
-              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'pager')?.value }}"
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'pager')?.value ?? '' }}"
             },
             {
               "id": "ipPhone",
-              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value }}"
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'ipPhone')?.value ?? '' }}"
             },
             {
               "id": "info",
-              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'info')?.value }}"
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'info')?.value ?? '' }}"
             },
             {
               "id": "homeDrive",
-              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value }}"
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDrive')?.value ?? '' }}"
             },
             {
               "id": "homeDirectory",
-              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value }}"
+              "value": "={{ $('Resolve update fields').first().json.optionalReplace.find(f => f.id === 'homeDirectory')?.value ?? '' }}"
             }
           ]
         }
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1399,8 +1399,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1449,8 +1449,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1477,8 +1477,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "alwaysOutputData": true
@@ -1551,8 +1551,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1612,8 +1612,8 @@
       },
       "credentials": {
         "ldap": {
-          "id": "BOucnJbOwrOnGW1R",
-          "name": "LDAP account"
+          "id": "AlHWAxdYna4AGaqy",
+          "name": "LDAP account 2"
         }
       },
       "onError": "continueRegularOutput"
@@ -1700,6 +1700,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2026-07-17T23:11:05.416Z",
-  "versionId": "3e4039b9-c2db-4f61-8c6e-807f6e903a92"
+  "updatedAt": "2026-07-18T00:37:11.459Z",
+  "versionId": "7840990b-653d-4287-af0f-15bda5ce7a35"
 }
