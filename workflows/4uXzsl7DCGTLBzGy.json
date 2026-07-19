@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-19T19:08:55.919Z",
-    "createdAt": "2026-07-19T19:08:48.607Z",
-    "versionId": "da89c572-247c-4341-9423-7f6318fc925b",
+    "updatedAt": "2026-07-19T19:16:19.588Z",
+    "createdAt": "2026-07-19T19:16:19.588Z",
+    "versionId": "17d34646-573a-49aa-9643-bce2aa094f72",
     "workflowId": "4uXzsl7DCGTLBzGy",
     "nodes": [
       {
@@ -784,11 +784,11 @@
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": "Version da89c572",
-    "description": "",
-    "autosaved": true
+    "name": null,
+    "description": null,
+    "autosaved": false
   },
-  "activeVersionId": "da89c572-247c-4341-9423-7f6318fc925b",
+  "activeVersionId": "17d34646-573a-49aa-9643-bce2aa094f72",
   "connections": {
     "n8n": {
       "main": [
@@ -1592,7 +1592,7 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": [
-        14
+        16
       ],
       "recurrenceRuleSignatures": [
         "hours:2"
@@ -1604,6 +1604,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-19T19:08:48.605Z",
-  "versionId": "da89c572-247c-4341-9423-7f6318fc925b"
+  "updatedAt": "2026-07-19T19:16:19.587Z",
+  "versionId": "17d34646-573a-49aa-9643-bce2aa094f72"
 }
