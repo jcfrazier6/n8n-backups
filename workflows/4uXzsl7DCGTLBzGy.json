@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-19T17:58:09.106Z",
-    "createdAt": "2026-07-19T17:58:09.106Z",
-    "versionId": "6c669b37-9f79-4696-a201-f906d641eb45",
+    "updatedAt": "2026-07-19T19:08:55.919Z",
+    "createdAt": "2026-07-19T19:08:48.607Z",
+    "versionId": "da89c572-247c-4341-9423-7f6318fc925b",
     "workflowId": "4uXzsl7DCGTLBzGy",
     "nodes": [
       {
@@ -347,8 +347,8 @@
         "name": "Sticky Note2",
         "type": "n8n-nodes-base.stickyNote",
         "position": [
-          464,
-          32
+          448,
+          16
         ],
         "typeVersion": 1
       },
@@ -495,41 +495,43 @@
         "name": "Execute Workflow1"
       },
       {
+        "parameters": {
+          "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().slice(0, 10);\n\nif (staticData.lastEmailDate === today) {\n  return [];\n}\n\nstaticData.lastEmailDate = today;\nreturn [{ json: { today } }];"
+        },
         "id": "bb4ed525-293c-4238-8b65-b7ae2db8f8cd",
         "name": "Check if first run today",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
-          512,
-          480
-        ],
-        "parameters": {
-          "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().slice(0, 10);\n\nif (staticData.lastEmailDate === today) {\n  return [];\n}\n\nstaticData.lastEmailDate = today;\nreturn [{ json: { today } }];"
-        }
+          768,
+          464
+        ]
       },
       {
-        "id": "bc43ab56-0dfc-4781-9b7b-b22b00946b4f",
-        "name": "Send first-run email",
-        "type": "n8n-nodes-base.emailSend",
-        "typeVersion": 2.1,
-        "position": [
-          736,
-          480
-        ],
         "parameters": {
-          "fromEmail": "itadmin@michaelgraves.com",
-          "toEmail": "itadmin@michaelgraves.com",
+          "authentication": "microsoftOAuth2Api",
+          "toRecipients": "itadmin@michaelgraves.com",
           "subject": "=Workflow Backup - first run of {{ $json.today }}",
-          "text": "=Workflow Backup ran for the first time today ({{ $json.today }}).",
-          "options": {}
-        },
-        "credentials": {
-          "smtp": {
-            "id": "67739h5ukaovXcIX",
-            "name": "SMTP account"
+          "bodyContent": "=<div style=\"font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-top: 4px solid #2b6cb0;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">✅</span>\n    <h2 style=\"margin:0; color:#2b6cb0; font-size:20px;\">Workflow Backup</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">Ran for the first time today, <strong>{{ $json.today }}</strong>.</p>\n</div>",
+          "additionalFields": {
+            "bodyContentType": "html"
           }
         },
-        "webhookId": "41006303-70e5-4349-84fb-7c04e7d052cd"
+        "id": "25c32c15-1aaa-4b76-beda-bccf2d15ac41",
+        "name": "Send first-run email",
+        "type": "n8n-nodes-base.microsoftOutlook",
+        "typeVersion": 2,
+        "position": [
+          992,
+          464
+        ],
+        "webhookId": "1b1443c7-1dfe-4fbf-910a-1c68742fe370",
+        "credentials": {
+          "microsoftOAuth2Api": {
+            "id": "DjYtaHOPI3TmStyM",
+            "name": "Microsoft account"
+          }
+        }
       }
     ],
     "connections": {
@@ -782,11 +784,11 @@
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": null,
-    "description": null,
-    "autosaved": false
+    "name": "Version da89c572",
+    "description": "",
+    "autosaved": true
   },
-  "activeVersionId": "6c669b37-9f79-4696-a201-f906d641eb45",
+  "activeVersionId": "da89c572-247c-4341-9423-7f6318fc925b",
   "connections": {
     "n8n": {
       "main": [
@@ -1385,8 +1387,8 @@
       "name": "Sticky Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        464,
-        32
+        448,
+        16
       ],
       "typeVersion": 1
     },
@@ -1533,41 +1535,43 @@
       "name": "Execute Workflow1"
     },
     {
+      "parameters": {
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().slice(0, 10);\n\nif (staticData.lastEmailDate === today) {\n  return [];\n}\n\nstaticData.lastEmailDate = today;\nreturn [{ json: { today } }];"
+      },
       "id": "bb4ed525-293c-4238-8b65-b7ae2db8f8cd",
       "name": "Check if first run today",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        512,
-        480
-      ],
-      "parameters": {
-        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().slice(0, 10);\n\nif (staticData.lastEmailDate === today) {\n  return [];\n}\n\nstaticData.lastEmailDate = today;\nreturn [{ json: { today } }];"
-      }
+        768,
+        464
+      ]
     },
     {
-      "id": "bc43ab56-0dfc-4781-9b7b-b22b00946b4f",
-      "name": "Send first-run email",
-      "type": "n8n-nodes-base.emailSend",
-      "typeVersion": 2.1,
-      "position": [
-        736,
-        480
-      ],
       "parameters": {
-        "fromEmail": "itadmin@michaelgraves.com",
-        "toEmail": "itadmin@michaelgraves.com",
+        "authentication": "microsoftOAuth2Api",
+        "toRecipients": "itadmin@michaelgraves.com",
         "subject": "=Workflow Backup - first run of {{ $json.today }}",
-        "text": "=Workflow Backup ran for the first time today ({{ $json.today }}).",
-        "options": {}
-      },
-      "credentials": {
-        "smtp": {
-          "id": "67739h5ukaovXcIX",
-          "name": "SMTP account"
+        "bodyContent": "=<div style=\"font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-top: 4px solid #2b6cb0;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">✅</span>\n    <h2 style=\"margin:0; color:#2b6cb0; font-size:20px;\">Workflow Backup</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">Ran for the first time today, <strong>{{ $json.today }}</strong>.</p>\n</div>",
+        "additionalFields": {
+          "bodyContentType": "html"
         }
       },
-      "webhookId": "41006303-70e5-4349-84fb-7c04e7d052cd"
+      "id": "25c32c15-1aaa-4b76-beda-bccf2d15ac41",
+      "name": "Send first-run email",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        992,
+        464
+      ],
+      "webhookId": "1b1443c7-1dfe-4fbf-910a-1c68742fe370",
+      "credentials": {
+        "microsoftOAuth2Api": {
+          "id": "DjYtaHOPI3TmStyM",
+          "name": "Microsoft account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1593,10 +1597,13 @@
       "recurrenceRuleSignatures": [
         "hours:2"
       ]
+    },
+    "global": {
+      "lastEmailDate": "2026-07-19"
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-19T17:58:09.105Z",
-  "versionId": "6c669b37-9f79-4696-a201-f906d641eb45"
+  "updatedAt": "2026-07-19T19:08:48.605Z",
+  "versionId": "da89c572-247c-4341-9423-7f6318fc925b"
 }
