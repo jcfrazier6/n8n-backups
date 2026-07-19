@@ -1,20 +1,12 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-18T01:28:59.547Z",
-    "createdAt": "2026-07-18T01:28:59.547Z",
-    "versionId": "4781ede8-31b9-4334-b3f1-e6eafb9e0965",
+    "updatedAt": "2026-07-19T04:00:40.554Z",
+    "createdAt": "2026-07-19T04:00:40.554Z",
+    "versionId": "93a61e22-6f75-4877-bf51-8c5c7292bca5",
     "workflowId": "EAlcDKeH3e1zxJZJ",
     "nodes": [
       {
-        "id": "formTrigger",
-        "name": "On form submission",
-        "type": "n8n-nodes-base.formTrigger",
-        "typeVersion": 2.6,
-        "position": [
-          0,
-          0
-        ],
         "parameters": {
           "authentication": "n8nUserAuth",
           "formTitle": "AD User Provisioning",
@@ -1176,9 +1168,6 @@
                     },
                     {
                       "option": "Jake McCarthy (jmccarthy)"
-                    },
-                    {
-                      "option": "James Frazier (jfrazier)"
                     },
                     {
                       "option": "James Wisniewski (jwisniewski)"
@@ -2440,34 +2429,35 @@
           },
           "options": {}
         },
+        "id": "formTrigger",
+        "name": "On form submission",
+        "type": "n8n-nodes-base.formTrigger",
+        "typeVersion": 2.6,
+        "position": [
+          0,
+          -32
+        ],
         "webhookId": "65a75b55-2033-44a1-8c78-e2f891409f34"
       },
       {
+        "parameters": {
+          "jsCode": "const item = $input.first().json;\nconst existingSelection = String(item['Existing Employee'] || '').trim();\nconst firstNameTyped = String(item['First Name'] || '').trim();\nconst lastNameTyped = String(item['Last Name'] || '').trim();\n\nlet sAMAccountName = '', firstName = '', lastName = '', pickedExisting = false;\n\nif (existingSelection) {\n  const m = existingSelection.match(/\\(([^)]+)\\)\\s*$/);\n  if (!m) throw new Error(`Could not parse username from Existing Employee selection: ${existingSelection}`);\n  sAMAccountName = m[1].trim();\n  const namePart = existingSelection.slice(0, m.index).trim();\n  const spaceIdx = namePart.indexOf(' ');\n  firstName = spaceIdx !== -1 ? namePart.substring(0, spaceIdx).trim() : namePart;\n  lastName = spaceIdx !== -1 ? namePart.substring(spaceIdx + 1).trim() : '';\n  pickedExisting = true;\n} else if (firstNameTyped && lastNameTyped) {\n  firstName = firstNameTyped;\n  lastName = lastNameTyped;\n  sAMAccountName = (firstName.charAt(0) + lastName).toLowerCase();\n} else {\n  throw new Error('Select an existing employee, or enter both First Name and Last Name.');\n}\n\nconst homeFolderRaw = item['Home Folder (Z: Drive)'];\nconst homeFolderChecked = Array.isArray(homeFolderRaw) ? homeFolderRaw.length > 0 : !!homeFolderRaw;\n\nreturn [{ json: {\n  ...item,\n  sAMAccountName, firstName, lastName, pickedExisting, homeFolderChecked\n} }];"
+        },
         "id": "resolveIdentity",
         "name": "Resolve identity",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
           224,
-          0
+          -32
         ],
-        "parameters": {
-          "jsCode": "const item = $input.first().json;\nconst existingSelection = String(item['Existing Employee'] || '').trim();\nconst firstNameTyped = String(item['First Name'] || '').trim();\nconst lastNameTyped = String(item['Last Name'] || '').trim();\n\nlet sAMAccountName = '', firstName = '', lastName = '', pickedExisting = false;\n\nif (existingSelection) {\n  const m = existingSelection.match(/\\(([^)]+)\\)\\s*$/);\n  if (!m) throw new Error(`Could not parse username from Existing Employee selection: ${existingSelection}`);\n  sAMAccountName = m[1].trim();\n  const namePart = existingSelection.slice(0, m.index).trim();\n  const spaceIdx = namePart.indexOf(' ');\n  firstName = spaceIdx !== -1 ? namePart.substring(0, spaceIdx).trim() : namePart;\n  lastName = spaceIdx !== -1 ? namePart.substring(spaceIdx + 1).trim() : '';\n  pickedExisting = true;\n} else if (firstNameTyped && lastNameTyped) {\n  firstName = firstNameTyped;\n  lastName = lastNameTyped;\n  sAMAccountName = (firstName.charAt(0) + lastName).toLowerCase();\n} else {\n  throw new Error('Select an existing employee, or enter both First Name and Last Name.');\n}\n\nconst homeFolderRaw = item['Home Folder (Z: Drive)'];\nconst homeFolderChecked = Array.isArray(homeFolderRaw) ? homeFolderRaw.length > 0 : !!homeFolderRaw;\n\nreturn [{ json: {\n  ...item,\n  sAMAccountName, firstName, lastName, pickedExisting, homeFolderChecked\n} }];"
-        },
         "onError": "continueErrorOutput"
       },
       {
-        "id": "searchUser",
-        "name": "LDAP: Search for existing user",
-        "type": "n8n-nodes-base.ldap",
-        "typeVersion": 1,
-        "position": [
-          448,
-          0
-        ],
         "parameters": {
           "baseDN": "DC=MGA,DC=com",
           "searchFor": "(objectclass=top)",
+          "attribute": "sAMAccountName",
           "searchText": "={{ $json.sAMAccountName }}",
           "returnAll": true,
           "options": {
@@ -2485,54 +2475,52 @@
               "telephoneNumber",
               "mail"
             ]
-          },
-          "attribute": "sAMAccountName"
+          }
         },
+        "id": "searchUser",
+        "name": "LDAP: Search for existing user",
+        "type": "n8n-nodes-base.ldap",
+        "typeVersion": 1,
+        "position": [
+          448,
+          32
+        ],
+        "alwaysOutputData": true,
         "credentials": {
           "ldap": {
             "id": "AlHWAxdYna4AGaqy",
             "name": "LDAP account 2"
           }
         },
-        "onError": "continueErrorOutput",
-        "alwaysOutputData": true
+        "onError": "continueErrorOutput"
       },
       {
+        "parameters": {
+          "errorMessage": "=LDAP search for existing user failed: {{ $json.error?.message || $json.error || 'unknown error' }}"
+        },
         "id": "stopSearchFailed",
         "name": "Stop: LDAP search failed",
         "type": "n8n-nodes-base.stopAndError",
         "typeVersion": 1,
         "position": [
           672,
-          160
-        ],
-        "parameters": {
-          "errorType": "errorMessage",
-          "errorMessage": "=LDAP search for existing user failed: {{ $json.error?.message || $json.error || 'unknown error' }}"
-        }
+          128
+        ]
       },
       {
+        "parameters": {
+          "jsCode": "const resolved = $('Resolve identity').first().json;\nconst searchResults = $input.all();\nconst firstJson = searchResults.length > 0 ? searchResults[0].json : {};\nconst userExists = searchResults.length > 0 && !!firstJson.dn;\n\nlet existingDn = null, userAccountControl = null, isEnabled = false, existing = {};\nif (userExists) {\n  existingDn = firstJson.dn || firstJson.distinguishedName || null;\n  userAccountControl = parseInt(firstJson.userAccountControl ?? '514', 10);\n  isEnabled = (userAccountControl & 2) === 0;\n  existing = {\n    cn: firstJson.cn, title: firstJson.title, company: firstJson.company,\n    streetAddress: firstJson.streetAddress, l: firstJson.l, st: firstJson.st,\n    postalCode: firstJson.postalCode, telephoneNumber: firstJson.telephoneNumber,\n    mail: firstJson.mail\n  };\n}\n\nreturn [{ json: {\n  ...resolved, userExists, existingDn, isEnabled, existing\n} }];"
+        },
         "id": "routeExistsNew",
         "name": "Code: Route - exists or new",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
           672,
-          -80
-        ],
-        "parameters": {
-          "jsCode": "const resolved = $('Resolve identity').first().json;\nconst searchResults = $input.all();\nconst firstJson = searchResults.length > 0 ? searchResults[0].json : {};\nconst userExists = searchResults.length > 0 && !!firstJson.dn;\n\nlet existingDn = null, userAccountControl = null, isEnabled = false, existing = {};\nif (userExists) {\n  existingDn = firstJson.dn || firstJson.distinguishedName || null;\n  userAccountControl = parseInt(firstJson.userAccountControl ?? '514', 10);\n  isEnabled = (userAccountControl & 2) === 0;\n  existing = {\n    cn: firstJson.cn, title: firstJson.title, company: firstJson.company,\n    streetAddress: firstJson.streetAddress, l: firstJson.l, st: firstJson.st,\n    postalCode: firstJson.postalCode, telephoneNumber: firstJson.telephoneNumber,\n    mail: firstJson.mail\n  };\n}\n\nreturn [{ json: {\n  ...resolved, userExists, existingDn, isEnabled, existing\n} }];"
-        }
+          -64
+        ]
       },
       {
-        "id": "ifUserExists",
-        "name": "IF: User exists?",
-        "type": "n8n-nodes-base.if",
-        "typeVersion": 2.2,
-        "position": [
-          896,
-          -80
-        ],
         "parameters": {
           "conditions": {
             "options": {
@@ -2554,20 +2542,20 @@
               }
             ],
             "combinator": "and"
-          }
-        }
+          },
+          "options": {}
+        },
+        "id": "ifUserExists",
+        "name": "IF: User exists?",
+        "type": "n8n-nodes-base.if",
+        "typeVersion": 2.2,
+        "position": [
+          896,
+          -64
+        ]
       },
       {
-        "id": "execUpdate",
-        "name": "Execute: AD - Update User",
-        "type": "n8n-nodes-base.executeWorkflow",
-        "typeVersion": 1.3,
-        "position": [
-          1120,
-          -160
-        ],
         "parameters": {
-          "source": "database",
           "workflowId": {
             "__rl": true,
             "value": "nS1MT9j3xDpQZMKj",
@@ -2681,24 +2669,22 @@
               }
             ]
           },
-          "mode": "once",
           "options": {
             "waitForSubWorkflow": true
           }
         },
-        "onError": "continueErrorOutput"
-      },
-      {
-        "id": "execCreate",
-        "name": "Execute: AD - Create User",
+        "id": "execUpdate",
+        "name": "Execute: AD - Update User",
         "type": "n8n-nodes-base.executeWorkflow",
         "typeVersion": 1.3,
         "position": [
           1120,
-          0
+          -160
         ],
+        "onError": "continueErrorOutput"
+      },
+      {
         "parameters": {
-          "source": "database",
           "workflowId": {
             "__rl": true,
             "value": "wmUIdqI5hf83jd3I",
@@ -2803,40 +2789,47 @@
               }
             ]
           },
-          "mode": "once",
           "options": {
             "waitForSubWorkflow": true
           }
         },
+        "id": "execCreate",
+        "name": "Execute: AD - Create User",
+        "type": "n8n-nodes-base.executeWorkflow",
+        "typeVersion": 1.3,
+        "position": [
+          1120,
+          32
+        ],
         "onError": "continueErrorOutput"
       },
       {
+        "parameters": {
+          "jsCode": "const result = $input.first().json;\n\nfunction backLink() {\n  return `<p style=\"margin-top:16px;\"><a href=\"http://localhost:5678/form/65a75b55-2033-44a1-8c78-e2f891409f34\" style=\"color:#3182ce; font-size:13px;\">← Back to form</a></p>`;\n}\n\nfunction errorPage(message) {\n  return `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #c53030;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">⚠️</span>\n    <h2 style=\"margin:0; color:#c53030; font-size:20px;\">Missing or Invalid Information</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">${message}</p>\n  ${backLink()}\n</div>`;\n}\n\nif (result.success === undefined) {\n  const message = String(result.error?.message || result.error || 'Something went wrong processing your submission.').replace(/\\s*\\[line \\d+\\]\\s*$/, '');\n  return [{ json: { responseHtml: errorPage(message) } }];\n}\n\nlet route = {};\ntry { route = $('Code: Route - exists or new').first().json; } catch (e) {}\n\nconst isCreate = !route.userExists;\nconst isReenable = !!result.reenabled;\n\nlet heading, message, color, icon;\nif (!result.success) {\n  heading = 'Provisioning Error';\n  color = '#c53030';\n  icon = '⚠️';\n  message = `Something went wrong: ${(result.errors || []).join('; ') || 'Unknown error'}`;\n} else if (isCreate) {\n  heading = 'User Created Successfully';\n  color = '#276749';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been created. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else if (isReenable) {\n  heading = 'User Re-enabled Successfully';\n  color = '#2b6cb0';\n  icon = '🔄';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated and re-enabled. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else {\n  heading = 'User Updated Successfully';\n  color = '#2b6cb0';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated.`;\n}\n\nconst warningsHtml = (result.success && result.errors && result.errors.length > 0)\n  ? `<p style=\"color:#c05621; font-size:13px; margin-top:12px;\">Note: ${result.errors.join('; ')}</p>`\n  : '';\n\nconst responseHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid ${color};\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">${icon}</span>\n    <h2 style=\"margin:0; color:${color}; font-size:20px;\">${heading}</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">${message}</p>\n  ${warningsHtml}\n</div>`;\n\nreturn [{ json: { responseHtml } }];"
+        },
         "id": "buildResponse",
         "name": "Code: Build response",
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
           1344,
-          -80
-        ],
-        "parameters": {
-          "jsCode": "const result = $input.first().json;\n\nfunction backLink() {\n  return `<p style=\"margin-top:16px;\"><a href=\"http://localhost:5678/form/65a75b55-2033-44a1-8c78-e2f891409f34\" style=\"color:#3182ce; font-size:13px;\">← Back to form</a></p>`;\n}\n\nfunction errorPage(message) {\n  return `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid #c53030;\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">⚠️</span>\n    <h2 style=\"margin:0; color:#c53030; font-size:20px;\">Missing or Invalid Information</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">${message}</p>\n  ${backLink()}\n</div>`;\n}\n\nif (result.success === undefined) {\n  const message = String(result.error?.message || result.error || 'Something went wrong processing your submission.').replace(/\\s*\\[line \\d+\\]\\s*$/, '');\n  return [{ json: { responseHtml: errorPage(message) } }];\n}\n\nlet route = {};\ntry { route = $('Code: Route - exists or new').first().json; } catch (e) {}\n\nconst isCreate = !route.userExists;\nconst isReenable = !!result.reenabled;\n\nlet heading, message, color, icon;\nif (!result.success) {\n  heading = 'Provisioning Error';\n  color = '#c53030';\n  icon = '⚠️';\n  message = `Something went wrong: ${(result.errors || []).join('; ') || 'Unknown error'}`;\n} else if (isCreate) {\n  heading = 'User Created Successfully';\n  color = '#276749';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been created. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else if (isReenable) {\n  heading = 'User Re-enabled Successfully';\n  color = '#2b6cb0';\n  icon = '🔄';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated and re-enabled. The user can log in with their temporary password and will be prompted to change it on first sign-in.`;\n} else {\n  heading = 'User Updated Successfully';\n  color = '#2b6cb0';\n  icon = '✅';\n  message = `The Active Directory account <strong>${result.sAMAccountName}</strong> has been updated.`;\n}\n\nconst warningsHtml = (result.success && result.errors && result.errors.length > 0)\n  ? `<p style=\"color:#c05621; font-size:13px; margin-top:12px;\">Note: ${result.errors.join('; ')}</p>`\n  : '';\n\nconst responseHtml = `<div style=\"font-family: 'Open Sans', sans-serif; max-width: 480px; margin: 40px auto; padding: 32px; background: #fff; border-radius: 8px; box-shadow: 0 4px 16px rgba(99,77,255,0.08); border-top: 4px solid ${color};\">\n  <div style=\"display:flex; align-items:center; margin-bottom:16px;\">\n    <span style=\"font-size:28px; margin-right:12px;\">${icon}</span>\n    <h2 style=\"margin:0; color:${color}; font-size:20px;\">${heading}</h2>\n  </div>\n  <p style=\"color:#555; font-size:14px; line-height:1.6; margin:0;\">${message}</p>\n  ${warningsHtml}\n</div>`;\n\nreturn [{ json: { responseHtml } }];"
-        }
+          -128
+        ]
       },
       {
+        "parameters": {
+          "operation": "completion",
+          "respondWith": "showText",
+          "responseText": "={{ $json.responseHtml }}"
+        },
         "id": "respondForm",
         "name": "Form: Response",
         "type": "n8n-nodes-base.form",
         "typeVersion": 2.5,
         "position": [
           1568,
-          -80
+          -128
         ],
-        "parameters": {
-          "operation": "completion",
-          "respondWith": "showText",
-          "responseText": "={{ $json.responseHtml }}"
-        },
         "webhookId": "14cb1d93-ae0d-458b-8360-076acf0b259c"
       }
     ],
@@ -2971,7 +2964,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "4781ede8-31b9-4334-b3f1-e6eafb9e0965",
+  "activeVersionId": "93a61e22-6f75-4877-bf51-8c5c7292bca5",
   "connections": {
     "On form submission": {
       "main": [
@@ -4266,9 +4259,6 @@
                   },
                   {
                     "option": "Jake McCarthy (jmccarthy)"
-                  },
-                  {
-                    "option": "James Frazier (jfrazier)"
                   },
                   {
                     "option": "James Wisniewski (jwisniewski)"
@@ -5955,6 +5945,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-18T01:34:07.100Z",
-  "versionId": "6bb3fc79-8bbc-4d2d-9243-a15d5509e4c2"
+  "updatedAt": "2026-07-19T04:00:40.551Z",
+  "versionId": "93a61e22-6f75-4877-bf51-8c5c7292bca5"
 }
