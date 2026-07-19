@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-19T17:54:20.351Z",
-    "createdAt": "2026-07-19T17:54:20.351Z",
-    "versionId": "f07bf3a0-0397-48cc-b26c-d56763df3c58",
+    "updatedAt": "2026-07-19T17:58:09.106Z",
+    "createdAt": "2026-07-19T17:58:09.106Z",
+    "versionId": "6c669b37-9f79-4696-a201-f906d641eb45",
     "workflowId": "4uXzsl7DCGTLBzGy",
     "nodes": [
       {
@@ -495,19 +495,41 @@
         "name": "Execute Workflow1"
       },
       {
-        "id": "6e6d9966-b406-4a75-9b1d-98f8f302285c",
-        "name": "TEMP Test Webhook",
-        "type": "n8n-nodes-base.webhook",
+        "id": "bb4ed525-293c-4238-8b65-b7ae2db8f8cd",
+        "name": "Check if first run today",
+        "type": "n8n-nodes-base.code",
         "typeVersion": 2,
         "position": [
           512,
           480
         ],
         "parameters": {
-          "path": "temp-test-wfbackup",
-          "responseMode": "onReceived"
+          "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().slice(0, 10);\n\nif (staticData.lastEmailDate === today) {\n  return [];\n}\n\nstaticData.lastEmailDate = today;\nreturn [{ json: { today } }];"
+        }
+      },
+      {
+        "id": "bc43ab56-0dfc-4781-9b7b-b22b00946b4f",
+        "name": "Send first-run email",
+        "type": "n8n-nodes-base.emailSend",
+        "typeVersion": 2.1,
+        "position": [
+          736,
+          480
+        ],
+        "parameters": {
+          "fromEmail": "itadmin@michaelgraves.com",
+          "toEmail": "itadmin@michaelgraves.com",
+          "subject": "=Workflow Backup - first run of {{ $json.today }}",
+          "text": "=Workflow Backup ran for the first time today ({{ $json.today }}).",
+          "options": {}
         },
-        "webhookId": "410eaf0a-dad5-4c05-aec2-709d59b5a060"
+        "credentials": {
+          "smtp": {
+            "id": "67739h5ukaovXcIX",
+            "name": "SMTP account"
+          }
+        },
+        "webhookId": "41006303-70e5-4349-84fb-7c04e7d052cd"
       }
     ],
     "connections": {
@@ -643,6 +665,11 @@
               "node": "n8n",
               "type": "main",
               "index": 0
+            },
+            {
+              "node": "Check if first run today",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -694,6 +721,11 @@
               "node": "n8n",
               "type": "main",
               "index": 0
+            },
+            {
+              "node": "Check if first run today",
+              "type": "main",
+              "index": 0
             }
           ]
         ]
@@ -736,11 +768,11 @@
           ]
         ]
       },
-      "TEMP Test Webhook": {
+      "Check if first run today": {
         "main": [
           [
             {
-              "node": "n8n",
+              "node": "Send first-run email",
               "type": "main",
               "index": 0
             }
@@ -754,7 +786,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "f07bf3a0-0397-48cc-b26c-d56763df3c58",
+  "activeVersionId": "6c669b37-9f79-4696-a201-f906d641eb45",
   "connections": {
     "n8n": {
       "main": [
@@ -888,6 +920,11 @@
             "node": "n8n",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Check if first run today",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -939,6 +976,11 @@
             "node": "n8n",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Check if first run today",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -981,11 +1023,11 @@
         ]
       ]
     },
-    "TEMP Test Webhook": {
+    "Check if first run today": {
       "main": [
         [
           {
-            "node": "n8n",
+            "node": "Send first-run email",
             "type": "main",
             "index": 0
           }
@@ -1491,19 +1533,41 @@
       "name": "Execute Workflow1"
     },
     {
-      "id": "6e6d9966-b406-4a75-9b1d-98f8f302285c",
-      "name": "TEMP Test Webhook",
-      "type": "n8n-nodes-base.webhook",
+      "id": "bb4ed525-293c-4238-8b65-b7ae2db8f8cd",
+      "name": "Check if first run today",
+      "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
         512,
         480
       ],
       "parameters": {
-        "path": "temp-test-wfbackup",
-        "responseMode": "onReceived"
+        "jsCode": "const staticData = $getWorkflowStaticData('global');\nconst today = new Date().toISOString().slice(0, 10);\n\nif (staticData.lastEmailDate === today) {\n  return [];\n}\n\nstaticData.lastEmailDate = today;\nreturn [{ json: { today } }];"
+      }
+    },
+    {
+      "id": "bc43ab56-0dfc-4781-9b7b-b22b00946b4f",
+      "name": "Send first-run email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        736,
+        480
+      ],
+      "parameters": {
+        "fromEmail": "itadmin@michaelgraves.com",
+        "toEmail": "itadmin@michaelgraves.com",
+        "subject": "=Workflow Backup - first run of {{ $json.today }}",
+        "text": "=Workflow Backup ran for the first time today ({{ $json.today }}).",
+        "options": {}
       },
-      "webhookId": "410eaf0a-dad5-4c05-aec2-709d59b5a060"
+      "credentials": {
+        "smtp": {
+          "id": "67739h5ukaovXcIX",
+          "name": "SMTP account"
+        }
+      },
+      "webhookId": "41006303-70e5-4349-84fb-7c04e7d052cd"
     }
   ],
   "pinData": {},
@@ -1524,7 +1588,7 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": [
-        null
+        14
       ],
       "recurrenceRuleSignatures": [
         "hours:2"
@@ -1532,7 +1596,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2026-07-19T17:54:27.619Z",
-  "versionId": "f07bf3a0-0397-48cc-b26c-d56763df3c58"
+  "triggerCount": 1,
+  "updatedAt": "2026-07-19T17:58:09.105Z",
+  "versionId": "6c669b37-9f79-4696-a201-f906d641eb45"
 }
