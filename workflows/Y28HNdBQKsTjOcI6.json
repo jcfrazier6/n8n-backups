@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-19T19:09:28.492Z",
-    "createdAt": "2026-07-19T19:09:16.575Z",
-    "versionId": "b4fd16a8-0c6d-4aa4-9761-99843f28b664",
+    "updatedAt": "2026-07-19T19:13:36.841Z",
+    "createdAt": "2026-07-19T19:13:36.841Z",
+    "versionId": "eb2e6c6d-39ab-407f-a81b-0842ac8294e7",
     "workflowId": "Y28HNdBQKsTjOcI6",
     "nodes": [
       {
@@ -418,7 +418,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// Function to beautify JSON\nfunction beautifyJson(jsonString) {\n  try {\n    // Parse the JSON string\n    const jsonObject = JSON.parse(jsonString);\n\n    // Format the JSON with indentation\n    return jsonObject; // Return the parsed object directly\n  } catch (error) {\n    // Return the error message if JSON is invalid\n    return `Invalid JSON: ${error.message}`;\n  }\n}\n\n// Retrieve the JSON object from the input data\nconst input = $input.all()[0].json;\n\n// Extract the JSON string from the stdout field\nconst jsonString = input.stdout.match(/\\[{.*}\\]/s);\n\n// Check if a valid JSON string is found\nif (!jsonString) {\n  return {\n    json: {\n      error: \"No valid JSON string found in stdout.\"\n    }\n  };\n}\n\n// Beautify the JSON\nconst beautifiedJson = beautifyJson(jsonString[0]);\n\n// Exclude credentials whose secrets can't be committed to git (e.g. GitHub PAT trips secret scanning)\nconst EXCLUDED_CREDENTIAL_IDS = ['oCTCiElToO4jr9m9'];\nconst filteredJson = beautifiedJson.filter(entry => !EXCLUDED_CREDENTIAL_IDS.includes(entry.id));\n\n// Output the beautified JSON, ensuring each entry is in an object with a 'json' key\nconst output = filteredJson.map(entry => ({ json: entry }));\n\n// Return the output\nreturn output;\n"
+          "jsCode": "// Function to beautify JSON\nfunction beautifyJson(jsonString) {\n  try {\n    // Parse the JSON string\n    const jsonObject = JSON.parse(jsonString);\n\n    // Format the JSON with indentation\n    return jsonObject; // Return the parsed object directly\n  } catch (error) {\n    // Return the error message if JSON is invalid\n    return `Invalid JSON: ${error.message}`;\n  }\n}\n\n// Retrieve the JSON object from the input data\nconst input = $input.all()[0].json;\n\n// Extract the JSON string from the stdout field\nconst jsonString = input.stdout.match(/\\[{.*}\\]/s);\n\n// Check if a valid JSON string is found\nif (!jsonString) {\n  return {\n    json: {\n      error: \"No valid JSON string found in stdout.\"\n    }\n  };\n}\n\n// Beautify the JSON\nconst beautifiedJson = beautifyJson(jsonString[0]);\n\n// Exclude credentials whose secrets can't be committed to git (e.g. GitHub PAT trips secret scanning)\nconst EXCLUDED_CREDENTIAL_IDS = ['oCTCiElToO4jr9m9', 'DjYtaHOPI3TmStyM'];\nconst filteredJson = beautifiedJson.filter(entry => !EXCLUDED_CREDENTIAL_IDS.includes(entry.id));\n\n// Output the beautified JSON, ensuring each entry is in an object with a 'json' key\nconst output = filteredJson.map(entry => ({ json: entry }));\n\n// Return the output\nreturn output;\n"
         },
         "id": "8360403f-c7f5-49b9-b66f-9c278d5a023a",
         "name": "JSON formatting",
@@ -832,11 +832,11 @@
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": "Version b4fd16a8",
-    "description": "",
-    "autosaved": true
+    "name": null,
+    "description": null,
+    "autosaved": false
   },
-  "activeVersionId": "b4fd16a8-0c6d-4aa4-9761-99843f28b664",
+  "activeVersionId": "eb2e6c6d-39ab-407f-a81b-0842ac8294e7",
   "connections": {
     "Get File": {
       "main": [
@@ -1658,8 +1658,8 @@
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        752,
-        208
+        768,
+        112
       ],
       "webhookId": "7e992268-925d-44dc-82bc-0e8737ccfbb9",
       "credentials": {
@@ -1700,6 +1700,6 @@
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2026-07-19T19:09:16.574Z",
-  "versionId": "b4fd16a8-0c6d-4aa4-9761-99843f28b664"
+  "updatedAt": "2026-07-19T19:15:19.109Z",
+  "versionId": "52aecc83-9ac7-4249-8802-3039bc2a310e"
 }
