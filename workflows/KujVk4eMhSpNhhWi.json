@@ -1,0 +1,107 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Execute: Refresh Form Values": {
+      "main": [
+        [
+          {
+            "node": "Redirect to Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook: Launch Form": {
+      "main": [
+        [
+          {
+            "node": "Execute: Refresh Form Values",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-20T20:52:29.477Z",
+  "id": "KujVk4eMhSpNhhWi",
+  "isArchived": false,
+  "meta": null,
+  "name": "AD - User Provisioning - Form Launcher",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "path": "ad-user-provisioning-launch",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "96324a61-3621-4cd2-8e70-eff3527b8e50",
+      "name": "Webhook: Launch Form",
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "webhookId": "631920d6-bf54-42f7-94db-da91024b6582"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "uMGskDBRZZJea6ET",
+          "mode": "id",
+          "cachedResultUrl": "/workflow/uMGskDBRZZJea6ET"
+        },
+        "options": {}
+      },
+      "id": "52bacf25-e30b-4ce8-815a-67d248b48acb",
+      "name": "Execute: Refresh Form Values",
+      "position": [
+        224,
+        0
+      ],
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "respondWith": "redirect",
+        "redirectURL": "http://192.168.84.6:5678/form/57b471eb-6c4b-450e-833b-0f29b5c50ae8",
+        "options": {}
+      },
+      "id": "744194b3-fff2-4800-9de3-2a632e645140",
+      "name": "Redirect to Form",
+      "position": [
+        448,
+        0
+      ],
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-20T20:52:29.477Z",
+      "createdAt": "2026-07-20T20:52:29.477Z",
+      "role": "workflow:owner",
+      "workflowId": "KujVk4eMhSpNhhWi",
+      "projectId": "E8Q15E4CGDUTSfyO"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-20T20:52:29.477Z",
+  "versionId": "209845e2-c616-4a86-aafd-e5da42f3ed39"
+}
