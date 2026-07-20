@@ -1592,14 +1592,14 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": [
-        20
+        10
       ],
       "recurrenceRuleSignatures": [
         "hours:2"
       ]
     },
     "global": {
-      "lastEmailDate": "2026-07-19"
+      "lastEmailDate": "2026-07-20"
     }
   },
   "tags": [],
