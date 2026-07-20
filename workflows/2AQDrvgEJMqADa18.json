@@ -1,0 +1,254 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Available Licenses",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get target form workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Available Licenses",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get target form workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Available Licenses": {
+      "main": [
+        [
+          {
+            "node": "Code: Build license dropdown options",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get target form workflow": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code: Build license dropdown options": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code: Update form dropdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Update form dropdown": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: Update workflow through n8n API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-20T20:53:47.510Z",
+  "id": "2AQDrvgEJMqADa18",
+  "isArchived": false,
+  "meta": null,
+  "name": "365 - User Provisioning - Form Values Refresh",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "75251b7b-fb9e-437c-b571-513c06ae6c2c",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "a341054d-43da-4299-aa8f-ccfbfc228e51",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "$select",
+              "value": "skuId,skuPartNumber,consumedUnits,capabilityStatus,prepaidUnits"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8611a787-6f77-4af9-a46a-eef8c57e7121",
+      "name": "Get Available Licenses",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "workflowId": {
+          "__rl": true,
+          "value": "aPDE3V5eNAsqW4zP",
+          "mode": "id"
+        },
+        "requestOptions": {}
+      },
+      "id": "c003181f-1ada-43e3-b269-807a1994c010",
+      "name": "Get target form workflow",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        224,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst first = items[0]?.json;\nconst skus = Array.isArray(first?.value) ? first.value : (Array.isArray(first) ? first : []);\n\nconst SKU_FRIENDLY_NAMES = {\n  'SPE_E3': 'Microsoft 365 E3',\n  'SPE_E5': 'Microsoft 365 E5',\n  'SPE_F1': 'Microsoft 365 F3',\n  'SPB': 'Microsoft 365 Business Premium',\n  'O365_BUSINESS_PREMIUM': 'Microsoft 365 Business Standard',\n  'O365_BUSINESS_ESSENTIALS': 'Microsoft 365 Business Basic',\n  'ENTERPRISEPACK': 'Office 365 E3',\n  'ENTERPRISEPREMIUM': 'Office 365 E5',\n  'ENTERPRISEWITHSCAL': 'Office 365 E4',\n  'STANDARDPACK': 'Office 365 E1',\n  'DESKLESSPACK': 'Office 365 F3',\n  'EXCHANGEENTERPRISE': 'Exchange Online (Plan 2)',\n  'EXCHANGESTANDARD': 'Exchange Online (Plan 1)',\n  'EMS': 'Enterprise Mobility + Security E3',\n  'EMSPREMIUM': 'Enterprise Mobility + Security E5',\n  'AAD_PREMIUM': 'Microsoft Entra ID P1',\n  'AAD_PREMIUM_P2': 'Microsoft Entra ID P2',\n  'FLOW_FREE': 'Microsoft Power Automate Free',\n  'MCOMEETADV': 'Microsoft 365 Audio Conferencing',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'Microsoft_Teams_Premium': 'Microsoft Teams Premium',\n  'Microsoft_365_Copilot_ ': 'Microsoft 365 Copilot',\n  'Microsoft_365_Copilot': 'Microsoft 365 Copilot',\n  'POWER_BI_STANDARD': 'Power BI (free)',\n  'Power_Pages_vTrial_for_Makers': 'Power Pages vTrial for Makers',\n  'PROJECTPROFESSIONAL': 'Planner and Project Plan 3',\n  'RIGHTSMANAGEMENT_ADHOC': 'Azure Information Protection (Ad Hoc)',\n  'Teams_Premium_(for_Departments)': 'Teams Premium (for Departments)',\n  'WACONEDRIVEENTERPRISE': 'OneDrive for Business (Plan 2)',\n  'Microsoft_365_Copilot ': 'Microsoft 365 Copilot'\n};\n\nfunction genericTitleCase(skuPartNumber) {\n  return skuPartNumber\n    .replace(/_/g, ' ')\n    .split(' ')\n    .map(word => {\n      if (!word) return word;\n      const isAcronym = word.length <= 4 && word === word.toUpperCase() && /^[A-Z0-9]+$/.test(word);\n      if (isAcronym) return word;\n      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();\n    })\n    .join(' ');\n}\n\nfunction friendlyName(skuPartNumber) {\n  if (SKU_FRIENDLY_NAMES[skuPartNumber]) return SKU_FRIENDLY_NAMES[skuPartNumber];\n  return genericTitleCase(skuPartNumber);\n}\n\nconst ALLOWED_SKUS = ['EXCHANGEENTERPRISE', 'MCOMEETADV', 'O365_BUSINESS_ESSENTIALS', 'O365_BUSINESS_PREMIUM', 'Microsoft_365_Copilot', 'Microsoft_Teams_Premium', 'WACONEDRIVEENTERPRISE', 'PROJECTPROFESSIONAL'];\n\nconst licenseOptions = skus.filter(s => ALLOWED_SKUS.includes(s.skuPartNumber)).map(s => {\n  const total = s.prepaidUnits?.enabled ?? 0;\n  const consumed = s.consumedUnits ?? 0;\n  const available = total - consumed;\n  return { option: `${friendlyName(s.skuPartNumber)} (${available} available)` };\n}).sort((a, b) => a.option.localeCompare(b.option));\n\nif (licenseOptions.length === 0) throw new Error('No license options built.');\n\nreturn [{ json: { dropdownOptions: { licenseType: licenseOptions } } }];"
+      },
+      "id": "0d442912-5c30-4733-b269-20579de8b438",
+      "name": "Code: Build license dropdown options",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "d4e28e71-ade2-4668-a031-d3b2e4da36b3",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        672,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst optionsItem = items.find(item =>\n  item.json.dropdownOptions &&\n  typeof item.json.dropdownOptions === 'object' &&\n  !Array.isArray(item.json.dropdownOptions)\n);\n\nconst workflowItem = items.find(item => Array.isArray(item.json.nodes));\n\nif (!optionsItem) throw new Error('Could not find dropdownOptions input.');\nif (!workflowItem) throw new Error('Could not find workflow JSON input.');\n\nconst dropdownOptions = optionsItem.json.dropdownOptions;\nconst workflow = workflowItem.json;\n\nconst formTriggerNode = workflow.nodes.find(node =>\n  node.type === 'n8n-nodes-base.formTrigger' ||\n  String(node.type || '').includes('formTrigger')\n);\n\nif (!formTriggerNode) throw new Error('Could not find Form Trigger node in target workflow.');\n\nformTriggerNode.parameters.formFields = {\n  values: [\n    { fieldLabel: 'First Name', requiredField: true },\n    { fieldLabel: 'Last Name', requiredField: true },\n    {\n      fieldLabel: 'License Type',\n      fieldType: 'checkbox',\n      fieldOptions: { values: dropdownOptions.licenseType },\n      requiredField: true\n    }\n  ]\n};\n\nconst ALLOWED_SETTINGS_KEYS = ['saveExecutionProgress', 'saveManualExecutions', 'saveDataErrorExecution', 'saveDataSuccessExecution', 'executionOrder', 'executionTimeout', 'timezone', 'errorWorkflow'];\nconst filteredSettings = {};\nfor (const key of ALLOWED_SETTINGS_KEYS) {\n  if (workflow.settings && workflow.settings[key] !== undefined) filteredSettings[key] = workflow.settings[key];\n}\n\nconst workflowObject = {\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections || {},\n  settings: filteredSettings\n};\n\nreturn [{\n  json: {\n    workflowId: workflow.id,\n    workflowObjectJson: JSON.stringify(workflowObject)\n  }\n}];"
+      },
+      "id": "9de03f5c-a016-4a48-84a3-9ee2b861b870",
+      "name": "Code: Update form dropdown",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=http://192.168.84.6:5678/api/v1/workflows/{{ $json.workflowId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "n8nApi",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.workflowObjectJson }}",
+        "options": {}
+      },
+      "id": "aef27d10-3f7f-475f-bab2-b852d3b87ef5",
+      "name": "HTTP Request: Update workflow through n8n API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1104,
+        80
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-20T20:53:47.510Z",
+      "createdAt": "2026-07-20T20:53:47.510Z",
+      "role": "workflow:owner",
+      "workflowId": "2AQDrvgEJMqADa18",
+      "projectId": "E8Q15E4CGDUTSfyO"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-20T20:53:47.510Z",
+  "versionId": "765934ba-0b1b-426c-b1b8-df2e9a8d5dd0"
+}
