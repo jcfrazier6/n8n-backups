@@ -1,0 +1,1499 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Code: Build AD user attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build AD user attributes": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Search for existing user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Search for existing user": {
+      "main": [
+        [
+          {
+            "node": "Code: Route - exists or new",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Route - exists or new": {
+      "main": [
+        [
+          {
+            "node": "IF: User exists?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: User exists?": {
+      "main": [
+        [
+          {
+            "node": "IF: User enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP: Create AD user",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: User enabled?": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Get current DN (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP: Get current DN (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Get current DN (enabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Move to correct OU (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Get current DN (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Move to correct OU (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Move to correct OU (enabled)": {
+      "main": [
+        [
+          {
+            "node": "Code: Build update attributes (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Move to correct OU (disabled)": {
+      "main": [
+        [
+          {
+            "node": "Code: Build update attributes (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build update attributes (enabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Update attributes (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build update attributes (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Update attributes (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Update attributes (enabled)": {
+      "main": [
+        [
+          {
+            "node": "IF: Has optional fields? (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Update attributes (disabled)": {
+      "main": [
+        [
+          {
+            "node": "IF: Has optional fields? (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Enable account": {
+      "main": [
+        [
+          {
+            "node": "Code: Generate password (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Generate password (update)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set password (update)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Generate password (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set password (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set password (update)": {
+      "main": [
+        [
+          {
+            "node": "Form: User Updated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set password (disabled)": {
+      "main": [
+        [
+          {
+            "node": "Form: User Re-enabled",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Create AD user": {
+      "main": [
+        [
+          {
+            "node": "Code: Generate password (create)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Generate password (create)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Set password (create)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Set password (create)": {
+      "main": [
+        [
+          {
+            "node": "Form: User Created",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Has optional fields? (enabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Update optional fields (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code: Generate password (update)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Update optional fields (enabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Write optional attr (enabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Has optional fields? (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Update optional fields (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP: Enable account",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Update optional fields (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Write optional attr (disabled)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Write optional attr (enabled)": {
+      "main": [
+        [
+          {
+            "node": "Code: Generate password (update)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Write optional attr (disabled)": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Enable account",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-20T20:53:07.134Z",
+  "id": "3QzV2DazLMEwpK9u",
+  "isArchived": true,
+  "meta": null,
+  "name": "AD User Provisioning",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "n8nUserAuth",
+        "formTitle": "AD User Provisioning",
+        "formDescription": "Submit a request to create or update an Active Directory user account",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "First Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Last Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Job Title",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "3-D Visualization Artist"
+                  },
+                  {
+                    "option": "3rd Party"
+                  },
+                  {
+                    "option": "Accounting Assistant"
+                  },
+                  {
+                    "option": "Accounting Summer Intern"
+                  },
+                  {
+                    "option": "Admin Support Specialist"
+                  },
+                  {
+                    "option": "Administrative Intern"
+                  },
+                  {
+                    "option": "Administrative Support Specialist"
+                  },
+                  {
+                    "option": "Architect"
+                  },
+                  {
+                    "option": "Architect / Senior Project Manager"
+                  },
+                  {
+                    "option": "Architectural Design Intern"
+                  },
+                  {
+                    "option": "Architectural Designer"
+                  },
+                  {
+                    "option": "Architectural Designer II"
+                  },
+                  {
+                    "option": "Architectural Technologist"
+                  },
+                  {
+                    "option": "Associate"
+                  },
+                  {
+                    "option": "Associate Principal"
+                  },
+                  {
+                    "option": "Business Analyst"
+                  },
+                  {
+                    "option": "Business Development & Communications Manager"
+                  },
+                  {
+                    "option": "Business Operations Manager"
+                  },
+                  {
+                    "option": "CEO"
+                  },
+                  {
+                    "option": "CFO"
+                  },
+                  {
+                    "option": "Chief Design Technology Officer"
+                  },
+                  {
+                    "option": "Communications & Business Development Manager"
+                  },
+                  {
+                    "option": "Construction Administrator"
+                  },
+                  {
+                    "option": "Controller"
+                  },
+                  {
+                    "option": "COO"
+                  },
+                  {
+                    "option": "Design Production Specialist"
+                  },
+                  {
+                    "option": "Design Technology Manager"
+                  },
+                  {
+                    "option": "Design Technology Specialist"
+                  },
+                  {
+                    "option": "Director of Finance"
+                  },
+                  {
+                    "option": "Director of Human Resources"
+                  },
+                  {
+                    "option": "Director of Interior Design"
+                  },
+                  {
+                    "option": "Director of IT"
+                  },
+                  {
+                    "option": "Director of Marketing"
+                  },
+                  {
+                    "option": "Director of Resource Management"
+                  },
+                  {
+                    "option": "Graphic Design Manager"
+                  },
+                  {
+                    "option": "Historic Preservation Specialist"
+                  },
+                  {
+                    "option": "Interior Design Intern"
+                  },
+                  {
+                    "option": "Interior Designer"
+                  },
+                  {
+                    "option": "International Director of Interior Design"
+                  },
+                  {
+                    "option": "Investor"
+                  },
+                  {
+                    "option": "Jr. Interior Designer"
+                  },
+                  {
+                    "option": "Marketing Intern"
+                  },
+                  {
+                    "option": "Marketing Manager"
+                  },
+                  {
+                    "option": "Principal"
+                  },
+                  {
+                    "option": "Principal-Emeritus"
+                  },
+                  {
+                    "option": "Project Architect"
+                  },
+                  {
+                    "option": "Project Interior Designer"
+                  },
+                  {
+                    "option": "Project Manager"
+                  },
+                  {
+                    "option": "Senior 3-D Visualization Artist"
+                  },
+                  {
+                    "option": "Senior Accountant"
+                  },
+                  {
+                    "option": "Senior Architect"
+                  },
+                  {
+                    "option": "Senior Architectural Designer"
+                  },
+                  {
+                    "option": "Senior Associate"
+                  },
+                  {
+                    "option": "Senior Associate, Director of Planning"
+                  },
+                  {
+                    "option": "Senior Associate, Senior Director of Interior Design"
+                  },
+                  {
+                    "option": "Senior Project Manager"
+                  },
+                  {
+                    "option": "Sr. Accountant"
+                  },
+                  {
+                    "option": "Sr. Architectural Designer"
+                  },
+                  {
+                    "option": "Sr. Associate"
+                  },
+                  {
+                    "option": "Sr. Project Architect"
+                  },
+                  {
+                    "option": "Sr. Project Manager"
+                  },
+                  {
+                    "option": "Staff Accountant"
+                  },
+                  {
+                    "option": "Test User"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Studio",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "JCA — Hackensack ~~ 171 Main Street | Suite 301 ~~ Hackensack ~~ NJ ~~ 07601 ~~ 201.678.1201"
+                  },
+                  {
+                    "option": "KAA — Chicago ~~ 900 N. Franklin Street | Suite 405-B ~~ Chicago ~~ IL ~~ 60610 ~~ 312.471.2505"
+                  },
+                  {
+                    "option": "KAA — Long Beach ~~ 4265 E. Conant Street | Suite 101 ~~ Long Beach ~~ CA ~~ 90808 ~~ 562.597.8760"
+                  },
+                  {
+                    "option": "MGA — Princeton ~~ 341 Nassau Street ~~ Princeton ~~ NJ ~~ 08540 ~~ 609.924.6409"
+                  },
+                  {
+                    "option": "MGA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 609.924.6409"
+                  },
+                  {
+                    "option": "MGC — Charlotte ~~ 4431 Monroe Road ~~ Charlotte ~~ NC ~~ 28205 ~~ 609.924.6409"
+                  },
+                  {
+                    "option": "PGN — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 202.822.5995"
+                  },
+                  {
+                    "option": "PLX — Allen ~~ 1513 Greenbriar Drive | Suite 201 ~~ Allen ~~ TX ~~ 75013 ~~ 469.949.8528"
+                  },
+                  {
+                    "option": "S4D — Knoxville ~~ 18 Emory Place | Suite 100 ~~ Knoxville ~~ TN ~~ 37917 ~~ 865.523.5001"
+                  },
+                  {
+                    "option": "WCK — Philadelphia ~~ 1518 Walnut Street | Suite 1308 ~~ Philadelphia ~~ PA ~~ 19103 ~~ 267.738.0956"
+                  },
+                  {
+                    "option": "WRA — Winston-Salem ~~ 530 N. Trade Street | Suite 301 ~~ Winston-Salem ~~ NC ~~ 27101 ~~ 336.725.1371"
+                  },
+                  {
+                    "option": "WSA — Baltimore ~~ 233 E. Redwood Street | Suite 1200 ~~ Baltimore ~~ MD ~~ 21202 ~~ 410.290.9680"
+                  },
+                  {
+                    "option": "WSA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 571.451.2538"
+                  },
+                  {
+                    "option": "WSA — Washington ~~ 210 7th Street SE | Suite 201 ~~ Washington ~~ DC ~~ 20003 ~~ 410.290.9680"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "EMP ID"
+            },
+            {
+              "fieldLabel": "Phone Extension"
+            },
+            {
+              "fieldLabel": "Credentials"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2a7b74b6-1960-49ed-a54a-322edf03e0ad",
+      "name": "On form submission",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -1376,
+        304
+      ],
+      "webhookId": "d6c2c037-b252-401a-b265-d057d5650275"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\n\nconst firstName   = String(item['First Name']      ?? '').trim();\nconst lastName    = String(item['Last Name']       ?? '').trim();\nconst jobTitle    = String(item['Job Title']       ?? '').trim();\nconst studioRaw   = String(item['Studio']          ?? '').trim();\nconst empId       = String(item['EMP ID']          ?? '').trim();\nconst phoneExt    = String(item['Phone Extension'] ?? '').trim();\nconst credentials = String(item['Credentials']     ?? '').trim();\n\nif (!firstName) throw new Error('First Name is required.');\nif (!lastName)  throw new Error('Last Name is required.');\nif (!studioRaw) throw new Error('Studio selection is required.');\n\n// Auto-detect delimiter\nconst delimiter = studioRaw.includes(' ~~ ') ? ' ~~ ' : ' | ';\nconst parts     = studioRaw.split(delimiter).map(s => s.trim());\nconst labelPart = parts[0] ?? '';\nconst street    = parts[1] ?? '';\nconst state     = parts[3] ?? '';\nconst zip       = parts[4] ?? '';\nconst phone     = parts[5] ?? '';\n\nconst dashIdx = labelPart.indexOf(' — ');\nconst company = dashIdx !== -1 ? labelPart.substring(0, dashIdx).trim() : labelPart.trim();\nconst city    = dashIdx !== -1 ? labelPart.substring(dashIdx + 3).trim() : '';\n\nif (!company) throw new Error(`Could not parse company from Studio value: ${studioRaw}`);\nif (!city)    throw new Error(`Could not parse city from Studio value: ${studioRaw}`);\n\nconst ouCity = city.replace(/[-\\s]/g, '');\n\nconst sAMAccountName     = (firstName.charAt(0) + lastName).toLowerCase();\nconst displayName        = `${firstName} ${lastName}`;\nconst cn                 = displayName;\nconst dn                 = `CN=${cn},OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst targetOU           = `OU=${ouCity},OU=${company},OU=MGA USERS,DC=MGA,DC=com`;\nconst userPrincipalName  = `${sAMAccountName}@michaelgraves.com`;\nconst mail               = `${sAMAccountName}@michaelgraves.com`;\n\n// Only include optional fields if they have a value\nconst optionalFields = {};\nif (empId)       optionalFields.pager   = empId;\nif (phoneExt)    optionalFields.ipPhone  = phoneExt;\nif (credentials) optionalFields.info     = credentials;\n\nreturn [{\n  json: {\n    dn,\n    targetOU,\n    sAMAccountName,\n    displayName,\n    givenName: firstName,\n    sn: lastName,\n    cn,\n    title: jobTitle,\n    company,\n    streetAddress: street,\n    l: city,\n    st: state,\n    postalCode: zip,\n    telephoneNumber: phone,\n    userPrincipalName,\n    mail,\n    objectClass: 'user',\n    userAccountControl: '514',\n    ...optionalFields\n  }\n}];"
+      },
+      "id": "5209b10f-580f-4281-b742-5934238f1ea1",
+      "name": "Code: Build AD user attributes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1152,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "(objectclass=top)",
+        "attribute": "sAMAccountName",
+        "searchText": "={{ $json.sAMAccountName }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "userAccountControl",
+            "distinguishedName"
+          ]
+        }
+      },
+      "id": "041c6901-d1bd-4562-aecd-1829fa58f8c8",
+      "name": "LDAP: Search for existing user",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        304
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst searchResults = $input.all();\n\n// alwaysOutputData=false on LDAP means 0 items = not found, 1+ items = found\n// continueOnFail=true means errors also pass through as items with error info\nconst firstJson = searchResults.length > 0 ? searchResults[0].json : {};\nconst userExists = searchResults.length > 0 && !!firstJson.dn;\n\nlet existingDn = null;\nlet userAccountControl = null;\nlet isEnabled = false;\n\nif (userExists) {\n  existingDn = searchResults[0].json.dn || searchResults[0].json.distinguishedName || null;\n  userAccountControl = parseInt(searchResults[0].json.userAccountControl ?? '514', 10);\n  // UAC bit 2 (value 2) = account disabled\n  isEnabled = (userAccountControl & 2) === 0;\n}\n\nconsole.log(`User exists: ${userExists}, DN: ${existingDn}, UAC: ${userAccountControl}, Enabled: ${isEnabled}`);\n\nreturn [{\n  json: {\n    ...adAttrs,\n    userExists,\n    existingDn,\n    userAccountControl: userAccountControl ?? 514,\n    isEnabled\n  }\n}];"
+      },
+      "id": "f1c3db3a-ceba-43fa-9070-10d80c8ce4e5",
+      "name": "Code: Route - exists or new",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        304
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "exists-check",
+              "leftValue": "={{ $json.userExists }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d0e3edf6-e69e-48b9-b164-c095b6db908c",
+      "name": "IF: User exists?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -496,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "attribute": [
+            {
+              "id": "objectClass",
+              "value": "={{ $('Code: Build AD user attributes').first().json.objectClass }}"
+            },
+            {
+              "id": "sAMAccountName",
+              "value": "={{ $('Code: Build AD user attributes').first().json.sAMAccountName }}"
+            },
+            {
+              "id": "userPrincipalName",
+              "value": "={{ $('Code: Build AD user attributes').first().json.userPrincipalName }}"
+            },
+            {
+              "id": "cn",
+              "value": "={{ $('Code: Build AD user attributes').first().json.cn }}"
+            },
+            {
+              "id": "displayName",
+              "value": "={{ $('Code: Build AD user attributes').first().json.displayName }}"
+            },
+            {
+              "id": "givenName",
+              "value": "={{ $('Code: Build AD user attributes').first().json.givenName }}"
+            },
+            {
+              "id": "sn",
+              "value": "={{ $('Code: Build AD user attributes').first().json.sn }}"
+            },
+            {
+              "id": "title",
+              "value": "={{ $('Code: Build AD user attributes').first().json.title }}"
+            },
+            {
+              "id": "company",
+              "value": "={{ $('Code: Build AD user attributes').first().json.company }}"
+            },
+            {
+              "id": "streetAddress",
+              "value": "={{ $('Code: Build AD user attributes').first().json.streetAddress }}"
+            },
+            {
+              "id": "l",
+              "value": "={{ $('Code: Build AD user attributes').first().json.l }}"
+            },
+            {
+              "id": "st",
+              "value": "={{ $('Code: Build AD user attributes').first().json.st }}"
+            },
+            {
+              "id": "postalCode",
+              "value": "={{ $('Code: Build AD user attributes').first().json.postalCode }}"
+            },
+            {
+              "id": "telephoneNumber",
+              "value": "={{ $('Code: Build AD user attributes').first().json.telephoneNumber }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "514"
+            },
+            {
+              "id": "mail",
+              "value": "={{ $('Code: Build AD user attributes').first().json.mail }}"
+            },
+            {
+              "id": "pager",
+              "value": "={{ $('Code: Build AD user attributes').first().json.pager || '' }}"
+            },
+            {
+              "id": "ipPhone",
+              "value": "={{ $('Code: Build AD user attributes').first().json.ipPhone || '' }}"
+            },
+            {
+              "id": "info",
+              "value": "={{ $('Code: Build AD user attributes').first().json.info || '' }}"
+            }
+          ]
+        }
+      },
+      "id": "869e8e1d-c662-4d37-a9d0-af8ec437099d",
+      "name": "LDAP: Create AD user",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        80,
+        1008
+      ],
+      "alwaysOutputData": false,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "enabled-check",
+              "leftValue": "={{ $json.isEnabled }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "b2df889c-bf8e-44fe-a512-b7085f100784",
+      "name": "IF: User enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -272,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "(objectclass=top)",
+        "attribute": "sAMAccountName",
+        "searchText": "={{ $('Code: Build AD user attributes').first().json.sAMAccountName }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "distinguishedName"
+          ]
+        }
+      },
+      "id": "d6bf2f64-0173-4182-95d8-8b4330c1fe4a",
+      "name": "LDAP: Get current DN (enabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        144,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "(objectclass=top)",
+        "attribute": "sAMAccountName",
+        "searchText": "={{ $('Code: Build AD user attributes').first().json.sAMAccountName }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "distinguishedName"
+          ]
+        }
+      },
+      "id": "8f051480-a53a-4aa3-a169-a82ba9d71597",
+      "name": "LDAP: Get current DN (disabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        128,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "rename",
+        "dn": "={{ $json.dn || $json.distinguishedName }}",
+        "targetDn": "={{ $('Code: Build AD user attributes').first().json.dn }}"
+      },
+      "id": "25205d7c-42ac-4ef6-b64c-bf50e9476a0a",
+      "name": "LDAP: Move to correct OU (enabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        368,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "rename",
+        "dn": "={{ $json.dn || $json.distinguishedName }}",
+        "targetDn": "={{ $('Code: Build AD user attributes').first().json.dn }}"
+      },
+      "id": "b2fa1204-c0a5-4869-86ec-c8514c34fba0",
+      "name": "LDAP: Move to correct OU (disabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        352,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst existing = $('LDAP: Get current DN (enabled)').first().json;\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle           = valueOrExisting(adAttrs.title, existing.title);\nconst finalCompany         = valueOrExisting(adAttrs.company, existing.company);\nconst finalStreetAddress   = valueOrExisting(adAttrs.streetAddress, existing.streetAddress);\nconst finalL               = valueOrExisting(adAttrs.l, existing.l);\nconst finalSt              = valueOrExisting(adAttrs.st, existing.st);\nconst finalPostalCode      = valueOrExisting(adAttrs.postalCode, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(adAttrs.telephoneNumber, existing.telephoneNumber);\nconst finalMail            = valueOrExisting(adAttrs.mail, existing.mail);\n\nconst optionalFieldDefs = [\n  { id: 'pager',   value: adAttrs.pager },\n  { id: 'ipPhone', value: adAttrs.ipPhone },\n  { id: 'info',    value: adAttrs.info },\n];\nconst optionalReplace = optionalFieldDefs.filter(f => String(f.value ?? '').trim() !== '');\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{\n  json: {\n    ...adAttrs,\n    finalTitle, finalCompany, finalStreetAddress, finalL, finalSt,\n    finalPostalCode, finalTelephoneNumber, finalMail,\n    optionalReplace, hasOptional\n  }\n}];"
+      },
+      "id": "959491c8-90f5-44f1-924d-66a6cd574172",
+      "name": "Code: Build update attributes (enabled)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\nconst existing = $('LDAP: Get current DN (disabled)').first().json;\n\nfunction valueOrExisting(submitted, existingVal) {\n  const v = String(submitted ?? '').trim();\n  if (v !== '') return v;\n  const e = String(existingVal ?? '').trim();\n  return e !== '' ? e : ' ';\n}\n\nconst finalTitle           = valueOrExisting(adAttrs.title, existing.title);\nconst finalCompany         = valueOrExisting(adAttrs.company, existing.company);\nconst finalStreetAddress   = valueOrExisting(adAttrs.streetAddress, existing.streetAddress);\nconst finalL               = valueOrExisting(adAttrs.l, existing.l);\nconst finalSt              = valueOrExisting(adAttrs.st, existing.st);\nconst finalPostalCode      = valueOrExisting(adAttrs.postalCode, existing.postalCode);\nconst finalTelephoneNumber = valueOrExisting(adAttrs.telephoneNumber, existing.telephoneNumber);\nconst finalMail            = valueOrExisting(adAttrs.mail, existing.mail);\n\nconst optionalFieldDefs = [\n  { id: 'pager',   value: adAttrs.pager },\n  { id: 'ipPhone', value: adAttrs.ipPhone },\n  { id: 'info',    value: adAttrs.info },\n];\nconst optionalReplace = optionalFieldDefs.filter(f => String(f.value ?? '').trim() !== '');\nconst hasOptional = optionalReplace.length > 0;\n\nreturn [{\n  json: {\n    ...adAttrs,\n    finalTitle, finalCompany, finalStreetAddress, finalL, finalSt,\n    finalPostalCode, finalTelephoneNumber, finalMail,\n    optionalReplace, hasOptional\n  }\n}];"
+      },
+      "id": "4e40fd31-7e26-4b4f-8d0d-2eeb9abaf45d",
+      "name": "Code: Build update attributes (disabled)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "title",
+              "value": "={{ $json.finalTitle }}"
+            },
+            {
+              "id": "company",
+              "value": "={{ $json.finalCompany }}"
+            },
+            {
+              "id": "streetAddress",
+              "value": "={{ $json.finalStreetAddress }}"
+            },
+            {
+              "id": "l",
+              "value": "={{ $json.finalL }}"
+            },
+            {
+              "id": "st",
+              "value": "={{ $json.finalSt }}"
+            },
+            {
+              "id": "postalCode",
+              "value": "={{ $json.finalPostalCode }}"
+            },
+            {
+              "id": "telephoneNumber",
+              "value": "={{ $json.finalTelephoneNumber }}"
+            },
+            {
+              "id": "mail",
+              "value": "={{ $json.finalMail }}"
+            }
+          ]
+        }
+      },
+      "id": "1c0160a6-19c7-4506-8df3-a974b5e6c3fe",
+      "name": "LDAP: Update attributes (enabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        800,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "title",
+              "value": "={{ $json.finalTitle }}"
+            },
+            {
+              "id": "company",
+              "value": "={{ $json.finalCompany }}"
+            },
+            {
+              "id": "streetAddress",
+              "value": "={{ $json.finalStreetAddress }}"
+            },
+            {
+              "id": "l",
+              "value": "={{ $json.finalL }}"
+            },
+            {
+              "id": "st",
+              "value": "={{ $json.finalSt }}"
+            },
+            {
+              "id": "postalCode",
+              "value": "={{ $json.finalPostalCode }}"
+            },
+            {
+              "id": "telephoneNumber",
+              "value": "={{ $json.finalTelephoneNumber }}"
+            },
+            {
+              "id": "mail",
+              "value": "={{ $json.finalMail }}"
+            }
+          ]
+        }
+      },
+      "id": "2b38d26e-bf9e-45d0-adce-1b0180df2577",
+      "name": "LDAP: Update attributes (disabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        784,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            }
+          ]
+        }
+      },
+      "id": "a5e53325-67f6-4492-bcd5-344ee125e544",
+      "name": "LDAP: Enable account",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1232,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\n\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(\n      quoted.charCodeAt(i) & 0xFF,\n      (quoted.charCodeAt(i) >>> 8) & 0xFF\n    );\n  }\n  return encoded;\n}\n\nreturn [{ json: { ...adAttrs, unicodePwd: encodePassword(plainPassword) } }];"
+      },
+      "id": "a5e6c8ed-1ddd-4f67-b7b8-9f752a9e33db",
+      "name": "Code: Generate password (create)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        1008
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "unicodePwd",
+              "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "id": "eab189c0-c07d-49bf-a662-449b5803ebf0",
+      "name": "LDAP: Set password (create)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        528,
+        1008
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\n\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(\n      quoted.charCodeAt(i) & 0xFF,\n      (quoted.charCodeAt(i) >>> 8) & 0xFF\n    );\n  }\n  return encoded;\n}\n\nreturn [{ json: { ...adAttrs, unicodePwd: encodePassword(plainPassword) } }];"
+      },
+      "id": "6bad3cb0-fe34-4922-aaf4-b788d9827b27",
+      "name": "Code: Generate password (update)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const adAttrs = $('Code: Build AD user attributes').first().json;\n\nconst plainPassword = `MGAtemp${new Date().getFullYear()}`;\n\nfunction encodePassword(password) {\n  let encoded = '';\n  const quoted = '\"' + password + '\"';\n  for (let i = 0; i < quoted.length; i++) {\n    encoded += String.fromCharCode(\n      quoted.charCodeAt(i) & 0xFF,\n      (quoted.charCodeAt(i) >>> 8) & 0xFF\n    );\n  }\n  return encoded;\n}\n\nreturn [{ json: { ...adAttrs, unicodePwd: encodePassword(plainPassword) } }];"
+      },
+      "id": "8fd8d626-7c91-495e-91bd-469caad7330e",
+      "name": "Code: Generate password (disabled)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "unicodePwd",
+              "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "id": "73859ded-5383-466f-b18d-8c0c9ccf5e4c",
+      "name": "LDAP: Set password (update)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $('Code: Build AD user attributes').first().json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "unicodePwd",
+              "value": "={{ $json.unicodePwd }}"
+            },
+            {
+              "id": "userAccountControl",
+              "value": "512"
+            },
+            {
+              "id": "pwdLastSet",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "id": "bf83236f-49aa-4898-a950-f0afb8729f49",
+      "name": "LDAP: Set password (disabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ $('Code: Build AD user attributes').first().json.successHtml ?? '<div style=\"font-family:Open Sans,sans-serif;max-width:480px;margin:40px auto;padding:32px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(99,77,255,0.08);border-top:4px solid #38a169\"><h2 style=\"color:#276749\">✅ User Created Successfully</h2><p>Account <strong>' + $('Code: Build AD user attributes').first().json.sAMAccountName + '</strong> has been created and enabled.</p></div>' }}"
+      },
+      "id": "329a014e-6a8b-4737-8159-80a75e939f3d",
+      "name": "Form: User Created",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        736,
+        1008
+      ],
+      "webhookId": "ad-prov-created-001"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "=<div style=\"font-family:'Open Sans',sans-serif;max-width:480px;margin:40px auto;padding:32px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(99,77,255,0.08);border-top:4px solid #3182ce\"><div style=\"display:flex;align-items:center;margin-bottom:16px\"><span style=\"font-size:28px;margin-right:12px\">🔄</span><h2 style=\"margin:0;color:#2b6cb0;font-size:20px\">User Updated Successfully</h2></div><p style=\"color:#555;font-size:14px;line-height:1.6;margin:0 0 12px\">The Active Directory account <strong style=\"color:#2d3748\">{{ $('Code: Build AD user attributes').first().json.sAMAccountName }}</strong> has been updated and password reset.</p></div>"
+      },
+      "id": "b236442c-df98-4215-be2b-ff595bcdcf6f",
+      "name": "Form: User Updated",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        1680,
+        208
+      ],
+      "webhookId": "ad-prov-updated-001"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "=<div style=\"font-family:'Open Sans',sans-serif;max-width:480px;margin:40px auto;padding:32px;background:#fff;border-radius:8px;box-shadow:0 4px 16px rgba(99,77,255,0.08);border-top:4px solid #805ad5\"><div style=\"display:flex;align-items:center;margin-bottom:16px\"><span style=\"font-size:28px;margin-right:12px\">✨</span><h2 style=\"margin:0;color:#553c9a;font-size:20px\">User Re-enabled Successfully</h2></div><p style=\"color:#555;font-size:14px;line-height:1.6;margin:0 0 12px\">The previously disabled account <strong style=\"color:#2d3748\">{{ $('Code: Build AD user attributes').first().json.sAMAccountName }}</strong> has been updated, re-enabled, and password reset.</p></div>"
+      },
+      "id": "3ee0116f-790a-49fe-b884-b9fdf72f70be",
+      "name": "Form: User Re-enabled",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        1792,
+        640
+      ],
+      "webhookId": "ad-prov-reenabled-001"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "has-optional-enabled",
+              "leftValue": "={{ $('Code: Build update attributes (enabled)').first().json.hasOptional }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              }
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "0f1ea850-04d4-4263-92ca-82d51ac38280",
+      "name": "IF: Has optional fields? (enabled)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1040,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Emit one item per optional field that has a value\n// Each item will trigger one LDAP update via the downstream node\nconst optionalReplace = $('Code: Build update attributes (enabled)').first().json.optionalReplace;\nconst dn = $('Code: Build AD user attributes').first().json.dn;\n\nreturn optionalReplace.map(f => ({\n  json: { dn, attrId: f.id, attrValue: f.value }\n}));"
+      },
+      "id": "de3b37b9-746b-4820-94f9-68f9bc1add38",
+      "name": "LDAP: Update optional fields (enabled)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "has-optional-disabled",
+              "leftValue": "={{ $('Code: Build update attributes (disabled)').first().json.hasOptional }}",
+              "operator": {
+                "operation": "true",
+                "singleValue": true,
+                "type": "boolean"
+              }
+            }
+          ],
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "3fec2754-a0d4-43c0-a83a-940f0236ab64",
+      "name": "IF: Has optional fields? (disabled)",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        992,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const optionalReplace = $('Code: Build update attributes (disabled)').first().json.optionalReplace;\nconst dn = $('Code: Build AD user attributes').first().json.dn;\n\nreturn optionalReplace.map(f => ({\n  json: { dn, attrId: f.id, attrValue: f.value }\n}));"
+      },
+      "id": "85b7153f-4b2f-4b60-80b5-025e50b70242",
+      "name": "LDAP: Update optional fields (disabled)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "={{ $json.attrId }}",
+              "value": "={{ $json.attrValue }}"
+            }
+          ]
+        }
+      },
+      "id": "a2c30ea9-4695-43ee-81a7-31777efcabda",
+      "name": "LDAP: Write optional attr (enabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dn": "={{ $json.dn }}",
+        "attributes": {
+          "replace": [
+            {
+              "id": "={{ $json.attrId }}",
+              "value": "={{ $json.attrValue }}"
+            }
+          ]
+        }
+      },
+      "id": "73c7636e-131e-4947-a28d-cc37c840609b",
+      "name": "LDAP: Write optional attr (disabled)",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        448
+      ]
+    },
+    {
+      "parameters": {
+        "height": 400,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1504,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "81a6d577-c3e1-4de9-9bb8-52dd314f6033",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "height": 400,
+        "width": 656,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1008,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "d2c710b6-2c08-473a-a86c-563310af6f6a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "height": 400,
+        "width": 224,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -336,
+        160
+      ],
+      "typeVersion": 1,
+      "id": "60d62fde-1641-4b99-8540-a14878aa978e",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "height": 384,
+        "width": 1872,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "3a6b7517-ce27-4cb0-8be3-03399337655d",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "height": 384,
+        "width": 1984,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        432
+      ],
+      "typeVersion": 1,
+      "id": "90f41de6-d6dc-4802-a031-a95633ab3a7c",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "height": 352,
+        "width": 928,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        864
+      ],
+      "typeVersion": 1,
+      "id": "711e1c11-2b2c-4968-995d-bd691acac636",
+      "name": "Sticky Note5"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-20T20:53:07.134Z",
+      "createdAt": "2026-07-20T20:53:07.134Z",
+      "role": "workflow:owner",
+      "workflowId": "3QzV2DazLMEwpK9u",
+      "projectId": "E8Q15E4CGDUTSfyO"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-20T20:53:26.571Z",
+  "versionId": "fccbb3c3-1e21-46b0-b2b8-6b051d9607c7"
+}
