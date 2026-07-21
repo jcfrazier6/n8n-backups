@@ -1592,7 +1592,7 @@
   "staticData": {
     "node:Schedule Trigger": {
       "recurrenceRules": [
-        12
+        14
       ],
       "recurrenceRuleSignatures": [
         "hours:2"
