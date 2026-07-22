@@ -258,7 +258,12 @@
     {
       "parameters": {
         "conditions": {
-          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
           "conditions": [
             {
               "id": "refresh-error-check",
@@ -271,12 +276,7 @@
               "rightValue": ""
             }
           ],
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          }
+          "combinator": "and"
         },
         "options": {}
       },
@@ -340,6 +340,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-22T17:05:50.541Z",
-  "versionId": "c24f3c0a-c614-4812-9a95-4a0ce76f4526"
+  "updatedAt": "2026-07-22T18:13:49.186Z",
+  "versionId": "37ce9e54-e8f3-413e-b45e-5a27289b07cb"
 }
