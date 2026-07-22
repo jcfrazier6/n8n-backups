@@ -1,0 +1,322 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Get AD user reference data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get target form workflow",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "LDAP: Get AD security groups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "LDAP: Get AD user reference data",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get target form workflow",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "LDAP: Get AD security groups",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Get AD user reference data": {
+      "main": [
+        [
+          {
+            "node": "Code: Build all dropdown option lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get target form workflow": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code: Build all dropdown option lists": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code: Update all form dropdowns",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Update all form dropdowns": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request: Update workflow through n8n API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP: Get AD security groups": {
+      "main": [
+        [
+          {
+            "node": "Code: Build groups dropdown list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code: Build groups dropdown list": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-22T00:06:48.559Z",
+  "id": "nzumDYKZvPe63BZG",
+  "isArchived": false,
+  "meta": null,
+  "name": "AD - User Provisioning - Form Values Refresh",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "03200e89-a704-4682-ab16-79a1f17e6f57",
+      "name": "Schedule Trigger",
+      "position": [
+        96,
+        -240
+      ],
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {},
+      "id": "e0730562-e9a2-45f1-84c8-90aa85f3e1e9",
+      "name": "Execute Workflow Trigger",
+      "position": [
+        96,
+        -80
+      ],
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "custom",
+        "customFilter": "(objectClass=user)",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "company",
+            "streetAddress",
+            "l",
+            "st",
+            "postalCode",
+            "telephoneNumber",
+            "title"
+          ]
+        }
+      },
+      "id": "df421ed8-c93c-49e5-8c29-e2fdfd6ff9f4",
+      "name": "LDAP: Get AD user reference data",
+      "position": [
+        320,
+        -240
+      ],
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "workflowId": {
+          "__rl": true,
+          "value": "qG72wXHcuGFT3JS4",
+          "mode": "id"
+        },
+        "requestOptions": {}
+      },
+      "id": "78bad869-7aef-4900-8755-5d2d42c2a26d",
+      "name": "Get target form workflow",
+      "position": [
+        320,
+        -80
+      ],
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "const seen = new Set();\nconst officeOptions = [];\nconst jobTitles = [];\n\nfor (const item of $input.all()) {\n  const company  = String(item.json.company          ?? '').trim();\n  const street   = String(item.json.streetAddress    ?? '').trim();\n  const city     = String(item.json.l                ?? '').trim();\n  const state    = String(item.json.st               ?? '').trim();\n  const zip      = String(item.json.postalCode       ?? '').trim();\n  const phone    = String(item.json.telephoneNumber  ?? '').trim();\n  const title    = String(item.json.title            ?? '').trim();\n\n  if (company && city && phone) {\n    const key = `${company}~~${city}~~${phone}`;\n    if (!seen.has(key)) {\n      seen.add(key);\n      const option = `${company} — ${city} ~~ ${street} ~~ ${city} ~~ ${state} ~~ ${zip} ~~ ${phone}`;\n      officeOptions.push({ company, city, option });\n    }\n  }\n\n  if (title) jobTitles.push(title);\n}\n\nofficeOptions.sort((a, b) => {\n  const cmp = a.company.localeCompare(b.company);\n  return cmp !== 0 ? cmp : a.city.localeCompare(b.city);\n});\n\nconst uniqueJobTitles = [...new Set(jobTitles)]\n  .sort((a, b) => a.localeCompare(b))\n  .map(t => ({ option: t }));\n\nif (officeOptions.length === 0) throw new Error('No office location options built.');\nif (uniqueJobTitles.length === 0) throw new Error('No job title options built.');\n\nreturn [{\n  json: {\n    dropdownOptions: {\n      officeLocation: officeOptions.map(o => ({ option: o.option })),\n      jobTitle: uniqueJobTitles\n    }\n  }\n}];"
+      },
+      "id": "7537ca5c-5aa4-4c3c-aefa-6075233899f3",
+      "name": "Code: Build all dropdown option lists",
+      "position": [
+        544,
+        -240
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "53a18924-b3be-42b3-a6a3-610d20daf485",
+      "name": "Merge",
+      "position": [
+        768,
+        -160
+      ],
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst optionsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.jobTitle);\nconst groupsItem = items.find(item => item.json.dropdownOptions && item.json.dropdownOptions.groups);\nconst workflowItem = items.find(item => Array.isArray(item.json.nodes));\n\nif (!optionsItem) throw new Error('Could not find dropdownOptions input.');\nif (!groupsItem) throw new Error('Could not find groups dropdownOptions input.');\nif (!workflowItem) throw new Error('Could not find workflow JSON input.');\n\nconst dropdownOptions = optionsItem.json.dropdownOptions;\nconst groupOptions = groupsItem.json.dropdownOptions.groups;\nconst workflow = workflowItem.json;\n\nconst formTriggerNode = workflow.nodes.find(node =>\n  node.type === 'n8n-nodes-base.formTrigger' ||\n  String(node.type || '').includes('formTrigger')\n);\n\nif (!formTriggerNode) throw new Error('Could not find Form Trigger node in target workflow.');\n\nformTriggerNode.parameters.formFields = {\n  values: [\n    { fieldLabel: 'First Name', requiredField: true },\n    { fieldLabel: 'Last Name', requiredField: true },\n    {\n      fieldLabel: 'Job Title',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.jobTitle }\n    },\n    {\n      fieldLabel: 'Studio',\n      fieldType: 'dropdown',\n      fieldOptions: { values: dropdownOptions.officeLocation },\n      requiredField: true\n    },\n    {\n      fieldLabel: 'Groups',\n      fieldType: 'checkbox',\n      fieldOptions: { values: groupOptions }\n    },\n    { fieldLabel: 'EMP ID' },\n    { fieldLabel: 'Phone Extension' },\n    { fieldLabel: 'Credentials' },\n    { fieldLabel: 'Home Folder (Z: Drive)', fieldType: 'checkbox', fieldOptions: { values: [{ option: 'Set up home folder (Z: drive)' }] } }\n  ]\n};\n\nconst workflowObject = {\n  name: workflow.name,\n  nodes: workflow.nodes,\n  connections: workflow.connections || {},\n  settings: {}\n};\n\nreturn [{\n  json: {\n    workflowId: workflow.id,\n    workflowObjectJson: JSON.stringify(workflowObject)\n  }\n}];"
+      },
+      "id": "817acded-347f-469a-ad40-cc9b304dbfca",
+      "name": "Code: Update all form dropdowns",
+      "position": [
+        976,
+        -160
+      ],
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=http://192.168.84.6:5678/api/v1/workflows/{{ $json.workflowId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "n8nApi",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.workflowObjectJson }}",
+        "options": {}
+      },
+      "id": "8f7a2fa5-1523-41f9-8bb1-b4b40466f740",
+      "name": "HTTP Request: Update workflow through n8n API",
+      "position": [
+        1200,
+        -160
+      ],
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4
+    },
+    {
+      "parameters": {
+        "baseDN": "OU=Security Groups,DC=MGA,DC=com",
+        "searchFor": "custom",
+        "customFilter": "(objectClass=group)",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "cn"
+          ]
+        }
+      },
+      "id": "9a801d89-c5a2-4130-8a47-3b7f2d45eff3",
+      "name": "LDAP: Get AD security groups",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        320,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const groupNames = $input.all().map(item => String(item.json.cn ?? '').trim()).filter(Boolean);\nconst uniqueSorted = [...new Set(groupNames)].sort((a, b) => a.localeCompare(b)).map(g => ({ option: g }));\n\nif (uniqueSorted.length === 0) throw new Error('No group options built.');\n\nreturn [{ json: { dropdownOptions: { groups: uniqueSorted } } }];"
+      },
+      "id": "b8f91fec-d3de-4ef2-b1e2-880385d050b6",
+      "name": "Code: Build groups dropdown list",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        80
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-22T00:06:48.559Z",
+      "createdAt": "2026-07-22T00:06:48.559Z",
+      "role": "workflow:owner",
+      "workflowId": "nzumDYKZvPe63BZG",
+      "projectId": "dGYDiW525eTaLUVb"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-22T00:06:48.559Z",
+  "versionId": "9e15781b-1bba-4bc3-bb9f-b33b6966839c"
+}
