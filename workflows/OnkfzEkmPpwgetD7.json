@@ -1,0 +1,683 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Upload Files": {
+      "main": [
+        [
+          {
+            "node": "Extract Spreadsheet Rows",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Extract PDF Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Spreadsheet Rows": {
+      "main": [
+        [
+          {
+            "node": "Normalize BU Rows",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "List Unique Reporters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List Unique Reporters": {
+      "main": [
+        [
+          {
+            "node": "LDAP Exact Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP Exact Match": {
+      "main": [
+        [
+          {
+            "node": "Route Tier1 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Tier1 Result": {
+      "main": [
+        [
+          {
+            "node": "IF Tier1 Resolved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Tier1 Resolved": {
+      "main": [
+        [
+          {
+            "node": "Merge Non-Ambiguous Sources",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF Tier1 Ambiguous",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Tier1 Ambiguous": {
+      "main": [
+        [
+          {
+            "node": "Merge Ambiguous Sources",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LDAP Wildcard Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LDAP Wildcard Match": {
+      "main": [
+        [
+          {
+            "node": "Route Tier3 Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Tier3 Result": {
+      "main": [
+        [
+          {
+            "node": "IF Tier3 Ambiguous",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Tier3 Ambiguous": {
+      "main": [
+        [
+          {
+            "node": "Merge Ambiguous Sources",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Merge Non-Ambiguous Sources",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Ambiguous Sources": {
+      "main": [
+        [
+          {
+            "node": "Flag Ambiguous Matches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Non-Ambiguous Sources": {
+      "main": [
+        [
+          {
+            "node": "Build Reporter Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reporter Lookup": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PDF Text": {
+      "main": [
+        [
+          {
+            "node": "Parse Line Items (Regex)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Invoice Line Items": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Branches": {
+      "main": [
+        [
+          {
+            "node": "Final Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Report": {
+      "main": [
+        [
+          {
+            "node": "Show Split Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Line Items (Regex)": {
+      "main": [
+        [
+          {
+            "node": "Validate Invoice Line Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Flag Ambiguous Matches": {
+      "main": [
+        [
+          {
+            "node": "Merge Non-Ambiguous Sources",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-07-21T23:37:55.035Z",
+  "id": "OnkfzEkmPpwgetD7",
+  "isArchived": false,
+  "meta": null,
+  "name": "MGA Help Desk Invoice Split",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "MGA Help Desk Invoice Split",
+        "formDescription": "Upload the monthly resolved-issues spreadsheet and the PRLX invoice PDF.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "SpreadsheetFile",
+              "fieldType": "file",
+              "acceptFileTypes": ".xlsx",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "InvoicePDF",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "38ce33d7-2bfb-41f1-a798-a18ff2ca2c15",
+      "name": "Upload Files",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -2864,
+        240
+      ],
+      "webhookId": "8c0f5e8a-8fc7-4931-ac9e-5120df325043"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "SpreadsheetFile",
+        "options": {
+          "sheetName": "Your Jira Issues"
+        }
+      },
+      "id": "39ba2ede-e895-44d3-93af-a93018774d19",
+      "name": "Extract Spreadsheet Rows",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -2624,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all()\n  .filter(item => String(item.json['Key'] ?? '').trim() !== '')\n  .map(item => {\n    const j = item.json;\n    return { json: {\n      key: j['Key'],\n      reporter: String(j['Reporter'] ?? '').trim(),\n      businessUnit: String(j['Business Unit'] ?? '').trim(),\n      hours: Number(j['Time Spent (Hours)'] ?? 0)\n    } };\n  });"
+      },
+      "id": "7fe6d572-7a0c-4b29-a9a4-d8b1a39a8724",
+      "name": "Normalize BU Rows",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2400,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst seen = new Map();\nitems.forEach((item, idx) => {\n  const reporter = String(item.json['Reporter'] ?? '').trim();\n  if (reporter && !seen.has(reporter)) seen.set(reporter, idx);\n});\nreturn Array.from(seen.entries()).map(([reporter, idx]) => ({\n  json: { reporterValue: reporter, isEmail: reporter.includes('@') },\n  pairedItem: idx\n}));"
+      },
+      "id": "bcb26132-9ec5-48e0-a330-45bd499aecb7",
+      "name": "List Unique Reporters",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2400,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "(objectclass=top)",
+        "attribute": "={{ $json.isEmail ? 'mail' : 'displayName' }}",
+        "searchText": "={{ $json.reporterValue }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "mail",
+            "displayName",
+            "company"
+          ]
+        }
+      },
+      "id": "4b4e8a9d-e4c0-4035-af9a-7517bbdfe969",
+      "name": "LDAP Exact Match",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        -2176,
+        -80
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst groups = new Map();\nitems.forEach((item, idx) => {\n  const key = (item.pairedItem && typeof item.pairedItem.item === 'number') ? item.pairedItem.item : idx;\n  if (!groups.has(key)) groups.set(key, []);\n  groups.get(key).push({ json: item.json, idx });\n});\nconst output = [];\nfor (const group of groups.values()) {\n  const rep = $('List Unique Reporters').itemMatching(group[0].idx).json;\n  const valid = group.map(g => g.json).filter(j => j && j.dn);\n  let result;\n  if (valid.length === 0) {\n    result = { reporterValue: rep.reporterValue, isEmail: rep.isEmail, status: 'needsTier3' };\n  } else if (valid.length === 1) {\n    result = { reporterValue: rep.reporterValue, isEmail: rep.isEmail, status: 'resolved', company: valid[0].company || null, matchType: 'exact', flag: null };\n  } else {\n    result = { reporterValue: rep.reporterValue, isEmail: rep.isEmail, status: 'ambiguous', candidates: valid, matchType: 'ambiguous_exact' };\n  }\n  output.push({ json: result, pairedItem: group[0].idx });\n}\nreturn output;"
+      },
+      "id": "a20b20db-1a92-4158-9958-30c665c24d0e",
+      "name": "Route Tier1 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1952,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "t1-resolved",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "resolved"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "3a641c58-b519-4ec1-9031-6a30fa3d51b2",
+      "name": "IF Tier1 Resolved",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1728,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "t1-ambiguous",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "ambiguous"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "271db47a-9187-4e77-94db-1d8955e61e65",
+      "name": "IF Tier1 Ambiguous",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1504,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "baseDN": "DC=MGA,DC=com",
+        "searchFor": "custom",
+        "customFilter": "={{ \"(&(objectClass=top)(\" + ($json.isEmail ? \"mail\" : \"displayName\") + \"=*\" + $json.reporterValue + \"*))\" }}",
+        "returnAll": true,
+        "options": {
+          "attributes": [
+            "dn",
+            "mail",
+            "displayName",
+            "company"
+          ]
+        }
+      },
+      "id": "03bd2c5a-2e39-4b3f-b6f8-2dc980ee6614",
+      "name": "LDAP Wildcard Match",
+      "type": "n8n-nodes-base.ldap",
+      "typeVersion": 1,
+      "position": [
+        -1296,
+        128
+      ],
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst groups = new Map();\nitems.forEach((item, idx) => {\n  const key = (item.pairedItem && typeof item.pairedItem.item === 'number') ? item.pairedItem.item : idx;\n  if (!groups.has(key)) groups.set(key, []);\n  groups.get(key).push({ json: item.json, idx });\n});\nconst output = [];\nfor (const group of groups.values()) {\n  const rep = $('List Unique Reporters').itemMatching(group[0].idx).json;\n  const valid = group.map(g => g.json).filter(j => j && j.dn);\n  let result;\n  if (valid.length === 0) {\n    result = { reporterValue: rep.reporterValue, isEmail: rep.isEmail, status: 'final', company: null, matchType: 'no_match', flag: 'AD lookup failed - no match found (exact or wildcard). Used spreadsheet Business Unit value.' };\n  } else if (valid.length === 1) {\n    result = { reporterValue: rep.reporterValue, isEmail: rep.isEmail, status: 'final', company: valid[0].company || null, matchType: 'fuzzy', flag: 'Fuzzy AD match on wildcard name search - verify.' };\n  } else {\n    result = { reporterValue: rep.reporterValue, isEmail: rep.isEmail, status: 'ambiguous', candidates: valid, matchType: 'ambiguous_wildcard' };\n  }\n  output.push({ json: result, pairedItem: group[0].idx });\n}\nreturn output;"
+      },
+      "id": "6e2e54ae-41c1-4f15-8742-1dec1ff91353",
+      "name": "Route Tier3 Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1088,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "t3-ambiguous",
+              "leftValue": "={{ $json.status }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "rightValue": "ambiguous"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bb9d483b-cb4b-4b75-977f-b8e35d404513",
+      "name": "IF Tier3 Ambiguous",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -880,
+        128
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "8f86bcbb-774b-4a29-9eb0-e69a49264eed",
+      "name": "Merge Ambiguous Sources",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -656,
+        -16
+      ]
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "6d3548e1-84aa-4c64-8c13-657e4b23e0ad",
+      "name": "Merge Non-Ambiguous Sources",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -160,
+        -128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lookupMap = {};\nconst flags = [];\nfor (const item of $input.all()) {\n  const j = item.json;\n  lookupMap[j.reporterValue] = { company: j.company || null, matchType: j.matchType, flag: j.flag || null };\n  if (j.matchType && j.matchType !== 'exact') flags.push({ reporter: j.reporterValue, matchType: j.matchType, flag: j.flag });\n}\nreturn [{ json: { lookupMap, flags } }];"
+      },
+      "id": "843e9de2-9ec4-48d7-a919-121b7ab65b08",
+      "name": "Build Reporter Lookup",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        -112
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "InvoicePDF",
+        "options": {}
+      },
+      "id": "e898ff7e-1475-4e1c-9c43-af6703568241",
+      "name": "Extract PDF Text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -1296,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const lineItems = $json.lineItems || $json.output?.lineItems || [];\nconst relevant = lineItems.filter(li => Math.abs(Number(li.currentAmount)) > 0.001);\nlet needsManualReview = false, invoiceTotal = null, invoiceHours = null, note = '';\nif (relevant.length !== 1) {\n  needsManualReview = true;\n  note = 'Expected exactly 1 non-zero line item, found ' + relevant.length + '. Manual review required - cannot auto-split.';\n} else {\n  invoiceTotal = Number(relevant[0].currentAmount);\n  const m = String(relevant[0].description).match(/([\\d.]+)\\s*Hours?/i);\n  invoiceHours = m ? parseFloat(m[1]) : null;\n  if (invoiceHours === null) {\n    needsManualReview = true;\n    note = 'Could not parse hours from line item description: \"' + relevant[0].description + '\"';\n  }\n}\nreturn [{ json: { needsManualReview, invoiceTotal, invoiceHours, note, allLineItems: lineItems } }];"
+      },
+      "id": "dbb0f8bf-9a1e-4794-a443-80f89cba7a0b",
+      "name": "Validate Invoice Line Items",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        352
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "4202d045-3f43-47ae-9adb-39d6be865daa",
+      "name": "Merge Branches",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        320,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $('Normalize BU Rows').all().map(i => i.json);\nconst lookup = $('Build Reporter Lookup').first().json.lookupMap;\nconst invoice = $('Validate Invoice Line Items').first().json;\n\nconst mismatches = [];\nconst lookupNotes = [];\nconst hoursByBU = {};\n\nfor (const row of rows) {\n  const entry = lookup[row.reporter] || { company: null, matchType: 'no_match', flag: 'Reporter not looked up' };\n  const adBU = entry.company;\n  const sheetBU = row.businessUnit;\n  const finalBU = adBU || sheetBU || 'UNKNOWN';\n\n  if (adBU && sheetBU && adBU !== sheetBU) {\n    mismatches.push({ key: row.key, reporter: row.reporter, spreadsheetBU: sheetBU, adBU, note: 'AD company differs from spreadsheet Business Unit - using AD value, spreadsheet not auto-corrected.' });\n  }\n  if (entry.matchType && entry.matchType !== 'exact') {\n    lookupNotes.push({ key: row.key, reporter: row.reporter, matchType: entry.matchType, flag: entry.flag });\n  }\n\n  hoursByBU[finalBU] = (hoursByBU[finalBU] || 0) + Number(row.hours || 0);\n}\n\nconst totalHours = Object.values(hoursByBU).reduce((a, b) => a + b, 0);\nconst sheetHoursSum = rows.reduce((a, r) => a + Number(r.hours || 0), 0);\n\nconst sanityCheck = {\n  spreadsheetHoursTotal: sheetHoursSum,\n  invoiceHours: invoice.invoiceHours,\n  hoursMatch: invoice.invoiceHours !== null && Math.abs(sheetHoursSum - invoice.invoiceHours) < 0.01\n};\n\nlet splits = [];\nif (!invoice.needsManualReview && invoice.invoiceTotal !== null && totalHours > 0) {\n  splits = Object.entries(hoursByBU).map(([bu, hours]) => ({\n    businessUnit: bu,\n    hours,\n    percent: hours / totalHours,\n    amount: Math.round((hours / totalHours) * invoice.invoiceTotal * 100) / 100\n  }));\n}\n\nlet summaryHtml;\nif (invoice.needsManualReview) {\n  summaryHtml = '<h2>Manual Review Needed</h2><p>' + invoice.note + '</p>';\n} else {\n  const sortedSplits = [...splits].sort((a, b) => a.businessUnit.localeCompare(b.businessUnit));\n  const grandTotalHours = sortedSplits.reduce((a, s) => a + s.hours, 0);\n  const grandTotalAmount = sortedSplits.reduce((a, s) => a + s.amount, 0);\n  const splitRows = sortedSplits.map(s => '<tr><td>' + s.businessUnit + '</td><td class=\"hrs\">' + s.hours + '</td><td>$' + s.amount.toFixed(2) + '</td></tr>').join('');\n  const mismatchItems = mismatches.map(m => '<li>' + m.key + ' (' + m.reporter + '): spreadsheet says ' + m.spreadsheetBU + ', AD says ' + m.adBU + '</li>').join('');\n  const noteItems = lookupNotes.map(n => '<li>' + n.key + ' (' + n.reporter + '): ' + n.flag + '</li>').join('');\n  const tableStyle = '<style>' +\n    'table.split-table { border-collapse:collapse; margin:0 auto; font-size:16px; }' +\n    'table.split-table th, table.split-table td { padding:10px 16px; border:1px solid #ccc; }' +\n    'table.split-table th { background:#eef1f5; }' +\n    'table.split-table td.hrs { text-align:center; }' +\n    'table.split-table tr.grand-total { background:#f5f5f5; }' +\n    '</style>';\n  summaryHtml = tableStyle + '<h2>MGA Help Desk Invoice Split</h2>' +\n    '<table class=\"split-table\"><tr><th>Studio</th><th>Hours</th><th>Split</th></tr>' + splitRows + '<tr class=\"grand-total\"><td><strong>Grand Total</strong></td><td class=\"hrs\"><strong>' + grandTotalHours + '</strong></td><td><strong>$' + grandTotalAmount.toFixed(2) + '</strong></td></tr></table>' +\n    (sanityCheck.hoursMatch ? '' : '<p><strong>WARNING:</strong> spreadsheet hours (' + sanityCheck.spreadsheetHoursTotal + ') do not match invoice hours (' + sanityCheck.invoiceHours + ')</p>') +\n    (mismatches.length ? '<h3>Business Unit Mismatches (AD vs spreadsheet)</h3><ul>' + mismatchItems + '</ul>' : '') +\n    (lookupNotes.length ? '<h3>Lookup Notes (verify)</h3><ul>' + noteItems + '</ul>' : '');\n}\n\nreturn [{ json: {\n  needsManualReview: invoice.needsManualReview,\n  reviewNote: invoice.note,\n  invoiceTotal: invoice.invoiceTotal,\n  splits,\n  sanityCheck,\n  mismatches,\n  lookupNotes,\n  summaryHtml\n} }];"
+      },
+      "id": "b51f967a-1301-4e45-8d98-05c0b32b9848",
+      "name": "Final Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        544,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.text || '';\nconst lines = text.split(/\\r?\\n/).map(l => l.trim()).filter(Boolean);\n\nconst numTok = '[\\\\d,]+\\\\.\\\\d{2}';\nconst rowRe = new RegExp('^(.*?)\\\\s+(' + numTok + ')\\\\s+(' + numTok + ')\\\\s+(' + numTok + ')\\\\s+(' + numTok + ')\\\\s+(' + numTok + ')$');\nconst stopMarkers = ['Total Fee', 'SUBTOTAL', 'AMOUNT DUE', 'Outstanding Invoices'];\n\nconst lineItems = [];\nfor (const line of lines) {\n  if (stopMarkers.some(m => line.startsWith(m))) break;\n  const m = line.match(rowRe);\n  if (!m) continue;\n  const description = m[1].trim();\n  const currentAmount = parseFloat(m[6].replace(/,/g, ''));\n  lineItems.push({ description, currentAmount });\n}\n\nreturn [{ json: { lineItems } }];"
+      },
+      "id": "8ad9e39d-4b80-445a-a2be-1a902c25290b",
+      "name": "Parse Line Items (Regex)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1072,
+        352
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const j = $json;\nconst count = Array.isArray(j.candidates) ? j.candidates.length : 0;\nreturn {\n  json: {\n    reporterValue: j.reporterValue,\n    isEmail: j.isEmail,\n    company: null,\n    matchType: 'ambiguous',\n    flag: 'Ambiguous AD match (' + count + ' candidates) - manual review needed. Used spreadsheet Business Unit value.'\n  }\n};"
+      },
+      "id": "f08d7a31-2725-40b7-b980-cf401d0546e2",
+      "name": "Flag Ambiguous Matches",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "respondWith": "showText",
+        "responseText": "={{ $json.summaryHtml }}"
+      },
+      "id": "e3e7f899-07f1-48a5-a281-b496fa933f33",
+      "name": "Show Split Result",
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        768,
+        80
+      ],
+      "webhookId": "b132afce-1c9d-49d0-a0bd-3ba6bf9b4b47"
+    }
+  ],
+  "pinData": {
+    "Upload Files": [
+      {
+        "json": {
+          "SpreadsheetFile": [
+            {
+              "filename": "PHD- Resolved Issues- MGA- 2026 May.xlsx",
+              "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              "size": 156073
+            }
+          ],
+          "InvoicePDF": [
+            {
+              "filename": "Invoice 1343 MGA Help Desk May.pdf",
+              "mimetype": "application/pdf",
+              "size": 128035
+            }
+          ],
+          "submittedAt": "2026-07-07T16:08:34.750-04:00",
+          "formMode": "production"
+        }
+      }
+    ]
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-21T23:37:55.035Z",
+      "createdAt": "2026-07-21T23:37:55.035Z",
+      "role": "workflow:owner",
+      "workflowId": "OnkfzEkmPpwgetD7",
+      "projectId": "dGYDiW525eTaLUVb"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-21T23:38:03.637Z",
+  "versionId": "8b4a75ad-54fe-4089-8854-5effaa4a61e8"
+}
