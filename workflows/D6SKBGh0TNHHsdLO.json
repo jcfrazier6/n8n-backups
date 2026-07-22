@@ -1,9 +1,9 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-22T13:08:59.310Z",
-    "createdAt": "2026-07-22T13:07:17.555Z",
-    "versionId": "526aef4c-d15d-4574-9f50-29853d80ee32",
+    "updatedAt": "2026-07-22T18:33:10.332Z",
+    "createdAt": "2026-07-22T18:27:24.105Z",
+    "versionId": "4a2fa1aa-c905-4375-b1a8-cd7ef42fb7cf",
     "workflowId": "D6SKBGh0TNHHsdLO",
     "nodes": [
       {
@@ -39,7 +39,8 @@
       {
         "parameters": {
           "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
-          "authentication": "predefinedCredentialType",
+          "authentication": "genericCredentialType",
+          "genericAuthType": "oAuth2Api",
           "sendQuery": true,
           "queryParameters": {
             "parameters": [
@@ -49,8 +50,7 @@
               }
             ]
           },
-          "options": {},
-          "nodeCredentialType": "microsoftOAuth2Api"
+          "options": {}
         },
         "id": "fb9257be-560d-4665-85ad-9dd5fa3bc3d6",
         "name": "Get Available Licenses",
@@ -64,6 +64,14 @@
           "microsoftOAuth2Api": {
             "id": "dlBlvIFAZuakqRGF",
             "name": "Microsoft account"
+          },
+          "microsoftGraphSecurityOAuth2Api": {
+            "id": "gSkKbJJLi6Kre7Fi",
+            "name": "Microsoft Graph Security account"
+          },
+          "oAuth2Api": {
+            "id": "yNpZ52ETmsXt7Imb",
+            "name": "Generic OAuth2"
           }
         }
       },
@@ -249,11 +257,11 @@
     },
     "nodeGroups": [],
     "authors": "IT Admin",
-    "name": "Version 526aef4c",
+    "name": "Version 4a2fa1aa",
     "description": "",
-    "autosaved": false
+    "autosaved": true
   },
-  "activeVersionId": "526aef4c-d15d-4574-9f50-29853d80ee32",
+  "activeVersionId": "4a2fa1aa-c905-4375-b1a8-cd7ef42fb7cf",
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -385,7 +393,8 @@
     {
       "parameters": {
         "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
-        "authentication": "predefinedCredentialType",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -395,8 +404,7 @@
             }
           ]
         },
-        "options": {},
-        "nodeCredentialType": "microsoftOAuth2Api"
+        "options": {}
       },
       "id": "fb9257be-560d-4665-85ad-9dd5fa3bc3d6",
       "name": "Get Available Licenses",
@@ -410,6 +418,14 @@
         "microsoftOAuth2Api": {
           "id": "dlBlvIFAZuakqRGF",
           "name": "Microsoft account"
+        },
+        "microsoftGraphSecurityOAuth2Api": {
+          "id": "gSkKbJJLi6Kre7Fi",
+          "name": "Microsoft Graph Security account"
+        },
+        "oAuth2Api": {
+          "id": "yNpZ52ETmsXt7Imb",
+          "name": "Generic OAuth2"
         }
       }
     },
@@ -533,6 +549,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-22T13:09:02.671Z",
-  "versionId": "526aef4c-d15d-4574-9f50-29853d80ee32"
+  "updatedAt": "2026-07-22T18:27:24.103Z",
+  "versionId": "4a2fa1aa-c905-4375-b1a8-cd7ef42fb7cf"
 }
