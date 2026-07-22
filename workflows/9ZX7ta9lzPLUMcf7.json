@@ -1,0 +1,45 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {},
+  "createdAt": "2026-07-22T00:07:19.401Z",
+  "id": "9ZX7ta9lzPLUMcf7",
+  "isArchived": false,
+  "meta": null,
+  "name": "Testing",
+  "nodeGroups": [],
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -32,
+        48
+      ],
+      "id": "cecd8f87-558d-4756-a07b-621ee849ea67",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-07-22T00:07:19.401Z",
+      "createdAt": "2026-07-22T00:07:19.401Z",
+      "role": "workflow:owner",
+      "workflowId": "9ZX7ta9lzPLUMcf7",
+      "projectId": "dGYDiW525eTaLUVb"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-07-22T00:07:19.401Z",
+  "versionId": "88d25ef9-71a4-435c-a9ef-e6323fcf8610"
+}
