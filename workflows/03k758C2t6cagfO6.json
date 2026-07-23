@@ -1,14 +1,14 @@
 {
   "active": true,
   "activeVersion": {
-    "updatedAt": "2026-07-22T18:45:27.682Z",
-    "createdAt": "2026-07-22T18:45:27.682Z",
-    "versionId": "917f19ec-1993-4063-af15-f1aa95dea4e1",
+    "updatedAt": "2026-07-23T14:00:15.186Z",
+    "createdAt": "2026-07-23T14:00:15.186Z",
+    "versionId": "12205792-050e-4479-a947-2db53384a761",
     "workflowId": "03k758C2t6cagfO6",
     "nodes": [
       {
         "parameters": {
-          "formTitle": "New Hire Account Request",
+          "formTitle": "MS 365 Account Provisioning",
           "formDescription": "Submit new-hire details to provision their Microsoft 365 account.",
           "formFields": {
             "values": [
@@ -35,7 +35,7 @@
                       "option": "Microsoft 365 Business Basic (1 available)"
                     },
                     {
-                      "option": "Microsoft 365 Business Standard (10 available)"
+                      "option": "Microsoft 365 Business Standard (0 available)"
                     },
                     {
                       "option": "Microsoft 365 Copilot (0 available)"
@@ -113,7 +113,7 @@
         "parameters": {
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName,accountEnabled",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "options": {
             "response": {
               "response": {
@@ -121,8 +121,7 @@
                 "neverError": true
               }
             }
-          },
-          "genericAuthType": "oAuth2Api"
+          }
         },
         "id": "713caee4-b7de-4fec-aa09-4604abca7a24",
         "name": "Check Existing User",
@@ -233,7 +232,7 @@
         "parameters": {
           "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendQuery": true,
           "queryParameters": {
             "parameters": [
@@ -243,8 +242,7 @@
               }
             ]
           },
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "95f0dc29-ca3f-4973-9d48-89b97e262a0f",
         "name": "Check License (Reenable Path)",
@@ -266,9 +264,8 @@
         "parameters": {
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "genericAuthType": "oAuth2Api",
+          "options": {}
         },
         "id": "3ca25ad4-363a-43b0-a347-bfe0cbb4523e",
         "name": "Check Existing Account License",
@@ -290,9 +287,8 @@
         "parameters": {
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "genericAuthType": "oAuth2Api",
+          "options": {}
         },
         "id": "10641e49-63cd-4eb0-a257-25fe43f35622",
         "name": "Check Current Account License (Reenable Path)",
@@ -409,7 +405,7 @@
         "parameters": {
           "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendQuery": true,
           "queryParameters": {
             "parameters": [
@@ -419,8 +415,7 @@
               }
             ]
           },
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "2d734a17-ce04-4138-9e26-289ae68a75c9",
         "name": "Check License (Create Path)",
@@ -541,12 +536,11 @@
           "method": "PATCH",
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "8e39d073-0260-484d-b98b-5e35ed0f6ee0",
         "name": "Reset Password",
@@ -568,12 +562,11 @@
           "method": "POST",
           "url": "https://graph.microsoft.com/v1.0/users",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"mailNickname\": \"{{ $('Compute Fields').item.json.mailNickname }}\",\n  \"userPrincipalName\": \"{{ $('Compute Fields').item.json.userPrincipalName }}\",\n  \"usageLocation\": \"US\",\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "cdbd7de5-a1de-4227-8ee8-9003f3821bcd",
         "name": "Create Entra ID User",
@@ -595,12 +588,11 @@
           "method": "PATCH",
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"usageLocation\": \"US\"\n}",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "468eea9f-2bb4-45af-be4a-aeeaedfdd9a3",
         "name": "Enable and Rename User",
@@ -634,7 +626,7 @@
         "parameters": {
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "options": {
             "response": {
               "response": {
@@ -642,8 +634,7 @@
                 "neverError": true
               }
             }
-          },
-          "genericAuthType": "oAuth2Api"
+          }
         },
         "id": "d94f6afd-aa05-4036-91c1-d582f7cb7cdf",
         "name": "Poll Account Ready",
@@ -816,7 +807,7 @@
         "parameters": {
           "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendQuery": true,
           "queryParameters": {
             "parameters": [
@@ -826,8 +817,7 @@
               }
             ]
           },
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "8072a7e9-c841-4368-818d-0f2959726e31",
         "name": "Re-check License (Create Path)",
@@ -863,12 +853,11 @@
           "method": "POST",
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/assignLicense",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"addLicenses\": {{ JSON.stringify($('Evaluate License (Create Path - Recheck)').item.json.availableLicenses.map(l => ({ skuId: l.skuId }))) }},\n  \"removeLicenses\": []\n}",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "32ae106f-eb7b-4240-a3cf-81eafcd340bd",
         "name": "Assign License (Create Path)",
@@ -924,7 +913,7 @@
         "parameters": {
           "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendQuery": true,
           "queryParameters": {
             "parameters": [
@@ -934,8 +923,7 @@
               }
             ]
           },
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "aa184b3c-5d8b-4743-95b0-5ac8219b3a92",
         "name": "Re-check License (Reenable Path)",
@@ -957,9 +945,8 @@
         "parameters": {
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "genericAuthType": "oAuth2Api",
+          "options": {}
         },
         "id": "dff9875d-e469-4377-8664-ab5f4d4e603f",
         "name": "Re-check Current Account License (Reenable Path)",
@@ -995,12 +982,11 @@
           "method": "POST",
           "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/assignLicense",
           "authentication": "genericCredentialType",
-          "nodeCredentialType": "microsoftOAuth2Api",
+          "genericAuthType": "oAuth2Api",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"addLicenses\": {{ JSON.stringify($('Evaluate License (Reenable Path - Recheck)').item.json.licensesToAdd.map(l => ({ skuId: l.skuId }))) }},\n  \"removeLicenses\": {{ JSON.stringify($('Evaluate License (Reenable Path - Recheck)').item.json.licensesToRemove.map(l => l.skuId)) }}\n}",
-          "options": {},
-          "genericAuthType": "oAuth2Api"
+          "options": {}
         },
         "id": "b412ec10-582c-4976-a9c3-b74b0d91e04c",
         "name": "Assign License (Reenable Path)",
@@ -1664,7 +1650,7 @@
     "description": null,
     "autosaved": false
   },
-  "activeVersionId": "917f19ec-1993-4063-af15-f1aa95dea4e1",
+  "activeVersionId": "12205792-050e-4479-a947-2db53384a761",
   "connections": {
     "New Hire Form": {
       "main": [
@@ -2174,7 +2160,7 @@
   "nodes": [
     {
       "parameters": {
-        "formTitle": "New Hire Account Request",
+        "formTitle": "MS 365 Account Provisioning",
         "formDescription": "Submit new-hire details to provision their Microsoft 365 account.",
         "formFields": {
           "values": [
@@ -2201,7 +2187,7 @@
                     "option": "Microsoft 365 Business Basic (1 available)"
                   },
                   {
-                    "option": "Microsoft 365 Business Standard (10 available)"
+                    "option": "Microsoft 365 Business Standard (0 available)"
                   },
                   {
                     "option": "Microsoft 365 Copilot (0 available)"
@@ -2279,7 +2265,7 @@
       "parameters": {
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName,accountEnabled",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "options": {
           "response": {
             "response": {
@@ -2287,8 +2273,7 @@
               "neverError": true
             }
           }
-        },
-        "genericAuthType": "oAuth2Api"
+        }
       },
       "id": "713caee4-b7de-4fec-aa09-4604abca7a24",
       "name": "Check Existing User",
@@ -2399,7 +2384,7 @@
       "parameters": {
         "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -2409,8 +2394,7 @@
             }
           ]
         },
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "95f0dc29-ca3f-4973-9d48-89b97e262a0f",
       "name": "Check License (Reenable Path)",
@@ -2432,9 +2416,8 @@
       "parameters": {
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "genericAuthType": "oAuth2Api",
+        "options": {}
       },
       "id": "3ca25ad4-363a-43b0-a347-bfe0cbb4523e",
       "name": "Check Existing Account License",
@@ -2456,9 +2439,8 @@
       "parameters": {
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "genericAuthType": "oAuth2Api",
+        "options": {}
       },
       "id": "10641e49-63cd-4eb0-a257-25fe43f35622",
       "name": "Check Current Account License (Reenable Path)",
@@ -2575,7 +2557,7 @@
       "parameters": {
         "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -2585,8 +2567,7 @@
             }
           ]
         },
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "2d734a17-ce04-4138-9e26-289ae68a75c9",
       "name": "Check License (Create Path)",
@@ -2707,12 +2688,11 @@
         "method": "PATCH",
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "8e39d073-0260-484d-b98b-5e35ed0f6ee0",
       "name": "Reset Password",
@@ -2734,12 +2714,11 @@
         "method": "POST",
         "url": "https://graph.microsoft.com/v1.0/users",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"mailNickname\": \"{{ $('Compute Fields').item.json.mailNickname }}\",\n  \"userPrincipalName\": \"{{ $('Compute Fields').item.json.userPrincipalName }}\",\n  \"usageLocation\": \"US\",\n  \"passwordProfile\": {\n    \"forceChangePasswordNextSignIn\": true,\n    \"password\": \"{{ $('Compute Fields').item.json.tempPassword }}\"\n  }\n}",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "cdbd7de5-a1de-4227-8ee8-9003f3821bcd",
       "name": "Create Entra ID User",
@@ -2761,12 +2740,11 @@
         "method": "PATCH",
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"accountEnabled\": true,\n  \"displayName\": \"{{ $('Compute Fields').item.json.displayName }}\",\n  \"usageLocation\": \"US\"\n}",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "468eea9f-2bb4-45af-be4a-aeeaedfdd9a3",
       "name": "Enable and Rename User",
@@ -2800,7 +2778,7 @@
       "parameters": {
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}?$select=id,userPrincipalName",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "options": {
           "response": {
             "response": {
@@ -2808,8 +2786,7 @@
               "neverError": true
             }
           }
-        },
-        "genericAuthType": "oAuth2Api"
+        }
       },
       "id": "d94f6afd-aa05-4036-91c1-d582f7cb7cdf",
       "name": "Poll Account Ready",
@@ -2982,7 +2959,7 @@
       "parameters": {
         "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -2992,8 +2969,7 @@
             }
           ]
         },
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "8072a7e9-c841-4368-818d-0f2959726e31",
       "name": "Re-check License (Create Path)",
@@ -3029,12 +3005,11 @@
         "method": "POST",
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/assignLicense",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"addLicenses\": {{ JSON.stringify($('Evaluate License (Create Path - Recheck)').item.json.availableLicenses.map(l => ({ skuId: l.skuId }))) }},\n  \"removeLicenses\": []\n}",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "32ae106f-eb7b-4240-a3cf-81eafcd340bd",
       "name": "Assign License (Create Path)",
@@ -3090,7 +3065,7 @@
       "parameters": {
         "url": "https://graph.microsoft.com/v1.0/subscribedSkus",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
@@ -3100,8 +3075,7 @@
             }
           ]
         },
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "aa184b3c-5d8b-4743-95b0-5ac8219b3a92",
       "name": "Re-check License (Reenable Path)",
@@ -3123,9 +3097,8 @@
       "parameters": {
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/licenseDetails",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "genericAuthType": "oAuth2Api",
+        "options": {}
       },
       "id": "dff9875d-e469-4377-8664-ab5f4d4e603f",
       "name": "Re-check Current Account License (Reenable Path)",
@@ -3161,12 +3134,11 @@
         "method": "POST",
         "url": "=https://graph.microsoft.com/v1.0/users/{{ $('Compute Fields').item.json.userPrincipalName }}/assignLicense",
         "authentication": "genericCredentialType",
-        "nodeCredentialType": "microsoftOAuth2Api",
+        "genericAuthType": "oAuth2Api",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"addLicenses\": {{ JSON.stringify($('Evaluate License (Reenable Path - Recheck)').item.json.licensesToAdd.map(l => ({ skuId: l.skuId }))) }},\n  \"removeLicenses\": {{ JSON.stringify($('Evaluate License (Reenable Path - Recheck)').item.json.licensesToRemove.map(l => l.skuId)) }}\n}",
-        "options": {},
-        "genericAuthType": "oAuth2Api"
+        "options": {}
       },
       "id": "b412ec10-582c-4976-a9c3-b74b0d91e04c",
       "name": "Assign License (Reenable Path)",
@@ -3346,6 +3318,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2026-07-23T12:00:15.360Z",
-  "versionId": "917f19ec-1993-4063-af15-f1aa95dea4e1"
+  "updatedAt": "2026-07-23T14:00:15.184Z",
+  "versionId": "12205792-050e-4479-a947-2db53384a761"
 }
